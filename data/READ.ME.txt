@@ -1,0 +1,9 @@
+This READ.ME is meant to summarize the files in this folder
+
+The document Mt.Cameroon seed count raw is the data which was collected.
+The only changes made to this document are that if a specimen was missing
+a plant number, a unique number would be appointed to it as to not be 
+tied with any one other plant number.
+
+The manipulation with the rest of the data was carried out using a code in
+R, specifically code "Cleaning raw data"

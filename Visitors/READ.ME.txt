@@ -1,0 +1,37 @@
+This READ.ME file aims to best describe the process of reorganizing the visitors data.
+
+The aquired data for visitors was in the form of excels, 7 for each species for each elevation
+(provided that the species was in a given elevation).
+
+Next it was necessary to combine all the excels into one. The steps for the combining all the excels
+can be found in the document "Processing steps" in the folder "process".
+
+TLDR; first it is necessary to check that all excels are filled in correctly. This was done manually.
+All the excels can be found in the file "elevation excels". Next, it was necessary to export every 
+excel as a csv to make the files as small as possible. This was done with the "xls to csv converter" 
+in the "process" folder. The csv's (found in folder "csv files") were then combined and the original 
+version of the combined document if under the name "_combined" in the file "csv files".
+
+***Visitors2.txt***
+
+This csv file was imported into an xls file labeled "Pollination necessary". In this excel the 
+unecessary columns were deleted. Also, all the names of identified visitors were exported and 
+added to special excel "Cameroon grasslands species" and it was checked if any of the names 
+used were not used differently between the excels. The names were unified by the visitor identifiers 
+(the people who ID'd the visitors) every time one species was the same as another, it is recorded in 
+the excel and then the name for each given species is bolded. I identifiers also recorded whether or 
+not the visitor can be identified as "morphospecies" or not.
+
+The information from this excel was transported into the excel "Pollination necessary", from which 
+the .txt file "Visitors 2" was created.
+
+All other manipulation with the data is done in the R code "Visitors"
+
+***functional.txt***
+
+The text document "functional.txt" was created from the excel "Cameroon grassland species". After all
+the visitors have been identified, only the columns "SD.s.ID" (Sylvain Delabye's ID) and 
+"functional.group" (which functional group the visitor belongs to) were exported into this .txt file.
+
+The following functional groups were used: Bee, Wasp, Hoverfly, Other fly, Beetle, Butterfly, 
+Moth and Bird

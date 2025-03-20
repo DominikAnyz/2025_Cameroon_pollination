@@ -1,0 +1,1270 @@
+elevation	plot	species	plant_number	treatment	seedset	comment
+2300		Senecio p	1	autogamy	0	
+2300		Senecio p	1	geitonogamy	0	
+2300		Senecio p	1	autogamy	0	
+2300		Senecio p	1	outcrossing	1	
+2300		Senecio p	1	control	1	
+2300		Senecio p	1	geitonogamy	2	
+2300		Senecio p	1	control	2	
+2300		Senecio p	1	control	3	
+2300		Senecio p	1	outcrossing	32	
+2300		Senecio p	1	outcrossing	34	
+2300		Senecio p	10	autogamy	0	
+2300		Senecio p	10	autogamy	3	
+2300		Senecio p	10	outcrossing	6	
+2300		Senecio p	10	outcrossing	13	
+2300		Senecio p	10	geitonogamy	16	
+2300		Senecio p	10	control	16	
+2300		Senecio p	10	control	16	
+2300		Senecio p	10	control	21	
+2300		Senecio p	11	autogamy	1	
+2300		Senecio p	11	geitonogamy	3	
+2300		Senecio p	11	autogamy	4	
+2300		Senecio p	11	outcrossing	17	
+2300		Senecio p	12	autogamy	0	
+2300		Senecio p	12	outcrossing	7	
+2300		Senecio p	12	control	12	
+2300		Senecio p	12	geitonogamy	21	
+2300		Senecio p	13	autogamy	1	
+2300		Senecio p	13	geitonogamy	7	
+2300		Senecio p	13	control	33	
+2300		Senecio p	13	outcrossing	36	
+2300		Senecio p	14	autogamy	0	
+2300		Senecio p	14	control	13	
+2300		Senecio p	14	outcrossing	15	
+2300		Senecio p	15	autogamy	0	
+2300		Senecio p	15	autogamy	0	
+2300		Senecio p	15	geitonogamy	2	
+2300		Senecio p	15	control	4	
+2300		Senecio p	15	outcrossing	26	
+2300		Senecio p	15	outcrossing	27	
+2300		Senecio p	16	autogamy	0	
+2300		Senecio p	16	geitonogamy	4	
+2300		Senecio p	16	control	5	
+2300		Senecio p	16	outcrossing	29	
+2300		Senecio p	17	autogamy	0	
+2300		Senecio p	17	geitonogamy	1	
+2300		Senecio p	17	control	3	
+2300		Senecio p	17	control	4	
+2300		Senecio p	17	outcrossing	31	
+2300		Senecio p	2	autogamy	0	
+2300		Senecio p	2	autogamy	0	
+2300		Senecio p	2	autogamy	0	
+2300		Senecio p	2	control	1	
+2300		Senecio p	2	geitonogamy	1	
+2300		Senecio p	2	geitonogamy	2	
+2300		Senecio p	2	control	3	
+2300		Senecio p	2	control	3	
+2300		Senecio p	2	control	3	
+2300		Senecio p	2	outcrossing	27	
+2300		Senecio p	2	outcrossing	29	
+2300		Senecio p	3	autogamy	2	
+2300		Senecio p	3	control	16	
+2300		Senecio p	3	outcrossing	17	
+2300		Senecio p	4	autogamy	0	
+2300		Senecio p	4	geitonogamy	1	
+2300		Senecio p	4	geitonogamy	1	
+2300		Senecio p	4	control	3	
+2300		Senecio p	4	control	15	
+2300		Senecio p	4	outcrossing	16	
+2300		Senecio p	5	autogamy	0	
+2300		Senecio p	5	outcrossing	0	
+2300		Senecio p	50	geitonogamy	5	named 50, since it didn't have plant number
+2300		Senecio p	6	geitonogamy	0	
+2300		Senecio p	6	control	0	
+2300		Senecio p	6	autogamy	0	
+2300		Senecio p	6	autogamy	0	
+2300		Senecio p	6	geitonogamy	0	
+2300		Senecio p	6	outcrossing	2	
+2300		Senecio p	7	autogamy	0	
+2300		Senecio p	7	geitonogamy	1	
+2300		Senecio p	7	control	16	
+2300		Senecio p	7	control	29	
+2300		Senecio p	8	autogamy	1	
+2300		Senecio p	8	geitonogamy	12	
+2300		Senecio p	8	control	22	
+2300		Senecio p	8	control	26	
+2300		Senecio p	9	autogamy	0	
+2300		Senecio p	9	geitonogamy	0	
+2300		Senecio p	9	autogamy	2	
+2300		Senecio p	9	control	8	
+2300		Senecio p	9	geitonogamy	8	
+2300		Senecio p	9	control	13	
+2300		Senecio p	9	outcrossing	19	
+2300		Senecio p	9	control	22	
+2300		Senecio p	9	outcrossing	31	
+2800	1	Senecio p	1	autogamy	0	all small, check bag
+2800	1	Senecio p	1	geitonogamy	0	5 almost, check bag
+2800	1	Senecio p	1	geitonogamy	3	but smaller, 27 tiny
+2800	1	Senecio p	1	outcrossing	22	
+2800	1	Senecio p	1	control	32	
+2800	4	Senecio p	10	autogamy	0	32 tiny
+2800	4	Senecio p	10	control	0	
+2800	4	Senecio p	10	geitonogamy	0	many tiny
+2800	4	Senecio p	10	outcrossing	27	
+2800	4	Senecio p	11	autogamy	0	
+2800	4	Senecio p	11	geitonogamy	3	many tiny
+2800	4	Senecio p	11	outcrossing	29	
+2800	4	Senecio p	11	control	29	
+2800	5	Senecio p	12	geitonogamy	0	22 thin green
+2800	5	Senecio p	12	control	8	
+2800	5	Senecio p	12	outcrossing	27	
+2800	5	Senecio p	13	autogamy	0	27 tiny
+2800	5	Senecio p	13	autogamy	0	30 tiny
+2800	5	Senecio p	13	geitonogamy	1	27 tiny
+2800	5	Senecio p	13	outcrossing	6	
+2800	5	Senecio p	13	control	7	
+2800	5	Senecio p	13	control	9	
+2800	5	Senecio p	13	outcrossing	27	
+2800	6	Senecio p	14	control	2	broken off plant
+2800	6	Senecio p	14	outcrossing	7	
+2800	6	Senecio p	15	autogamy	0	32 tiny
+2800	6	Senecio p	15	geitonogamy	3	39 tiny green
+2800	6	Senecio p	15	outcrossing	32	
+2800	6	Senecio p	16	control	16	
+2800	6	Senecio p	16	geitonogamy	20	
+2800	6	Senecio p	16	outcrossing	46	
+2800	7	Senecio p	17	geitonogamy	0	interesting small, check bag
+2800	7	Senecio p	17	autogamy	0	30 thin green
+2800	7	Senecio p	17	control	17	
+2800	7	Senecio p	17	outcrossing	35	
+2800	7	Senecio p	18	autogamy	0	many tiny
+2800	7	Senecio p	18	control	13	
+2800	7	Senecio p	18	outcrossing	26	
+2800	1	Senecio p	2	autogamy	0	31 tiny
+2800	1	Senecio p	2	control	15	
+2800	1	Senecio p	2	outcrossing	16	
+2800	1	Senecio p	2	outcrossing	17	
+2800	9	Senecio p	2	autogamy	34	
+2800	7	Senecio p	20	autogamy	0	34 tiny green
+2800	7	Senecio p	20	control	8	
+2800	7	Senecio p	20	outcrossing	25	
+2800	7	Senecio p	20	outcrossing	33	
+2800	8	Senecio p	21	geitonogamy	7	
+2800	12	Senecio p	21	control	23	
+2800	8	Senecio p	21	control	27	
+2800	8	Senecio p	22	autogamy	1	
+2800	8	Senecio p	23	autogamy	0	small green
+2800	8	Senecio p	23	geitonogamy	6	28 tiny green
+2800	8	Senecio p	23	outcrossing	28	
+2800	9	Senecio p	24	autogamy	0	2 small, check bag
+2800	9	Senecio p	24	autogamy	0	34 tiny
+2800	9	Senecio p	24	geitonogamy	6	but smaller, check bag
+2800	9	Senecio p	24	outcrossing	24	
+2800	4	Senecio p	24	control	32	
+2800	9	Senecio p	24	control	44	
+2800	9	Senecio p	25	autogamy	2	35 tiny
+2800	9	Senecio p	25	control	24	
+2800	9	Senecio p	25	outcrossing	25	
+2800	10	Senecio p	27	autogamy	0	31 thin green
+2800	10	Senecio p	27	autogamy	0	32 tiny
+2800	10	Senecio p	27	control	5	
+2800	10	Senecio p	27	control	7	
+2800	10	Senecio p	27	outcrossing	15	
+2800	10	Senecio p	28	geitonogamy	0	
+2800	10	Senecio p	28	autogamy	0	many tiny, a bit purple!
+2800	10	Senecio p	28	control	1	19 thin green
+2800	10	Senecio p	28	outcrossing	13	
+2800	11	Senecio p	29	autogamy	1	rest small green
+2800	4	Senecio p	29	autogamy	3	
+2800	11	Senecio p	29	control	14	
+2800	11	Senecio p	29	geitonogamy	31	
+2800	10	Senecio p	29	geitonogamy	33	
+2800	11	Senecio p	29	outcrossing	34	
+2800	2	Senecio p	3	geitonogamy	0	31 tiny
+2800	2	Senecio p	3	autogamy	0	manybtiny
+2800	2	Senecio p	3	autogamy	1	
+2800	2	Senecio p	3	geitonogamy	5	
+2800	2	Senecio p	3	control	31	
+2800	12	Senecio p	30	geitonogamy	0	
+2800	12	Senecio p	30	autogamy	0	28 tiny
+2800	1?	Senecio p	30	geitonogamy	3	plot number might be wrong
+2800	12	Senecio p	30	control	20	
+2800	12	Senecio p	31	autogamy	1	
+2800	13	Senecio p	32	geitonogamy	0	small green
+2800	13	Senecio p	32	autogamy	0	33 thin green
+2800	13	Senecio p	32	control	0	
+2800	13	Senecio p	32	autogamy	0	36 tiny
+2800	13	Senecio p	32	outcrossing	41	renamed to 32
+2800	3	Senecio p	4	geitonogamy	0	21 tiny green
+2800	3	Senecio p	4	control	8	
+2800	3	Senecio p	4	outcrossing	24	
+2800	3	Senecio p	4	control	38	
+2800	3	Senecio p	5	autogamy	0	
+2800	3	Senecio p	5	autogamy	1	many tiny green
+2800	3	Senecio p	5	control	35	
+2800	3	Senecio p	50	control	31	renamed to 50, since it didn't have plant number
+2800	/	Senecio p	51	outcrossing	28	renamed to 51, since it didn't have plant number
+2800	3	Senecio p	52	control	28	renamed to 52 since it didn’t have number
+2800	4	Senecio p	6	geitonogamy	0	24 tiny
+2800	4	Senecio p	6	outcrossing	13	
+2800	4	Senecio p	6	control	14	
+2800	4	Senecio p	6	control	21	
+2800	3	Senecio p	65	geitonogamy	6	renamed to 65 because it didn’t have number
+2800	3	Senecio p	66	outcrossing	34	rename to 66 since didn’t have number
+2800	4	Senecio p	7	geitonogamy	11	
+2800	4	Senecio p	7	control	25	not sure if I should count them, check bag
+2800	4	Senecio p	8	geitonogamy	1	23 tiny
+2800	4	Senecio p	8	control	14	
+2800	4	Senecio p	8	outcrossing	30	
+2800	4	Senecio p	9	autogamy	0	31 tiny green
+2800	4	Senecio p	9	autogamy	2	
+2800	4	Senecio p	9	control	20	
+2800	4	Senecio p	9	control	23	
+3500	1	Senecio p	1	control	0	
+3500	4	Senecio p	11	autogamy	0	30 tiny green
+3500	4	Senecio p	11	outcrossing	28	
+3500	4	Senecio p	11	outcrossing	43	
+3500	4	Senecio p	12	control	0	
+3500	4	Senecio p	12	autogamy	0	many tiny
+3500	4	Senecio p	12	geitonogamy	4	40 tiny green
+3500	4	Senecio p	13	geitonogamy	0	literally no seeds but small balls, check bag
+3500	4	Senecio p	13	autogamy	0	34 tiny
+3500	5	Senecio p	13	outcrossing	1	rest small green
+3500	4	Senecio p	13	outcrossing	39	
+3500	4	Senecio p	14	outcrossing	6	14 almost
+3500	4	Senecio p	14	control	6	26 maybe, more not done, check bag
+3500	4	Senecio p	15	geitonogamy	17	probably, less green than full ones, check bag
+3500	5	Senecio p	16	control	22	
+3500	1	Senecio p	2	geitonogamy	0	39 tiny green
+3500	1	Senecio p	2	outcrossing	13	
+3500	1	Senecio p	2	outcrossing	27	
+3500	5	Senecio p	20	autogamy	0	41 thin green
+3500	5	Senecio p	20	geitonogamy	1	
+3500	4	Senecio p	21	geitonogamy	0	38 tiny
+3500	1	Senecio p	3	autogamy	0	42 tiny green, broken off plant
+3500	1	Senecio p	4	geitonogamy	0	42 tiny
+3500	2	Senecio p	5	geitonogamy	0	
+3500	2	Senecio p	5	autogamy	0	small green, check bag
+3500	2	Senecio p	7	control	8	
+3500	3	Senecio p	8	control	0	small green
+4000	1	Senecio p	1	autogamy	0	many tiny
+4000	1	Senecio p	1	control	0	many tiny
+4000	1	Senecio p	1	autogamy	0	many tiny
+4000	1	Senecio p	1	outcrossing	9	nm
+4000	6	Senecio p	10	geitonogamy	0	nm, many tiny
+4000	6	Senecio p	10	autogamy	1	nm, many tiny
+4000	6	Senecio p	10	control	6	
+4000	6	Senecio p	10	outcrossing	16	nm
+4000	2	Senecio p	15	outcrossing	0	nm, renamed to 15 to distinguish (originally 1)
+4000	2	Senecio p	15	autogamy	0	nm, renamed to 15 to distinguish (originally 1)
+4000	2	Senecio p	15	autogamy	0	many tiny, renamed to 15 to distinguish (orig 1)
+4000	2	Senecio p	16	outcrossing	0	li, nm, renamed to 16 to distinguish (originally 2)
+4000	2	Senecio p	16	control	0	nm, li, renamed to 16 to distinguish (orig 2)
+4000	2	Senecio p	16	geitonogamy	0	nm, li, renamed to 16 to distinguish (orig 2)
+4000	2	Senecio p	16	autogamy	0	nm, many tiny, renamed to 16 to distinguish (orig 2
+4000	2	Senecio p	16	geitonogamy	0	nm, many tiny, renamed to 16 to distinguish (orig 2)
+4000	2	Senecio p	16	control	0	nm,li, renamed to 16 to distinguish (orig 2)
+4000	2	Senecio p	17	control	0	li, renamed to 17 to distinguish (orig no noumber
+4000	2	Senecio p	17	autogamy	0	many tiny, renamed to 17 to distinguish (orig no number)
+4000	2	Senecio p	17	control	0	many tiny, renamed to 17 to distinguish (orig no number)
+4000	2	Senecio p	17	geitonogamy	0	li, renamed to 17 to distinguish (orig no number)
+4000	2	Senecio p	17	autogamy	0	li, renamed to 17 to distinguish (orig no number)
+4000	2	Senecio p	17	geitonogamy	0	nm, many tiny, renamed to 17 to distinguish (orig no number)
+4000	2	Senecio p	17	outcrossing	1	nm, many tiny, renamed to 17 to distinguish (orig no number
+4000	2	Senecio p	17	control	2	nm, li, renamed to 17 to distinguish (orig no number)
+4000	3	Senecio p	18	geitonogamy	0	nm, li
+4000	3	Senecio p	18	autogamy	0	nm, many tiny
+4000	3	Senecio p	18	outcrossing	0	nm, li
+4000	3	Senecio p	18	control	0	nm, many tiny
+4000	3	Senecio p	19	control	0	nm, li
+4000	3	Senecio p	19	geitonogamy	2	nm, many tiny
+4000	1	Senecio p	2	control	0	nm, many tiny
+4000	1	Senecio p	2	autogamy	0	nm, many tiny
+4000	3	Senecio p	20	autogamy	0	li
+4000	3	Senecio p	21	geitonogamy	0	nm, li
+4000	3	Senecio p	21	outcrossing	0	li
+4000	3	Senecio p	22	control	0	li
+4000	3	Senecio p	22	autogamy	0	nm, many tiny
+4000	3	Senecio p	22	control	0	nm, li
+4000	3	Senecio p	22	outcrossing	7	nm
+4000	3	Senecio p	23	autogamy	0	nm, tiny
+4000	3	Senecio p	23	autogamy	0	almost
+4000	3	Senecio p	23	control	0	thin
+4000	3	Senecio p	23	geitonogamy	8	nm
+4000	3	Senecio p	23	outcrossing	30	
+4000	3	Senecio p	24	autogamy	0	li, nm
+4000	3	Senecio p	24	geitonogamy	0	nm, many tiny
+4000	3	Senecio p	24	autogamy	0	nm, many tiny
+4000	3	Senecio p	24	outcrossing	0	nm, li
+4000	4	Senecio p	25	autogamy	0	li
+4000	4	Senecio p	25	geitonogamy	0	li
+4000	4	Senecio p	26	autogamy	0	tiny, nm
+4000	4	Senecio p	26	outcrossing	1	nm, many tiny
+4000	4	Senecio p	26	geitonogamy	2	nm
+4000	5	Senecio p	27	autogamy	0	many tiny
+4000	5	Senecio p	27	geitonogamy	0	many tiny
+4000	5	Senecio p	27	geitonogamy	0	many tiny
+4000	5	Senecio p	27	outcrossing	0	many tiny
+4000	5	Senecio p	27	control	0	many tiny
+4000	5	Senecio p	28	autogamy	0	li
+4000	5	Senecio p	28	geitonogamy	0	li
+4000	5	Senecio p	28	outcrossing	2	many tiny
+4000	5	Senecio p	29	geitonogamy	0	nm, many tiny
+4000	5	Senecio p	29	autogamy	0	nm, many tiny
+4000	5	Senecio p	29	control	1	nm, li
+4000	5	Senecio p	29	outcrossing	5	nm
+4000	1	Senecio p	3	geitonogamy	0	li, check bag
+4000	1	Senecio p	3	outcrossing	0	li
+4000	1	Senecio p	3	autogamy	0	many tiny
+4000	5	Senecio p	30	control	0	li,nm
+4000	5	Senecio p	30	autogamy	0	nm, many tiny
+4000	5	Senecio p	30	geitonogamy	0	nm, many tiny
+4000	5	Senecio p	31	geitonogamy	0	li
+4000	5	Senecio p	31	control	0	nm, many tiny
+4000	5	Senecio p	31	autogamy	1	
+4000	5	Senecio p	32	autogamy	0	li, nm
+4000	5	Senecio p	32	geitonogamy	0	many tiny
+4000	5	Senecio p	32	control	0	li
+4000	5	Senecio p	33	outcrossing	11	nm
+4000	5	Senecio p	34	geitonogamy	0	li
+4000	5	Senecio p	34	autogamy	0	nm, li
+4000	5	Senecio p	34	control	0	nm, li
+4000	6	Senecio p	35	autogamy	0	li
+4000	6	Senecio p	35	outcrossing	6	
+4000	6	Senecio p	36	control	0	ok
+4000	6	Senecio p	36	geitonogamy	0	many tiny
+4000	6	Senecio p	36	autogamy	0	many tiny
+4000	6	Senecio p	37	outcrossing	7	
+4000	6	Senecio p	38	geitonogamy	0	many tiny
+4000	6	Senecio p	38	outcrossing	11	
+4000	7	Senecio p	39	autogamy	0	many tiny
+4000	7	Senecio p	39	geitonogamy	0	many tiny
+4000	7	Senecio p	39	control	0	li
+4000	8	Senecio p	39	control	0	li, nm
+4000	8	Senecio p	39	control	1	many tiny
+4000	7	Senecio p	39	outcrossing	4	many tiny
+4000	1	Senecio p	4	control	0	li
+4000	1	Senecio p	4	control	0	li
+4000	1	Senecio p	4	geitonogamy	1	nm
+4000	8	Senecio p	40	autogamy	0	li
+4000	8	Senecio p	40	geitonogamy	0	many tiny
+4000	8	Senecio p	40	control	1	nm, many tiny
+4000	8	Senecio p	41	geitonogamy	0	nm, li
+4000	8	Senecio p	41	control	0	li
+4000	6	Senecio p	5	geitonogamy	0	nm, li
+4000	6	Senecio p	5	autogamy	0	li
+4000	6	Senecio p	5	autogamy	0	many tiny
+4000	6	Senecio p	5	control	0	li
+4000	1	Senecio p	50	control	0	li, renamed to 50, since it didn’t have a number
+4000	4	Senecio p	51	control	0	li, renamed to 51, since it didn’t have number
+4000	1	Senecio p	52	autogamy	0	nm, li, renamed to 52, since it didn’t have number
+4000	3	Senecio p	53	autogamy	0	nm, many tiny, renamed to 53, since it didn't have plant number
+4000	6	Senecio p	6	control	0	li
+4000	6	Senecio p	6	autogamy	0	nm, many tiny
+4000	6	Senecio p	6	geitonogamy	1	many tiny
+4000	6	Senecio p	6	geitonogamy	2	nm, brown
+4000	6	Senecio p	7	control	0	nm, many tiny
+4000	6	Senecio p	7	autogamy	0	li
+4000	6	Senecio p	7	geitonogamy	19	brown, finished
+4000	6	Senecio p	8	geitonogamy	0	many tiny
+4000	6	Senecio p	8	control	0	nm
+4000	6	Senecio p	8	autogamy	0	nm, many tiny
+4000	6	Senecio p	8	outcrossing	5	many tiny
+4000	6	Senecio p	9	outcrossing	0	many tiny
+4000	6	Senecio p	9	control	0	many tiny
+4000	6	Senecio p	9	autogamy	0	many tiny
+4000	6	Senecio p	9	geitonogamy	1	other tiny
+2800	2	Crepis h	1	outcrossing	11	more tiny
+2800	2	Crepis h	1	geitonogamy	69	
+2800	2	Crepis h	1	geitonogamy	71	
+2800	2	Crepis h	1	control	74	brown
+2800	2	Crepis h	1	geitonogamy	82	
+2800	2	Crepis h	1	control	83	
+2800	2	Crepis h	1	autogamy	88	
+2800	2	Crepis h	1	autogamy	89	
+2800	2	Crepis h	1	outcrossing	96	
+2800	2	Crepis h	1	outcrossing	103	
+2800	4	Crepis h	2	autogamy	0	
+2800	4	Crepis h	2	geitonogamy	0	
+2800	4	Crepis h	2	control	0	orange
+2800	4	Crepis h	2	control	25	brown
+2800	4	Crepis h	2	outcrossing	70	brow
+2800	6	Crepis h	3	autogamy	63	
+2800	6	Crepis h	3	geitonogamy	69	
+2800	6	Crepis h	3	control	69	
+2800	7	Crepis h	4	control	27	
+2800	7	Crepis h	4	geitonogamy	67	
+2800	7	Crepis h	4	control	67	
+2800	7	Crepis h	4	outcrossing	69	
+2800	7	Crepis h	4	autogamy	72	
+2800	8	Crepis h	5	autogamy	0	orange, check bag
+2800	8	Crepis h	5	outcrossing	0	51 orangew
+2800	8	Crepis h	5	outcrossing	27	orange
+2800	12	Crepis h	6	autogamy	54	
+2800	12	Crepis h	8	autogamy	0	
+2800	12	Crepis h	8	autogamy	0	
+2800	12	Crepis h	8	geitonogamy	0	
+3500	2	Crepis h	1	control	33	
+3500	2	Crepis h	1	geitonogamy	61	
+3500	3	Crepis h	10	control	26	
+3500	3	Crepis h	10	outcrossing	35	
+3500	3	Crepis h	11	control	40	
+3500	3	Crepis h	12	control	59	
+3500	5	Crepis h	15	outcrossing	55	
+3500	2	Crepis h	2	control	49	
+3500	2	Crepis h	3	outcrossing	49	
+3500	2	Crepis h	3	geitonogamy	53	
+3500	2	Crepis h	3	control	53	
+3500	2	Crepis h	4	outcrossing	57	
+3500	2	Crepis h	5	geitonogamy	37	
+3500	3	Crepis h	50	outcrossing	35	renamed to 50, since it didn't have plant number
+3500	3	Crepis h	52	geitonogamy	64	renamed to 52, since it didn't have plant bnumber
+3500	3	Crepis h	53	control	43	renamed to 53, since it didn't have plant number
+3500	2	Crepis h	55	autogamy	54	renamed to 55, since it didn't have plant number
+3500	3	Crepis h	58	autogamy	43	renamed to 58, since it didn't have plant number
+3500	3	Crepis h	7	autogamy	42	but thiner
+3500	3	Crepis h	8	control	26	more might be finished - check bag / checked
+3500	3	Crepis h	9	autogamy	33	
+3500	3	Crepis h	9	control	41	
+4000	6	Crepis h	10	autogamy	36	ok
+4000	6	Crepis h	10	control	36	ok
+4000	6	Crepis h	10	control	38	ok
+4000	6	Crepis h	10	outcrossing	74	ok
+4000	8	Crepis h	11	outcrossing	66	ok
+4000	8	Crepis h	11	control	76	ok
+4000	8	Crepis h	12	autogamy	27	ok
+4000	8	Crepis h	12	control	33	ok
+4000	2	Crepis h	16	autogamy	13	ok
+4000	2	Crepis h	17	autogamy	0	ok
+4000	2	Crepis h	18	autogamy	0	ok
+4000	1	Crepis h	2	autogamy	0	check, looked more damaged than not matured
+4000	1	Crepis h	2	geitonogamy	0	ok
+4000	1	Crepis h	2	geitonogamy	5	ok
+4000	1	Crepis h	2	control	6	ok
+4000	1	Crepis h	2	outcrossing	18	ok
+4000	6	Crepis h	23	geitonogamy	17	ok
+4000	6	Crepis h	23	outcrossing	36	ok
+4000	6	Crepis h	24	control	47	ok
+4000	6	Crepis h	24	outcrossing	109	ok
+4000	6	Crepis h	25	control	0	1 maybe, looks not finished
+4000	6	Crepis h	25	autogamy	4	ok
+4000	6	Crepis h	25	outcrossing	28	ok
+4000	6	Crepis h	25	geitonogamy	35	ok
+4000	7	Crepis h	26	control	12	ok
+4000	7	Crepis h	26	geitonogamy	33	ok
+4000	7	Crepis h	27	control	4	ok
+4000	7	Crepis h	27	geitonogamy	17	ok
+4000	7	Crepis h	27	outcrossing	37	ok
+4000	7	Crepis h	28	outcrossing	37	ok
+4000	7	Crepis h	29	control	15	ok
+4000	7	Crepis h	29	control	27	ok
+4000	7	Crepis h	29	outcrossing	41	ok
+4000	7	Crepis h	29	geitonogamy	55	ok
+4000	1	Crepis h	3	outcrossing	14	ok
+4000	7	Crepis h	30	control	2	ok
+4000	7	Crepis h	30	control	8	ok
+4000	7	Crepis h	30	geitonogamy	56	ok
+4000	7	Crepis h	31	control	18	ok
+4000	7	Crepis h	31	control	81	ok
+4000	8	Crepis h	32	control	15	ok
+4000	8	Crepis h	32	control	17	ok
+4000	8	Crepis h	32	control	21	ok
+4000	8	Crepis h	32	control	35	ok
+4000	8	Crepis h	32	outcrossing	37	ok
+4000	8	Crepis h	32	outcrossing	41	ok
+4000	8	Crepis h	32	geitonogamy	57	ok
+4000	8	Crepis h	32	geitonogamy	66	ok
+4000	8	Crepis h	33	control	34	ok
+4000	8	Crepis h	33	geitonogamy	44	ok
+4000	8	Crepis h	33	outcrossing	55	ok
+4000	8	Crepis h	34	autogamy	3	ok
+4000	8	Crepis h	34	control	33	ok
+4000	8	Crepis h	34	geitonogamy	41	ok
+4000	8	Crepis h	35	control	43	ok
+4000	8	Crepis h	35	outcrossing	70	ok
+4000	8	Crepis h	36	autogamy	0	ok
+4000	8	Crepis h	36	outcrossing	59	ok
+4000	8	Crepis h	37	geitonogamy	34	ok
+4000	8	Crepis h	37	control	38	ok
+4000	8	Crepis h	38	control	28	nm
+4000	8	Crepis h	38	geitonogamy	50	nm
+4000	8	Crepis h	39	autogamy	10	ok
+4000	8	Crepis h	39	control	50	ok
+4000	8	Crepis h	39	geitonogamy	52	ok
+4000	8	Crepis h	40	geitonogamy	44	ok
+4000	6	Crepis h	5	control	10	check bag
+4000	6	Crepis h	5	outcrossing	13	ok
+4000	6	Crepis h	5	geitonogamy	39	ok
+4000	6	Crepis h	5	outcrossing	72	ok
+4000	6	Crepis h	6	control	7	ok
+4000	6	Crepis h	6	outcrossing	20	ok
+4000	6	Crepis h	6	autogamy	37	ok
+4000	6	Crepis h	6	outcrossing	40	ok
+4000	6	Crepis h	7	autogamy	3	ok
+4000	6	Crepis h	7	control	37	ok
+4000	6	Crepis h	7	outcrossing	57	ok
+4000	6	Crepis h	7	autogamy	58	ok
+4000	6	Crepis h	7	geitonogamy	69	ok
+4000	6	Crepis h	8	geitonogamy	6	ok
+4000	6	Crepis h	8	autogamy	14	ok
+4000	6	Crepis h	9	outcrossing	19	ok
+2300		Clematis s	1	autogamy	0	finished, side
+2300		Clematis s	1	outcrossing	0	finished, side
+2300		Clematis s	1	geitonogamy	0	
+2300		Clematis s	1	autogamy	0	
+2300		Clematis s	1	control	0	
+2300		Clematis s	1	autogamy	0	
+2300		Clematis s	1	geitonogamy	1	
+2300		Clematis s	1	geitonogamy	3	
+2300		Clematis s	1	control	3	
+2300		Clematis s	1	outcrossing	8	
+2300		Clematis s	1	outcrossing	9	
+2300		Clematis s	10	control	0	
+2300		Clematis s	10	autogamy	0	
+2300		Clematis s	10	outcrossing	11	
+2300		Clematis s	10	outcrossing	11	
+2300		Clematis s	11	autogamy	0	
+2300		Clematis s	11	autogamy	0	
+2300		Clematis s	11	geitonogamy	0	
+2300		Clematis s	11	autogamy	0	
+2300		Clematis s	11	geitonogamy	3	
+2300		Clematis s	11	control	6	
+2300		Clematis s	11	control	8	
+2300		Clematis s	11	outcrossing	13	
+2300		Clematis s	11	outcrossing	17	
+2300		Clematis s	11	outcrossing	18	
+2300		Clematis s	12	control	0	
+2300		Clematis s	12	geitonogamy	0	
+2300		Clematis s	12	autogamy	0	
+2300		Clematis s	12	autogamy	2	
+2300		Clematis s	12	geitonogamy	6	
+2300		Clematis s	12	outcrossing	6	
+2300		Clematis s	12	outcrossing	7	
+2300		Clematis s	12	outcrossing	9	
+2300		Clematis s	13	autogamy	0	
+2300		Clematis s	13	outcrossing	0	
+2300		Clematis s	13	geitonogamy	1	
+2300		Clematis s	13	outcrossing	9	
+2300		Clematis s	13	control	11	
+2300		Clematis s	2	autogamy	0	
+2300		Clematis s	2	autogamy	0	
+2300		Clematis s	2	geitonogamy	0	
+2300		Clematis s	2	geitonogamy	0	
+2300		Clematis s	2	geitonogamy	5	
+2300		Clematis s	2	outcrossing	6	
+2300		Clematis s	2	control	10	
+2300		Clematis s	2	control	12	
+2300		Clematis s	2	outcrossing	19	
+2300		Clematis s	3	autogamy	0	
+2300		Clematis s	3	autogamy	0	
+2300		Clematis s	3	autogamy	0	
+2300		Clematis s	3	geitonogamy	1	
+2300		Clematis s	3	geitonogamy	3	
+2300		Clematis s	3	control	3	
+2300		Clematis s	3	control	3	
+2300		Clematis s	3	control	5	
+2300		Clematis s	3	autogamy	9	
+2300		Clematis s	3	outcrossing	15	
+2300		Clematis s	3	control	17	
+2300		Clematis s	3	outcrossing	18	
+2300		Clematis s	3	outcrossing	20	
+2300		Clematis s	3	outcrossing	22	
+2300		Clematis s	4	autogamy	0	
+2300		Clematis s	4	autogamy	0	
+2300		Clematis s	4	autogamy	0	
+2300		Clematis s	4	geitonogamy	2	
+2300		Clematis s	4	control	3	
+2300		Clematis s	4	control	3	
+2300		Clematis s	4	geitonogamy	5	
+2300		Clematis s	4	outcrossing	6	
+2300		Clematis s	4	outcrossing	10	
+2300		Clematis s	4	control	12	
+2300		Clematis s	5	outcrossing	0	
+2300		Clematis s	5	autogamy	0	
+2300		Clematis s	5	control	9	
+2300		Clematis s	6	control	0	
+2300		Clematis s	6	autogamy	0	
+2300		Clematis s	6	geitonogamy	0	
+2300		Clematis s	6	autogamy	0	
+2300		Clematis s	6	autogamy	0	
+2300		Clematis s	6	geitonogamy	2	
+2300		Clematis s	6	control	3	
+2300		Clematis s	6	outcrossing	9	
+2300		Clematis s	6	outcrossing	17	
+2300		Clematis s	7	autogamy	0	
+2300		Clematis s	7	geitonogamy	0	
+2300		Clematis s	7	autogamy	0	
+2300		Clematis s	7	autogamy	0	
+2300		Clematis s	7	autogamy	1	
+2300		Clematis s	7	outcrossing	4	
+2300		Clematis s	7	outcrossing	6	
+2300		Clematis s	7	control	7	
+2300		Clematis s	7	geitonogamy	13	
+2300		Clematis s	7	outcrossing	18	
+2300		Clematis s	8	autogamy	0	
+2300		Clematis s	8	autogamy	0	
+2300		Clematis s	8	outcrossing	0	
+2300		Clematis s	8	control	0	
+2300		Clematis s	8	geitonogamy	2	
+2300		Clematis s	8	autogamy	3	
+2300		Clematis s	8	geitonogamy	4	
+2300		Clematis s	8	geitonogamy	5	
+2300		Clematis s	8	outcrossing	10	
+2300		Clematis s	8	control	11	
+2300		Clematis s	8	control	18	
+2300		Clematis s	8	outcrossing	21	nice, bag
+2300		Clematis s	8	outcrossing	25	
+2300		Clematis s	9	outcrossing	0	dead, side
+2300		Clematis s	9	autogamy	0	
+2300		Clematis s	9	autogamy	1	
+2300		Clematis s	9	geitonogamy	4	
+2300		Clematis s	9	control	4	
+2300		Clematis s	9	control	8	
+2300		Clematis s	9	geitonogamy	9	
+2300		Clematis s	9	control	15	
+2300		Clematis s	9	outcrossing	16	
+2300		Clematis s	9	outcrossing	17	
+2800	2	Clematis s	1	autogamy	0	
+2800	2	Clematis s	1	geitonogamy	0	
+2800	2	Clematis s	1	control	3	
+2800	2	Clematis s	1	geitonogamy	6	
+2800	2	Clematis s	1	control	6	
+2800	2	Clematis s	1	outcrossing	13	
+2800	2	Clematis s	1	control	17	
+2800	10	Clematis s	10	control	0	
+2800	10	Clematis s	10	geitonogamy	0	
+2800	10	Clematis s	10	autogamy	2	
+2800	10	Clematis s	10	autogamy	4	
+2800	10	Clematis s	10	geitonogamy	9	more pseudo done - check bag
+2800	10	Clematis s	10	autogamy	10	
+2800	10	Clematis s	10	control	19	
+2800	10	Clematis s	10	outcrossing	23	
+2800	14	Clematis s	11	autogamy	0	
+2800	14	Clematis s	11	autogamy	0	
+2800	14	Clematis s	11	autogamy	0	
+2800	14	Clematis s	11	autogamy	0	
+2800	14	Clematis s	11	geitonogamy	3	
+2800	14	Clematis s	11	control	3	
+2800	14	Clematis s	11	geitonogamy	4	more much smaller
+2800	14	Clematis s	11	geitonogamy	6	
+2800	14	Clematis s	11	outcrossing	14	
+2800	14	Clematis s	11	outcrossing	16	
+2800	14	Clematis s	11	outcrossing	16	
+2800	14	Clematis s	11	control	18	
+2800	14	Clematis s	12	geitonogamy	6	
+2800	14	Clematis s	12	control	15	
+2800	14	Clematis s	12	outcrossing	17	
+2800	14	Clematis s	13	autogamy	0	
+2800	14	Clematis s	13	autogamy	5	but smaller - check bag / checked
+2800	14	Clematis s	13	geitonogamy	11	10 smaller than others - check bag / checked
+2800	14	Clematis s	13	control	13	
+2800	14	Clematis s	13	outcrossing	17	
+2800	14	Clematis s	14	outcrossing	4	
+2800	14	Clematis s	14	control	13	
+2800	2	Clematis s	2	control	14	
+2800	2	Clematis s	2	outcrossing	18	
+2800	6	Clematis s	3	autogamy	0	
+2800	6	Clematis s	3	geitonogamy	0	
+2800	6	Clematis s	3	geitonogamy	0	
+2800	6	Clematis s	3	outcrossing	0	
+2800	6	Clematis s	3	control	9	more smaller, lighter color - check bag
+2800	6	Clematis s	3	geitonogamy	15	
+2800	6	Clematis s	3	outcrossing	15	
+2800	6	Clematis s	3	outcrossing	19	
+2800	7	Clematis s	4	autogamy	0	
+2800	7	Clematis s	4	autogamy	0	
+2800	7	Clematis s	4	control	5	
+2800	7	Clematis s	5	control	2	
+2800	7	Clematis s	5	geitonogamy	2	
+2800	14	Clematis s	5	geitonogamy	8	lighter color than others - check bag
+2800	7	Clematis s	5	outcrossing	16	
+2800	7	Clematis s	5	outcrossing	19	
+2800	7	Clematis s	5	outcrossing	21	
+2800	6	Clematis s	50	control	11	renamed to 50, since it didn't have plant number
+2800	10	Clematis s	51	outcrossing	26	number - check bag, renamed to 51, since unreadable number on bag
+2800	9	Clematis s	6	autogamy	0	25 almost
+2800	9	Clematis s	6	autogamy	0	
+2800	9	Clematis s	6	geitonogamy	1	
+2800	9	Clematis s	6	autogamy	1	
+2800	9	Clematis s	6	geitonogamy	1	
+2800	9	Clematis s	6	control	3	
+2800	9	Clematis s	6	control	4	
+2800	9	Clematis s	6	control	5	
+2800	9	Clematis s	6	geitonogamy	9	
+2800	9	Clematis s	6	outcrossing	23	
+2800	10	Clematis s	7	control	0	
+2800	10	Clematis s	7	autogamy	8	
+2800	10	Clematis s	7	control	10	
+2800	10	Clematis s	7	geitonogamy	13	
+2800	10	Clematis s	7	outcrossing	20	
+2800	10	Clematis s	8	geitonogamy	7	
+2800	10	Clematis s	8	control	7	
+2800	10	Clematis s	8	autogamy	13	but smaller than others - check bag
+2800	10	Clematis s	9	geitonogamy	5	
+2800	10	Clematis s	9	control	9	
+2800	10	Clematis s	9	outcrossing	20	
+2300		Geranium a	1	control	0	
+2300		Geranium a	1	outcrossing	0	
+2300		Geranium a	10	autogamy	5	
+2300		Geranium a	10	control	5	
+2300		Geranium a	11	autogamy	0	
+2300		Geranium a	11	control	5	
+2300		Geranium a	12	outcrossing	0	
+2300		Geranium a	12	control	4	
+2300		Geranium a	13	outcrossing	0	
+2300		Geranium a	13	control	2	
+2300		Geranium a	14	autogamy	0	
+2300		Geranium a	14	control	2	
+2300		Geranium a	15	autogamy	0	
+2300		Geranium a	15	control	0	
+2300		Geranium a	16	outcrossing	0	
+2300		Geranium a	18	autogamy	0	
+2300		Geranium a	2	autogamy	0	
+2300		Geranium a	21	autogamy	5	
+2300		Geranium a	23	autogamy	2	
+2300		Geranium a	24	outcrossing	0	
+2300		Geranium a	24	control	0	
+2300		Geranium a	25	autogamy	1	
+2300		Geranium a	25	outcrossing	3	
+2300		Geranium a	26	autogamy	3	
+2300		Geranium a	28	control	0	
+2300		Geranium a	28	control	1	
+2300		Geranium a	28	outcrossing	5	
+2300		Geranium a	29	outcrossing	4	
+2300		Geranium a	3	control	4	
+2300		Geranium a	30	autogamy	5	
+2300		Geranium a	30	control	5	
+2300		Geranium a	31	autogamy	1	
+2300		Geranium a	31	control	5	
+2300		Geranium a	32	control	4	
+2300		Geranium a	33	autogamy	0	
+2300		Geranium a	33	control	5	
+2300		Geranium a	34	autogamy	3	
+2300		Geranium a	34	control	5	
+2300		Geranium a	35	outcrossing	1	
+2300		Geranium a	36	outcrossing	3	
+2300		Geranium a	37	outcrossing	5	
+2300		Geranium a	38	outcrossing	4	
+2300		Geranium a	39	autogamy	0	
+2300		Geranium a	39	control	4	
+2300		Geranium a	4	control	0	
+2300		Geranium a	4	autogamy	0	
+2300		Geranium a	40	outcrossing	0	
+2300		Geranium a	41	autogamy	0	
+2300		Geranium a	41	control	3	
+2300		Geranium a	42	autogamy	0	
+2300		Geranium a	43	control	0	
+2300		Geranium a	5	outcrossing	0	
+2300		Geranium a	6	outcrossing	0	
+2300		Geranium a	7	outcrossing	1	
+2300		Geranium a	8	autogamy	0	
+2300		Geranium a	9	outcrossing	0	
+2300		Geranium a	9	control	4	
+2800	1	Geranium a	1	control	4	
+2800	1	Geranium a	1	autogamy	5	
+2800	1	Geranium a	10	control	3	
+2800	1	Geranium a	10	outcrossing	4	
+2800	1	Geranium a	11	control	5	
+2800	9	Geranium a	12	autogamy	5	
+2800	9	Geranium a	12	control	5	
+2800	9	Geranium a	13	control	5	
+2800	9	Geranium a	13	autogamy	5	
+2800	9	Geranium a	14	outcrossing	4	
+2800	9	Geranium a	15	outcrossing	5	
+2800	9	Geranium a	15	control	5	
+2800	9	Geranium a	16	control	0	
+2800	9	Geranium a	16	outcrossing	5	
+2800	9	Geranium a	17	control	1	
+2800	9	Geranium a	17	control	5	
+2800	9	Geranium a	17	outcrossing	5	
+2800	9	Geranium a	18	outcrossing	4	
+2800	9	Geranium a	18	control	5	
+2800	9	Geranium a	19	autogamy	0	
+2800	9	Geranium a	19	control	5	
+2800	1	Geranium a	2	autogamy	5	
+2800	9	Geranium a	20	autogamy	4	
+2800	9	Geranium a	20	control	5	
+2800	1	Geranium a	3	autogamy	1	
+2800	1	Geranium a	3	control	5	
+2800	1	Geranium a	4	autogamy	2	
+2800	1	Geranium a	4	control	5	
+2800	1	Geranium a	5	autogamy	0	
+2800	1	Geranium a	5	control	5	
+2800	1	Geranium a	6	outcrossing	5	
+2800	1	Geranium a	6	control	5	
+2800	1	Geranium a	7	outcrossing	5	
+2800	1	Geranium a	8	outcrossing	4	
+2800	1	Geranium a	8	control	5	
+2800	1	Geranium a	8	control	5	
+2800	1	Geranium a	9	outcrossing	4	
+2300		Hypericum r	1	autogamy	7	5 chambers
+2300		Hypericum r	1	autogamy	74	5 chambers
+2300		Hypericum r	1	autogamy	140	1 chambers
+2300		Hypericum r	1	control	162	5 chambers
+2300		Hypericum r	1	control	274	5 chambers
+2300		Hypericum r	1	outcrossing	370	5 chambers
+2300		Hypericum r	10	geitonogamy	29	5 chambers
+2300		Hypericum r	10	geitonogamy	48	5 chambers
+2300		Hypericum r	10	geitonogamy	58	5 chambers
+2300		Hypericum r	10	control	68	5 chambers
+2300		Hypericum r	10	control	146	5 chambers
+2300		Hypericum r	10	control	184	5 chambers
+2300		Hypericum r	10	outcrossing	303	5 chambers
+2300		Hypericum r	10	outcrossing	368	5 chambers
+2300		Hypericum r	10	outcrossing	510	5 chambers
+2300		Hypericum r	11	autogamy	7	5 chambers
+2300		Hypericum r	11	autogamy	13	5 chambers
+2300		Hypericum r	11	geitonogamy	138	2 chambers
+2300		Hypericum r	11	outcrossing	155	5 chambers
+2300		Hypericum r	11	geitonogamy	171	5 chambers
+2300		Hypericum r	11	outcrossing	349	5 chambers
+2300		Hypericum r	11	control	353	5 chambers
+2300		Hypericum r	11	control	380	5 chambers
+2300		Hypericum r	12	autogamy	95	5 chambers
+2300		Hypericum r	12	outcrossing	114	5 chambers
+2300		Hypericum r	12	geitonogamy	118	5 chambers
+2300		Hypericum r	12	control	175	5 chambers
+2300		Hypericum r	12	geitonogamy	200	2 chambers
+2300		Hypericum r	12	geitonogamy	291	5 chambers
+2300		Hypericum r	12	outcrossing	299	5 chambers
+2300		Hypericum r	12	control	355	5 chambers
+2300		Hypericum r	12	control	392	4 chambers
+2300		Hypericum r	12	outcrossing	462	5 chambers
+2300		Hypericum r	13	autogamy	19	3 chambers
+2300		Hypericum r	13	outcrossing	40	5 chambers
+2300		Hypericum r	13	geitonogamy	62	5 chambers
+2300		Hypericum r	13	control	135	2 chambers
+2300		Hypericum r	13	geitonogamy	167	5 chambers
+2300		Hypericum r	13	control	295	2 chambers
+2300		Hypericum r	13	control	303	2 chambers
+2300		Hypericum r	14	autogamy	16	4 chambers
+2300		Hypericum r	14	autogamy	26	5 chambers
+2300		Hypericum r	14	geitonogamy	60	1 chamber
+2300		Hypericum r	14	control	100	5 chambers
+2300		Hypericum r	14	geitonogamy	109	5 chambers
+2300		Hypericum r	14	outcrossing	145	5 chambers
+2300		Hypericum r	14	control	244	5 chambers
+2300		Hypericum r	14	outcrossing	318	5 chambers
+2300		Hypericum r	14	outcrossing	347	5 chambers
+2300		Hypericum r	15	outcrossing	48	5 chambers
+2300		Hypericum r	15	geitonogamy	276	5 chambers
+2300		Hypericum r	15	control	285	5 chambers
+2300		Hypericum r	15	geitonogamy	429	5 chambers
+2300		Hypericum r	15	control	444	5 chambers
+2300		Hypericum r	15	outcrossing	759	5 chambers
+2300		Hypericum r	2	autogamy	10	1 chamber
+2300		Hypericum r	2	geitonogamy	16	5 chambers
+2300		Hypericum r	2	outcrossing	35	5 chambers
+2300		Hypericum r	2	control	68	5 chambers
+2300		Hypericum r	2	autogamy	112	5 chambers
+2300		Hypericum r	2	control	132	5 chambers
+2300		Hypericum r	2	outcrossing	187	5 chambers
+2300		Hypericum r	2	control	190	5 chambers
+2300		Hypericum r	3	autogamy	0	5 chambers
+2300		Hypericum r	3	control	7	5 chambers
+2300		Hypericum r	3	autogamy	20	5 chambers
+2300		Hypericum r	3	geitonogamy	33	5 chambers
+2300		Hypericum r	3	autogamy	65	5 chambers
+2300		Hypericum r	3	control	74	4 chambers
+2300		Hypericum r	3	autogamy	109	5 chambers
+2300		Hypericum r	3	control	112	5 chambers
+2300		Hypericum r	3	control	118	5 chambers
+2300		Hypericum r	3	geitonogamy	124	5 chambers
+2300		Hypericum r	3	geitonogamy	126	4 chambers
+2300		Hypericum r	3	outcrossing	144	5 chambers
+2300		Hypericum r	3	control	220	5 chambers
+2300		Hypericum r	3	autogamy	235	5 chambers
+2300		Hypericum r	3	control	292	5 chambers
+2300		Hypericum r	3	geitonogamy	299	3 chambers
+2300		Hypericum r	3	outcrossing	300	2 chambers
+2300		Hypericum r	3	geitonogamy	305	5 chambers
+2300		Hypericum r	3	geitonogamy	317	5 chambers
+2300		Hypericum r	3	geitonogamy	320	5 chambers
+2300		Hypericum r	3	outcrossing	332	5 chambers
+2300		Hypericum r	3	outcrossing	350	2 chambers
+2300		Hypericum r	3	outcrossing	451	5 chambers
+2300		Hypericum r	3	outcrossing	573	5 chambers
+2300		Hypericum r	3	outcrossing	580	5 chambers
+2300		Hypericum r	4	autogamy	47	5 chambers
+2300		Hypericum r	5	autogamy	23	5 chambers
+2300		Hypericum r	5	geitonogamy	143	5 chambers
+2300		Hypericum r	5	autogamy	210	5 chambers
+2300		Hypericum r	5	control	271	5 chambers
+2300		Hypericum r	5	outcrossing	320	4 chambers
+2300		Hypericum r	5	outcrossing	332	5 chambers
+2300		Hypericum r	5	outcrossing	853	2 chambers
+2300		Hypericum r	6	geitonogamy	145	2 chambers
+2300		Hypericum r	6	geitonogamy	195	1 chamber
+2300		Hypericum r	6	autogamy	224	5 chambers
+2300		Hypericum r	6	geitonogamy	268	5 chambers
+2300		Hypericum r	6	control	342	5 chambers
+2300		Hypericum r	6	outcrossing	368	5 chambers
+2300		Hypericum r	6	outcrossing	598	5 chambers
+2300		Hypericum r	7	autogamy	241	5 chambers
+2300		Hypericum r	7	geitonogamy	331	5 chambers
+2300		Hypericum r	7	control	373	4 chambers
+2300		Hypericum r	7	outcrossing	532	5 chambers
+2300		Hypericum r	8	autogamy	0	5 chambers, check bag not finished
+2300		Hypericum r	8	autogamy	17	5 chambers
+2300		Hypericum r	8	autogamy	23	5 chambers
+2300		Hypericum r	8	geitonogamy	38	5 chambers
+2300		Hypericum r	8	geitonogamy	48	5 chambers
+2300		Hypericum r	8	control	164	4 chambers
+2300		Hypericum r	8	control	230	3 chambers
+2300		Hypericum r	8	outcrossing	267	3 chambers
+2300		Hypericum r	8	outcrossing	420	1 chamber
+2300		Hypericum r	9	autogamy	114	5 chambers
+2300		Hypericum r	9	autogamy	160	5 chambers
+2300		Hypericum r	9	autogamy	160	5 chambers
+2300		Hypericum r	9	geitonogamy	224	5 chambers
+2300		Hypericum r	9	control	250	5 chambers
+2300		Hypericum r	9	control	341	5 chambers
+2300		Hypericum r	9	outcrossing	423	5 chambers
+2300		Hypericum r	9	outcrossing	424	5 chambers
+2800	4	Hypericum r	1	autogamy	144	3 chambers
+2800	4	Hypericum r	1	geitonogamy	245	1 chamber
+2800	2	Hypericum r	10	outcrossing	230	1 chamber
+2800	4	Hypericum r	2	autogamy	30	4 chambers
+2800	4	Hypericum r	2	geitonogamy	125	4 chambers
+2800	4	Hypericum r	2	outcrossing	250	1 chamber
+2800	4	Hypericum r	2	geitonogamy	316	5 chambers
+2800	4	Hypericum r	2	control	355	2 chambers
+2800	4	Hypericum r	2	control	493	4 chambers
+2800	4	Hypericum r	3	control	125	1 chamber
+2800	4	Hypericum r	3	control	497	5 chambers
+2800	4	Hypericum r	3	outcrossing	517	3 chambers
+2800	4	Hypericum r	4	geitonogamy	170	3 chambers
+2800	4	Hypericum r	4	control	175	1 chamber
+2800	4	Hypericum r	4	outcrossing	352	4 chambers
+2800	4	Hypericum r	4	outcrossing	486	perfect speciment, photo
+2800	4	Hypericum r	4	control	550	2 chamers
+2800	4	Hypericum r	5	I/II	160	1 chamber
+2800	4	Hypericum r	5	geitonogamy	184	5 chambers
+2800	4	Hypericum r	5	outcrossing	202	5 chambers
+2800	10	Hypericum r	50	control	315	3 chambers, renamed to 50, since it didn't have a plant number
+2800	9	Hypericum r	6	autogamy	85	2 chambers
+2800	9	Hypericum r	6	control	286	5 chambers
+2800	9	Hypericum r	6	outcrossing	322	5 chambers
+2800	9	Hypericum r	7	control	130	1 chamber
+2800	9	Hypericum r	7	geitonogamy	149	3 chambers
+2800	9	Hypericum r	7	geitonogamy	236	5 chambers
+2800	9	Hypericum r	7	autogamy	275	1 chamber
+2800	9	Hypericum r	7	outcrossing	287	5 chambers, all seeds flatter
+2800	9	Hypericum r	7	outcrossing	428	5 chambers
+2800	9	Hypericum r	7	outcrossing	519	5 chambers
+2800	10	Hypericum r	8	geitonogamy	235	3 chambers
+2800	10	Hypericum r	8	autogamy	286	5 chambers
+2800	10	Hypericum r	8	geitonogamy	300	2 chambers
+2800	10	Hypericum r	8	geitonogamy	308	2 chambers
+2800	10	Hypericum r	8	geitonogamy	347	5 chambers
+2800	10	Hypericum r	8	outcrossing	377	4 chambers
+2800	10	Hypericum r	8	outcrossing	388	4 chambers
+2800	10	Hypericum r	8	control	429	5 chambers
+2800	10	Hypericum r	8	control	495	3 chambers
+2800	10	Hypericum r	8	outcrossing	497	4 chambers
+2800	10	Hypericum r	8	autogamy	511	had three !!! next to it, dont know what it means, 5 chambers
+2800	10	Hypericum r	8	outcrossing	571	5 chambers
+2800	10	Hypericum r	8	outcrossing	660	1 chamber
+4000	1	Hypericum r	1	outcrossing	0	tiny, unfinished
+4000	1	Hypericum r	1	outcrossing	0	tiny, unfinished
+4000	1	Hypericum r	1	autogamy	0	tiny, unfinished
+4000	1	Hypericum r	1	outcrossing	0	tiny, unfinished
+4000	1	Hypericum r	1	geitonogamy	0	tiny, unfinished
+4000	1	Hypericum r	1	control	0	tiny, unfinished
+4000	1	Hypericum r	1	control	0	tiny, unfinished
+4000	1	Hypericum r	1	outcrossing	0	tiny, unfinished
+4000	1	Hypericum r	1	control	0	tiny, unfinished
+4000	1	Hypericum r	1	outcrossing	0	tiny, unfinished
+4000	2	Hypericum r	2	autogamy	0	tiny, unfinished
+4000	2	Hypericum r	2	control	0	tiny, unfinished
+4000	2	Hypericum r	2	geitonogamy	0	tiny, unfinished
+4000	2	Hypericum r	2	control	0	tiny, unfinished
+4000	2	Hypericum r	2	autogamy	0	tiny, unfinished
+4000	2	Hypericum r	2	outcrossing	0	tiny, unfinished
+4000	2	Hypericum r	2	control	0	tiny, unfinished
+4000	2	Hypericum r	2	autogamy	0	tiny, unfinished
+4000	2	Hypericum r	2	autogamy	0	tiny, unfinished
+4000	2	Hypericum r	2	control	0	tiny, unfinished
+4000	2	Hypericum r	2	autogamy	0	tiny, unfinished
+4000	3	Hypericum r	3	outcrossing	0	tiny, unfinished
+4000	3	Hypericum r	3	outcrossing	0	tiny, unfinished
+4000	3	Hypericum r	3	autogamy	0	tiny, unfinished
+4000	3	Hypericum r	3	autogamy	0	tiny, unfinished
+4000	3	Hypericum r	3	geitonogamy	0	tiny, unfinished
+4000	3	Hypericum r	3	control	0	tiny, unfinished
+4000	3	Hypericum r	3	control	0	tiny, unfinished
+4000	3	Hypericum r	3	control	0	tiny, unfinished
+4000	3	Hypericum r	3	autogamy	0	tiny, unfinished
+4000	3	Hypericum r	3	geitonogamy	0	tiny, unfinished
+4000	3	Hypericum r	3	autogamy	0	tiny, unfinished
+4000	3	Hypericum r	3	geitonogamy	0	tiny, unfinished
+4000	3	Hypericum r	3	outcrossing	0	tiny, unfinished
+4000	3	Hypericum r	3	geitonogamy	0	tiny, unfinished
+4000	4	Hypericum r	4	geitonogamy	0	tiny, unfinished
+4000	4	Hypericum r	4	outcrossing	0	tiny, unfinished
+4000	4	Hypericum r	4	control	0	tiny, unfinished
+4000	4	Hypericum r	4	outcrossing	0	tiny, unfinished
+4000	4	Hypericum r	4	geitonogamy	0	tiny, unfinished
+4000	4	Hypericum r	4	autogamy	0	tiny, unfinished
+4000	4	Hypericum r	4	outcrossing	0	tiny, unfinished
+4000	4	Hypericum r	4	autogamy	0	tiny, unfinished
+4000	4	Hypericum r	4	autogamy	0	tiny, unfinished
+4000	4	Hypericum r	4	geitonogamy	0	tiny, unfinished
+4000	4	Hypericum r	4	autogamy	0	tiny, unfinished
+2300		Lactuca i	1	outcrossing	0	
+2300		Lactuca i	1	control	0	
+2300		Lactuca i	1	autogamy	6	
+2300		Lactuca i	1	control	8	
+2300		Lactuca i	1	outcrossing	9	
+2300		Lactuca i	10	control	0	
+2300		Lactuca i	10	autogamy	4	
+2300		Lactuca i	10	outcrossing	5	
+2300		Lactuca i	10	outcrossing	9	
+2300		Lactuca i	11	control	5	
+2300		Lactuca i	11	autogamy	8	
+2300		Lactuca i	11	outcrossing	10	
+2300		Lactuca i	12	autogamy	0	
+2300		Lactuca i	12	autogamy	1	
+2300		Lactuca i	12	control	4	
+2300		Lactuca i	12	outcrossing	5	
+2300		Lactuca i	13	autogamy	0	
+2300		Lactuca i	13	control	0	
+2300		Lactuca i	14	autogamy	0	
+2300		Lactuca i	15	autogamy	1	
+2300		Lactuca i	15	control	3	
+2300		Lactuca i	16	outcrossing	0	
+2300		Lactuca i	17	control	0	
+2300		Lactuca i	17	outcrossing	0	
+2300		Lactuca i	17	outcrossing	6	
+2300		Lactuca i	18	outcrossing	0	
+2300		Lactuca i	18	autogamy	0	
+2300		Lactuca i	18	control	2	
+2300		Lactuca i	18	autogamy	4	
+2300		Lactuca i	19	autogamy	4	
+2300		Lactuca i	2	autogamy	0	
+2300		Lactuca i	2	outcrossing	8	
+2300		Lactuca i	20	outcrossing	5	
+2300		Lactuca i	21	control	0	
+2300		Lactuca i	22	control	0	
+2300		Lactuca i	23	control	9	
+2300		Lactuca i	24	outcrossing	0	
+2300		Lactuca i	25	autogamy	1	
+2300		Lactuca i	25	autogamy	5	
+2300		Lactuca i	25	outcrossing	7	
+2300		Lactuca i	26	autogamy	0	
+2300		Lactuca i	26	control	6	
+2300		Lactuca i	27	outcrossing	0	
+2300		Lactuca i	27	outcrossing	1	
+2300		Lactuca i	27	autogamy	3	
+2300		Lactuca i	28	autogamy	0	
+2300		Lactuca i	28	autogamy	0	
+2300		Lactuca i	28	outcrossing	6	
+2300		Lactuca i	29	control	0	
+2300		Lactuca i	29	autogamy	3	
+2300		Lactuca i	29	control	8	
+2300		Lactuca i	29	outcrossing	9	
+2300		Lactuca i	29	control	10	
+2300		Lactuca i	29	outcrossing	14	
+2300		Lactuca i	3	control	0	
+2300		Lactuca i	3	outcrossing	3	
+2300		Lactuca i	30	autogamy	2	
+2300		Lactuca i	30	autogamy	8	
+2300		Lactuca i	30	outcrossing	10	
+2300		Lactuca i	30	control	11	
+2300		Lactuca i	32	autogamy	0	
+2300		Lactuca i	32	control	2	
+2300		Lactuca i	32	outcrossing	8	
+2300		Lactuca i	33	outcrossing	3	
+2300		Lactuca i	34	outcrossing	0	
+2300		Lactuca i	34	control	14	
+2300		Lactuca i	4	control	0	
+2300		Lactuca i	5	outcrossing	0	
+2300		Lactuca i	5	control	0	
+2300		Lactuca i	5	outcrossing	4	
+2300		Lactuca i	5	autogamy	5	
+2300		Lactuca i	5	control	7	
+2300		Lactuca i	5	outcrossing	7	
+2300		Lactuca i	5	control	7	
+2300		Lactuca i	5	autogamy	10	
+2300		Lactuca i	6	control	5	
+2300		Lactuca i	7	outcrossing	13	
+2300		Lactuca i	8	control	0	
+2300		Lactuca i	8	autogamy	1	
+2300		Lactuca i	8	outcrossing	2	
+2300		Lactuca i	8	outcrossing	8	
+2300		Lactuca i	9	autogamy	0	
+2300		Lactuca i	9	control	5	
+2800	1	Lactuca i	1	control	10	
+2800	5	Lactuca i	10	control	0	
+2800	5	Lactuca i	10	autogamy	7	
+2800	5	Lactuca i	11	control	10	
+2800	5	Lactuca i	11	control	11	
+2800	5	Lactuca i	11	outcrossing	11	
+2800	5	Lactuca i	12	autogamy	3	
+2800	5	Lactuca i	12	autogamy	4	
+2800	5	Lactuca i	12	control	8	
+2800	5	Lactuca i	12	outcrossing	9	
+2800	5	Lactuca i	13	autogamy	0	
+2800	5	Lactuca i	13	geitonogamy	4	
+2800	7	Lactuca i	14	control	0	
+2800	7	Lactuca i	14	control	0	
+2800	7	Lactuca i	16	autogamy	1	
+2800	7	Lactuca i	16	outcrossing	8	
+2800	7	Lactuca i	16	control	14	
+2800	7	Lactuca i	18	control	11	
+2800	7	Lactuca i	19	autogamy	0	
+2800	1	Lactuca i	2	control	4	
+2800	1	Lactuca i	2	autogamy	12	
+2800	1	Lactuca i	2	outcrossing	14	
+2800	7	Lactuca i	20	control	14	
+2800	1	Lactuca i	3	autogamy	3	
+2800	1	Lactuca i	3	outcrossing	13	
+2800	1	Lactuca i	4	control	4	
+2800	1	Lactuca i	4	outcrossing	8	red, check bag
+2800	1	Lactuca i	5	control	0	
+2800	1	Lactuca i	5	outcrossing	9	
+2800	7	Lactuca i	50	control	0	renamed to 50 since it didn’t have number
+2800	7	Lactuca i	51	autogamy	6	renamed to 51, since it didn't have plant number
+2800	5	Lactuca i	52	autogamy	5	renamed to 52, since it didn't have plant number
+2800	1	Lactuca i	6	outcrossing	0	
+2800	1	Lactuca i	6	autogamy	6	
+2800	1	Lactuca i	6	autogamy	10	
+2800	1	Lactuca i	6	control	13	
+2800	1	Lactuca i	7	autogamy	0	
+2800	1	Lactuca i	7	control	5	
+2800	1	Lactuca i	8	autogamy	1	
+2800	1	Lactuca i	8	control	11	
+2800	1	Lactuca i	9	outcrossing	6	
+2800	1	Lactuca i	9	control	10	
+3500	5	Lactuca i	1	outcrossing	0	
+3500	5	Lactuca i	1	control	0	
+3500	4	Lactuca i	1	autogamy	0	
+3500	2	Lactuca i	1	autogamy	2	wierd, check bag
+3500	4	Lactuca i	1	control	2	
+3500	4	Lactuca i	1	outcrossing	8	
+3500	2	Lactuca i	2	autogamy	0	
+3500	3	Lactuca i	2	control	0	
+3500	5	Lactuca i	2	autogamy	0	
+3500	3	Lactuca i	2	outcrossing	0	
+3500	2	Lactuca i	2	control	3	
+3500	4	Lactuca i	2	geitonogamy	4	
+3500	3	Lactuca i	3	autogamy	0	
+3500	5	Lactuca i	3	control	0	
+3500	3	Lactuca i	3	control	0	
+3500	4	Lactuca i	3	outcrossing	0	
+3500	2	Lactuca i	3	control	0	
+3500	5	Lactuca i	3	outcrossing	0	
+3500	4	Lactuca i	4	control	0	
+3500	4	Lactuca i	4	outcrossing	11	
+3500	2	Lactuca i	4	outcrossing	12	
+3500	4	Lactuca i	5	outcrossing	0	5 small, check bag
+3500	5	Lactuca i	50	control	4	renamed to 50, since it didn't have plant number
+3500	5	Lactuca i	51	autogamy	0	renamed to 51, since it didn't have plant number
+3500	2	Lactuca i	6	outcrossing	0	
+3500	4	Lactuca i	6	autogamy	0	
+3500	2	Lactuca i	6	autogamy	0	
+3500	2	Lactuca i	6	control	3	
+3500	2	Lactuca i	6	outcrossing	6	
+3500	2	Lactuca i	7	autogamy	0	
+4000	4	Lactuca i	1	control	0	
+4000	7	Lactuca i	1	autogamy	0	too many lowers
+4000	4	Lactuca i	2	autogamy	0	
+4000	4	Lactuca i	2	autogamy	0	
+4000	4	Lactuca i	3	geitonogamy	0	
+4000	4	Lactuca i	3	geitonogamy	0	
+4000	5	Lactuca i	4	control	0	renamed to 4 from 1, as to not overlap
+4000	5	Lactuca i	4	autogamy	0	renamed to 4 from 1, as to not overlap
+4000	7	Lactuca i	5	control	0	renamed to 5 from 1, as to not overlap
+4000	7	Lactuca i	5	outcrossing	0	renamed to 5 from 1, as to not overlap
+4000	4	Lactuca i	50	autogamy	0	renamed to 50, since it didn't have plant number
+4000	3	Lactuca i	51	control	0	renamed to 51, since it didn't have plant number
+4000	4	Lactuca i	52	control	0	renamed to 52, since it didn’t have number
+4000	4	Lactuca i	53	control	0	renamed to 53, since it didn’t have number
+4000	4	Lactuca i	54	control	0	renamed to 54, since it didn’t have number
+4000	4	Lactuca i	55	autogamy	0	renamed to 55, since it didn’t have number
+4000	4	Lactuca i	56	control	0	renamed to 56, since it didn’t have number
+4000	4	Lactuca i	57	autogamy	0	renamed to 57, since it didn’t have number
+4000	4	Lactuca i	58	autogamy	0	renamed to 58, since it didn’t have number
+4000	4	Lactuca i	59	control	0	renamed to 59, since it didn’t have number
+4000	7	Lactuca i	6	geitonogamy	0	renamed to 6 from 2, as to not overlap
+4000	4	Lactuca i	60	autogamy	0	renamed to 60, since it didn’t have number
+4000	5	Lactuca i	61	autogamy	0	renamed to 61, since it didn't have a plant number
+4000	7	Lactuca i	62	autogamy	15	renamed to 62, since it didn’t have number
+4000	7	Lactuca i	7	control	0	renamed to 7 from 3, as to not overlap
+4000	7	Lactuca i	7	control	0	renamed to 7 from 3, as to not overlap
+2800	1	Senecio b	1	outcrossing	0	all small, check bag
+2800	1	Senecio b	1	geitonogamy	2	
+2800	1	Senecio b	1	outcrossing	16	
+2800	4	Senecio b	10	geitonogamy	0	bag said broken off from plant
+2800	4	Senecio b	10	geitonogamy	1	
+2800	4	Senecio b	10	control	2	
+2800	4	Senecio b	10	outcrossing	28	
+2800	5	Senecio b	13	control	0	
+2800	5	Senecio b	14	geitonogamy	0	
+2800	5	Senecio b	14	autogamy	0	again 33 tiny
+2800	5	Senecio b	14	geitonogamy	0	45 tiny
+2800	5	Senecio b	15	geitonogamy	0	look like small finished, check bag
+2800	5	Senecio b	15	autogamy	0	small, check bag
+2800	5	Senecio b	15	control	8	
+2800	5	Senecio b	15	outcrossing	19	
+2800	5	Senecio b	16	geitonogamy	0	
+2800	5	Senecio b	16	autogamy	0	small not finished
+2800	6	Senecio b	17	geitonogamy	2	
+2800	6	Senecio b	19	autogamy	0	again very tiny like many I's, could it mean anything, check bag
+2800	5	Senecio b	19	autogamy	0	56 tiny
+2800	6	Senecio b	19	outcrossing	21	
+2800	1	Senecio b	2	autogamy	0	43 tiny
+2800	1	Senecio b	2	control	0	but many almost green, check bag
+2800	1	Senecio b	2	autogamy	0	42 tiny
+2800	6	Senecio b	20	outcrossing	30	
+2800	6	Senecio b	21	autogamy	0	
+2800	8	Senecio b	21	outcrossing	5	but some black might be dead, check bag
+2800	8	Senecio b	21	control	11	more thinner, check bag
+2800	6	Senecio b	22	geitonogamy	0	44 green, check bag
+2800	6	Senecio b	23	control	0	
+2800	6	Senecio b	23	control	3	
+2800	6	Senecio b	23	control	4	
+2800	7	Senecio b	25	control	0	many tiny
+2800	8	Senecio b	28	geitonogamy	3	33 more maybe finished - check bag / checked
+2800	2	Senecio b	3	autogamy	0	
+2800	1	Senecio b	3	outcrossing	0	only many tiny
+2800	1	Senecio b	3	control	1	
+2800	1	Senecio b	3	geitonogamy	2	
+2800	9	Senecio b	32	control	0	few almost
+2800	9	Senecio b	32	outcrossing	54	
+2800	9	Senecio b	33	autogamy	0	small not finished
+2800	9	Senecio b	34	autogamy	0	none full, many small, check bag
+2800	9	Senecio b	34	control	4	
+2800	10	Senecio b	36	control	0	many small
+2800	10	Senecio b	37	autogamy	0	small black, probably not able to grow - check bag
+2800	10	Senecio b	37	geitonogamy	0	infected, but by what? check bag
+2800	10	Senecio b	37	control	3	many almost
+2800	11	Senecio b	39	geitonogamy	0	check bag
+2800	11	Senecio b	39	autogamy	0	
+2800	11	Senecio b	39	control	0	55 tiny
+2800	2	Senecio b	4	control	1	more tiny
+2800	11	Senecio b	4	control	3	
+2800	11	Senecio b	40	autogamy	0	again very tiny like many I's, could it mean anything, check bag
+2800	11	Senecio b	40	outcrossing	9	perfect specimen, check bag
+2800	12	Senecio b	41	geitonogamy	2	
+2800	12	Senecio b	42	outcrossing	0	tiny almost finished - check bag
+2800	12	Senecio b	42	autogamy	0	
+2800	12	Senecio b	42	geitonogamy	0	many tiny green
+2800	13	Senecio b	43	control	0	small green, but not finished - check bag
+2800	12	Senecio b	47	outcrossing	4	
+2800	2	Senecio b	5	autogamy	0	
+2800	2	Senecio b	5	autogamy	0	
+2800	2	Senecio b	5	geitonogamy	5	
+2800	2	Senecio b	5	outcrossing	7	
+2800	2	Senecio b	7	geitonogamy	5	
+2800	2	Senecio b	7	outcrossing	8	13 almost
+2800	2	Senecio b	7	control	14	
+2800	3	Senecio b	8	control	2	
+2800	4	Senecio b	9	autogamy	0	but 55 small black
+2800	4	Senecio b	9	geitonogamy	0	
+2800	4	Senecio b	9	autogamy	0	again 55 small
+2800	4	Senecio b	9	outcrossing	15	
+3500	1	Senecio b	1	geitonogamy	0	look like small finished, check bag
+3500	1	Senecio b	1	autogamy	0	again 27 green
+3500	5	Senecio b	16	control	11	
+3500	5	Senecio b	18	geitonogamy	0	54 maybe, check bag
+3500	1	Senecio b	2	control	0	
+3500	5	Senecio b	20	geitonogamy	0	look like small finished, check bag
+3500	5	Senecio b	21	outcrossing	17	
+3500	5	Senecio b	23	autogamy	0	again, 52 small, check bag
+3500	5	Senecio b	23	geitonogamy	0	many tiny, check bag
+3500	5	Senecio b	23	control	7	45 almost, must seed them
+3500	4	Senecio b	7	control	4	more maybe, check bag
+3500	4	Senecio b	8	geitonogamy	4	few more almost
+3500	4	Senecio b	8	control	5	
