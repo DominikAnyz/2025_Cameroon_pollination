@@ -7,7 +7,7 @@
 ###* Individual steps for this part are explained in that script, here all the 
 ###* comments are deleteed to free up as much space as possible.
 ###* 
-###* The only column difference between the satasets created here and the ones
+###* The only column difference between the datasets created here and the ones
 ###* created in 2025_glmmTMB is that these have an additional column 
 ###* "elevation.species", which is a combination of values of elevation and 
 ###* species for a given entry. This column is used for merging the visitor and
@@ -156,7 +156,6 @@ go.po.zi <- glmmTMB(index ~ elevation + (1| species) + (1|plant.id),
 ###* 
 ###* 
 ###* 
-###* Next I would like to try two things
 ###*So how do we ectract this info from the visitation data?
 
 #load .txt file
