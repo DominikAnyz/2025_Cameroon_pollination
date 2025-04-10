@@ -34,5 +34,4 @@ cmdstanr::install_cmdstan(cores = 4)
 cmdstanr::cmdstan_version()
 
 library(brms)
-fit <- brm(mpg ~ hp + (1 | cyl), data = mtcars, chains = 4, cores = 4)
 

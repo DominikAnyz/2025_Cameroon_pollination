@@ -7,7 +7,7 @@
 ###* Individual steps for this part are explained in that script, here all the 
 ###* comments are deleteed to free up as much space as possible.
 ###* 
-###* The only column difference between the satasets created here and the ones
+###* The only column difference between the datasets created here and the ones
 ###* created in 2025_glmmTMB is that these have an additional column 
 ###* "elevation.species", which is a combination of values of elevation and 
 ###* species for a given entry. This column is used for merging the visitor and
@@ -16,7 +16,7 @@ pacman::p_load(tidyverse, glmmTMB, DHARMa)
 
 select <- dplyr::select
 
-set.seed(123)
+set.seed(1234)
 
 seed.data<- read.delim("data/clean_seeds.txt", na = c("na"))
 
@@ -72,22 +72,29 @@ c.index <- seed.indices %>%
 # ###* Write table as csv to send to rob
 # write.csv(c.index.rob, file = "send to rob/c.pl.index.rob.xlsx", row.names = FALSE)
 
+str(c.index)
+summary(c.index)
+any(is.na(c.index$seedset))
+any(is.na(c.index$elevation))
 
-C.glmer3 <- glmmTMB(seedset ~ elevation  + (1|species) + (1|plant.id),
-                    ziformula=~elevation,
-                    data = c.index,
-                    #family = poisson)
-                    family = nbinom2)
-glm_model3 <- glmmTMB(PL.index ~ elevation + (1|species) +(1|plant.id), 
-                      data = c.index,
-                      family = ordbeta())
+
+# C.glmer3 <- glmmTMB(seedset ~ elevation  + (1|species) + (1|plant.id),
+#                     ziformula=~elevation,
+#                     data = c.index,
+#                     #family = poisson)
+#                     family = nbinom2)
+# 
+# glm_model3 <- glmmTMB(PL.index ~ elevation + (1|species) +(1|plant.id), 
+#                       data = c.index,
+#                       family = ordbeta())
 
 ao.index <- seed.indices %>%
   filter(treatment == "autogamy") %>%
   select(index, elevation, species, plant_number, plant_number, elevation.species) %>%
   mutate(elevation = factor(elevation),
          species = factor(species)) %>%
-  mutate(index = round(index * 100)) %>%
+  mutate(index = index) %>%
+  mutate(index_trans = round(index * 100)) %>%
   mutate(plant.number.el = as.factor(paste0(elevation,plant_number))) %>%
   mutate(plant.id = as.factor(paste0(elevation,species,plant_number))) %>%
   filter(species != "Hypericum r" | elevation != 4000) %>%
@@ -110,26 +117,27 @@ ao.index <- seed.indices %>%
 # write.csv(ao.index.rob, file = "send to rob/ao.index.rob.csv", row.names = FALSE)
 
 
-ao.nb.zi <- glmmTMB(index ~ elevation + (1| species) + (1|plant.id),
-                    ziformula=~elevation,
-                    data = ao.index,
-                    #family = poisson)
-                    family = nbinom2)
+# ao.nb.zi <- glmmTMB(index ~ elevation + (1| species) + (1|plant.id),
+#                     ziformula=~elevation,
+#                     data = ao.index,
+#                     #family = poisson)
+#                     family = nbinom2)
 
 go.index <- seed.indices %>%
   filter(treatment == "geitonogamy") %>%
   select(index, elevation, species, plant_number, elevation.species) %>%
   mutate(elevation = factor(elevation),
          species = factor(species)) %>%
-  mutate(index = round(index * 100)) %>%
+  mutate(index = index) %>%
+  mutate(index_trans = round(index * 100)) %>%
   mutate(plant.id = as.factor(paste0(elevation,species,plant_number)))%>%
   filter(species != "Lactuca i") %>%
   filter(species != "Hypericum r" | elevation != 4000)
 
-go.po.zi <- glmmTMB(index ~ elevation + (1| species) + (1|plant.id),
-                    ziformula=~elevation,
-                    data = go.index,
-                    family = poisson)
+# go.po.zi <- glmmTMB(index ~ elevation + (1| species) + (1|plant.id),
+#                     ziformula=~elevation,
+#                     data = go.index,
+#                     family = poisson)
 
 # ###* Code to send data to Rob
 # ###* NECESSARY TO CHANGE INDEX.TRANS IN CODE WHEN ROUNDING
@@ -156,10 +164,10 @@ go.po.zi <- glmmTMB(index ~ elevation + (1| species) + (1|plant.id),
 ###* 
 ###* 
 ###* 
-###* Next I would like to try two things
-###*So how do we ectract this info from the visitation data?
-
-#load .txt file
+###* Next I would like to try two things getting info from visitation data by
+###* indivudal and then by elevation combined with species
+###*
+###* So how do we extract this info from the visitation data?
 
 ###* Loading visitor data, which has all the information of the video recordings 
 ###* and the visitors from the videos
@@ -189,7 +197,8 @@ visitors <- visitors %>%
 #View(visitors)
 
 ###* Merging the "visitors" and "functional" datasets into "visitors" based on
-###* column "SD.s.ID"
+###* column "SD.s.ID" (shich stands for Sylvain Delabye's ID, who is the entomologist
+###* in charge of identification)
 visitors <- merge(visitors, functional, by = "SD.s.ID", all.x = TRUE)
 
 #View(visitors)
@@ -236,7 +245,8 @@ flowering.visited <- left_join(flowering, visited, by = "plant.code") %>%
 flowering.visited <- flowering.visited %>%
   mutate(visitors.per.minute = ifelse(flowering.minutes > 0, total.visitor.count / flowering.minutes, NA)) %>%
   mutate(morpho.per.minute = ifelse(flowering.minutes > 0, morpho.visitor.count / flowering.minutes, NA))
-View(flowering.visited)
+
+#View(flowering.visited)
 
 ###* Create a mode function to be able to identify the most common visitor in 
 ###* our dataset
@@ -285,7 +295,7 @@ result <- visitors %>%
     .groups = 'drop'
   )
 
-View(result)
+#View(result)
 
 ###* Join the tables "flowering.visited" and "results" by "plant.code"
 final.table <- left_join(flowering.visited, result, by = "plant.code")
@@ -315,7 +325,7 @@ final.table <- final.table %>%
   ) %>%
   select(-most.common.func)
 
-View(final.table)
+#View(final.table)
 
 ###* Generate a new table, where instead of "plant.code", we will be grouping by
 ###* "elevation.species"
@@ -368,7 +378,7 @@ visitors2 <- visitors2 %>%
   mutate(insect.order = ifelse(insect.order == "Syrphidae", "Diptera", insect.order)) %>%
   ungroup()
 
-View(visitors2)
+#View(visitors2)
 
 ###* Merging the "visitors" and "functional" datasets into "visitors" based on
 ###* column "SD.s.ID"
@@ -399,12 +409,12 @@ result.es <- visitors2 %>%
     .groups = 'drop'
   )
 
-View(result.es)
+#View(result.es)
 
 ###* Now I want to join the two tables together
 final.table <- left_join(final.table, result.es, by = "elevation.species")
 
-View(final.table)
+#View(final.table)
 
 
 ###* Change the names of the plant species to match other analyses
@@ -434,7 +444,7 @@ final.table <- final.table %>%
 #
 #final.table$most.common.func.morpho <- gsub(",.*", "", final.table$most.common.func.morpho)
 
-View(final.table)
+#View(final.table)
 
 ###* Export csv for Rob
 ###* Delete unecessary columns
@@ -457,36 +467,43 @@ c.index2 <- c.index %>%
   group_by(elevation.species) %>%
   summarise(
     mean_seedset = round(mean(seedset, na.rm = TRUE), 3),
-    sd_seedset = round(sd(seedset, na.rm = TRUE), 3),
-    mean_PL_index = mean(PL.index, na.rm = TRUE),
-    sd_PL_index = sd(PL.index, na.rm = TRUE)
+    se_seedset = round(sd(seedset, na.rm = TRUE) / sqrt(sum(!is.na(seedset))), 3),
+    mean_PL_index = round(mean(PL.index, na.rm = TRUE), 3),
+    se_PL_index = round(sd(PL.index, na.rm = TRUE) / sqrt(sum(!is.na(PL.index))), 3)
   )
 
-View(c.index)
+replicates <- seed.indices %>%
+  filter(treatment == "control") %>%
+  group_by(elevation.species) %>%
+  summarise(n_replicates = n())
 
-c.index %>%
-  ggplot(aes(x = log(seedset))) + 
-  geom_histogram(bins = 20, color = "black", fill = "skyblue", alpha = 0.7) +
-  facet_wrap(~ elevation.species) +   # Create separate plots for each species
-  theme_minimal() +                   # Use a minimal theme
-  labs(title = "Histograms of 'index' by Species",
-       x = "Index",
-       y = "Frequency") +
-  theme(strip.text = element_text(size = 10, face = "bold"))  # Customize facet labels
+#View(c.index)
 
-hist(ao.index2$mean_ao_index)
+# c.index %>%
+#   ggplot(aes(x = log(seedset))) + 
+#   geom_histogram(bins = 20, color = "black", fill = "skyblue", alpha = 0.7) +
+#   facet_wrap(~ elevation.species) +   # Create separate plots for each species
+#   theme_minimal() +                   # Use a minimal theme
+#   labs(title = "Histograms of 'index' by Species",
+#        x = "Index",
+#        y = "Frequency") +
+#   theme(strip.text = element_text(size = 10, face = "bold"))  # Customize facet labels
+
+#hist(ao.index2$mean_ao_index)
 
 c.pl.final.table <- left_join(final.table, c.index2, by = "elevation.species")
-View(c.pl.final.table)
+c.pl.final.table <- left_join(c.pl.final.table, replicates, by = "elevation.species")
+
+#View(c.pl.final.table)
 ###* AO mean and sd table
 
-View(ao.index2)
+# View(ao.index2)
 
 ao.index2 <- ao.index %>%
   group_by(elevation.species) %>%
   summarise(
-    mean_ao_index = round(mean(index, na.rm = TRUE)),
-    sd_ao_index = round(sd(index, na.rm = TRUE))
+    mean_ao_index = mean(index, na.rm = TRUE),
+    se_ao_index = round(sd(index, na.rm = TRUE) / sqrt(sum(!is.na(index))))
   )
 
 ao.final.table <- left_join(final.table, ao.index2, by = "elevation.species")
@@ -497,44 +514,12 @@ ao.final.table <- left_join(final.table, ao.index2, by = "elevation.species")
 go.index2 <- go.index %>%
   group_by(elevation.species) %>%
   summarise(
-    mean_go_index = round(mean(index, na.rm = TRUE), 3),
-    sd_go_index = round(sd(index, na.rm = TRUE))
+    mean_go_index = mean(index, na.rm = TRUE),
+    se_go_index = round(sd(index, na.rm = TRUE) / sqrt(sum(!is.na(index))))
   )
 
 go.final.table <- left_join(final.table, go.index2, by = "elevation.species")
 #View(go.index2)
 
-###* Merging the tables together for all treatments separately
-merged_table <- final.table2 %>%
-  left_join(c.index2, by = "elevation.species") %>%
-  left_join(ao.index2, by = "elevation.species") %>%
-  left_join(go.index2, by = "elevation.species")  
+# write.csv(merged_table, "visitors.rob.csv")
 
-###* geitonogamy treatment has to be merged separately, since there are fewer
-###* instances of the geitonogamy treatment
-merged_table2 <- final.table2 %>%
-  left_join(go.index2, by = "elevation.species")
-
-View(merged_table)
-
-write.csv(merged_table, "visitors.rob.csv")
-
-merged_table_clean <- merged_table[!is.na(merged_table$mean_seedset), ]
-
-View(merged_table_clean)
-
-write.csv(merged_table_clean, "visitors.rob.3.csv")
-write.csv(merged_table_clean, file = "send to rob/visitation.rob.3.csv", row.names = FALSE)
-
-###* Trying Bayesian model
-model <- brm(
-  bf(index_mean | se(index_sd) ~ elevation + 
-       var1_mean + var1_sd + 
-       var2_mean + var2_sd + 
-       ... +  # Include all variables except elevation
-       (1 | species)),  # Random effect for species
-  data = your_data,
-  family = gaussian(),  # Assuming normal distribution for index
-  prior = c(set_prior("normal(0, 10)", class = "b")),  # Weakly informative priors
-  iter = 4000, warmup = 1000, chains = 4, cores = 4
-)

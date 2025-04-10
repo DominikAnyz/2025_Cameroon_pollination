@@ -78,6 +78,7 @@ C.glmer3 <- glmmTMB(seedset ~ elevation  + (1|species) + (1|plant.id),
                     data = c.index,
                     #family = poisson)
                     family = nbinom2)
+
 glm_model3 <- glmmTMB(PL.index ~ elevation + (1|species) +(1|plant.id), 
                       data = c.index,
                       family = ordbeta())
