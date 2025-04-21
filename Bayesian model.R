@@ -405,6 +405,7 @@ fit_weighted_full_2 <- brm(
   seed = 1234
 )
 
+
 summary(fit_weighted_full_2)
 saveRDS(fit_weighted_full_2, file = "brms_models/brms_PL_weighted_full_more_2.rds")
 
