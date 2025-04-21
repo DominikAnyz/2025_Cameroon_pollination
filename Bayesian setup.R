@@ -502,11 +502,19 @@ c.pl.final.table <- left_join(c.pl.final.table, replicates, by = "elevation.spec
 ao.index2 <- ao.index %>%
   group_by(elevation.species) %>%
   summarise(
-    mean_ao_index = mean(index, na.rm = TRUE),
-    se_ao_index = round(sd(index, na.rm = TRUE) / sqrt(sum(!is.na(index))))
+    mean_ao_index = round(mean(index, na.rm = TRUE),2),
+    se_ao_index = round(sd(index, na.rm = TRUE) / sqrt(sum(!is.na(index)))),
+    mean_ao_index_trans = round(mean(index_trans, na.rm = TRUE),2),
+    se_ao_index_trans = round(sd(index_trans, na.rm = TRUE) / sqrt(sum(!is.na(index_trans))))
   )
 
+replicates_ao <- seed.indices %>%
+  filter(treatment == "autogamy") %>%
+  group_by(elevation.species) %>%
+  summarise(n_replicates = n())
+
 ao.final.table <- left_join(final.table, ao.index2, by = "elevation.species")
+ao.final.table <- left_join(ao.final.table, replicates_ao, by = "elevation.species")
 #View(ao.index2)
 
 ###* GO mean and sd table
@@ -514,8 +522,10 @@ ao.final.table <- left_join(final.table, ao.index2, by = "elevation.species")
 go.index2 <- go.index %>%
   group_by(elevation.species) %>%
   summarise(
-    mean_go_index = mean(index, na.rm = TRUE),
-    se_go_index = round(sd(index, na.rm = TRUE) / sqrt(sum(!is.na(index))))
+    mean_go_index = round(mean(index, na.rm = TRUE),3),
+    se_go_index = round(sd(index, na.rm = TRUE) / sqrt(sum(!is.na(index)))),
+    mean_go_index_trans = round(mean(index_trans, na.rm = TRUE),3),
+    se_go_index_trans = round(sd(index_trans, na.rm = TRUE) / sqrt(sum(!is.na(index_trans))))
   )
 
 go.final.table <- left_join(final.table, go.index2, by = "elevation.species")

@@ -1,5 +1,5 @@
 # List of required packages
-packages <- c("tidyverse", "glmmTMB", "DHARMa", "brms")
+packages <- c("tidyverse", "glmmTMB", "DHARMa", "brms", "ordbetareg")
 
 # Install missing packages
 install_if_missing <- function(pkg) {
