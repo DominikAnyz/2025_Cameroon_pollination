@@ -1,7 +1,7 @@
 ###* I would like to try and carry out the same models, which I carried out in 
 ###* "2025_glmmTMB.R", except with Bayesian statistics
-source("setup.R")
-source("Bayesian setup.R")
+source("scripts/setup.R")
+source("scripts/Bayesian setup.R")
 
 ###* Seedset looked like this
 C.glmer3 <- glmmTMB(seedset ~ elevation  + (1|species) + (1|plant.id),

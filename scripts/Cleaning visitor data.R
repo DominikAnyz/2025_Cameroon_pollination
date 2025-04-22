@@ -4,7 +4,7 @@
 library(tidyverse)
 
 ###* load .txt file
-visitors<- read.delim("C:/Users/domin/Desktop/Cameroon pollination/All additional data/Visitors2.txt")
+visitorsss<- read.delim("Visitors/Visitors2.txt")
 
 ###* View
 View (visitors)

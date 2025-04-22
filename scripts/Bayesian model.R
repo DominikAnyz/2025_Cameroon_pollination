@@ -1,5 +1,8 @@
-source("setup.R")
-source("Bayesian setup.R")
+source("scripts/setup.R")
+source("scripts/Bayesian setup.R")
+
+###* The brms models saves are too big for uplaoding to github, they can be found here:
+###* https://drive.google.com/drive/folders/1edMD7uW1J__-lk-HkRRdAHg0w6QoqzVO?usp=sharing
 
 set.seed(1234)
 
@@ -96,7 +99,7 @@ fit <- brm(
   prior = prior,
   control = list(max_treedepth = 30, adapt_delta = 0.999)
 )
-#fit <- readRDS("brms_models/brms_seedset.rds")
+#fit <- readRDS("../brms_models/brms_seedset.rds")
 
 summary(fit)
 ###* The model summary tells us:
@@ -127,7 +130,7 @@ hist(residuals, main = "Residuals Histogram", xlab = "Residuals")
 ###* Althought the residuals could be nicer, they have a normal distribution.
 ###* I would consider this as a well fit model
 ###* IS THIS CORRECT?
-saveRDS(fit, file = "brms_models/brms_seedset.rds")
+saveRDS(fit, file = "../brms_models/brms_seedset.rds")
 
 
 
@@ -183,8 +186,8 @@ fit_PL_orig <- brm(
   prior = prior,
   control = list(max_treedepth = 20, adapt_delta = 0.9999)
 )
-saveRDS(fit_PL_orig, file = "brms_models/brms_PL.rds")
-#fit_PL <- readRDS("brms_models/brms_PL.rds")
+saveRDS(fit_PL_orig, file = "../brms_models/brms_PL.rds")
+#fit_PL <- readRDS("../brms_models/brms_PL.rds")
 
 ###* When rerunning the code, I realized that I was getting different results, so
 ###* I tried this experiment, fitting multiple same models to see results.
@@ -215,8 +218,8 @@ fit_PL_orig_8 <- brm(
   control = list(max_treedepth = 20, adapt_delta = 0.9999),
   seed = 1234 # Addition to code
 )
-saveRDS(fit_PL_orig_8, file = "brms_models/brms_PL_orig_8.rds")
-#fit_PL <- readRDS("brms_models/brms_PL.rds")
+saveRDS(fit_PL_orig_8, file = "../brms_models/brms_PL_orig_8.rds")
+#fit_PL_orig_8 <- readRDS("../brms_models/brms_PL_orig_8.rds")
 
 ###* When I set the seed I was originally using, I get convergence and 
 ###* significance. However, now that I have tried many models I think I should 
@@ -235,7 +238,7 @@ summary(fit_PL_orig_8)
 ###* as expected
 ###* -ESS is high, so posteriors have been explored well
 conditional_effects(fit_PL_orig_8)
-pairs(fit_PL)
+pairs(fit_PL_orig_8)
 
 ###* What can the pp tell us?
 pp_check(fit_PL_orig_8, nsamples = 100)
@@ -281,8 +284,8 @@ fit_weighted_full <- brm(
   seed = 1234
 )
 
-saveRDS(fit_weighted_full, file = "brms_models/brms_PL_weights.rds")
-#fit_weighted_full <- readRDS("brms_models/brms_PL_weights.rds")
+saveRDS(fit_weighted_full, file = "../brms_models/brms_PL_weights.rds")
+#fit_weighted_full <- readRDS("../brms_models/brms_PL_weights.rds")
 
 summary(fit_weighted_full)
 ###* - This model tells me something different than what I would expect: it tells 
@@ -319,8 +322,8 @@ fit_weighted_full_2 <- brm(
   seed = 1234
 )
 
-saveRDS(fit_weighted_full, file = "brms_models/brms_PL_weights_2.rds")
-#fit_weighted_full_2 <- readRDS("brms_models/brms_PL_weights_2.rds")
+saveRDS(fit_weighted_full_2, file = "../brms_models/brms_PL_weights_2.rds")
+#fit_weighted_full_2 <- readRDS("../brms_models/brms_PL_weights_2.rds")
 
 summary(fit_weighted_full_2)
 ###* The results of this model are similar to those of the first weighted model
@@ -336,13 +339,13 @@ summary(fit_weighted_full_2)
 ###* running the models without the sd, of visitors both normal and loged, just to 
 ###* see what this would do to results
 formula_fit_weighted_partial <- bf(mean_PL_index | weights(n_replicates) ~ log_visitors + (1 | species) + (1 | elevation))
-saveRDS(fit_weighted_partial, file = "brms_models/brms_PL_weighted_partial.rds")
-fit_weighted_partial <- readRDS("brms_models/brms_PL_weighted_partial.rds")
+saveRDS(fit_weighted_partial, file = "../brms_models/brms_PL_weighted_partial.rds")
+fit_weighted_partial <- readRDS("../brms_models/brms_PL_weighted_partial.rds")
 summary(fit_weighted_partial)
 
 formula_fit_weighted_partial_2 <- bf(mean_PL_index | weights(n_replicates) ~ mean.visitors.per.minute + (1|species) + (1|elevation))
-saveRDS(fit_weighted_partial, file = "brms_models/brms_PL_weighted_partial_2.rds")
-fit_weighted_partial_2 <- readRDS("brms_models/brms_PL_weighted_partial_2.rds")
+saveRDS(fit_weighted_partial, file = "../brms_models/brms_PL_weighted_partial_2.rds")
+fit_weighted_partial_2 <- readRDS("../brms_models/brms_PL_weighted_partial_2.rds")
 summary(fit_weighted_partial_2)
 
 ###* Both models are better converged than the "full" versions, but show an opposite
@@ -384,7 +387,8 @@ fit_weighted_full_more <- brm(
 )
 
 summary(fit_weighted_full_more)
-saveRDS(fit_weighted_full_more, file = "brms_models/brms_PL_weighted_full_more.rds")
+saveRDS(fit_weighted_full_more, file = "../brms_models/brms_PL_weighted_full_more.rds")
+fit_weighted_full_more <- readRDS("../brms_models/brms_PL_weighted_full_more.rds")
 
 formula_weighted_2 <- bf(mean_PL_index | weights(n_replicates) ~ me(mean.visitors.per.minute, sd.visitors.per.minute) + (1|species) + (1|elevation))
 
@@ -407,8 +411,8 @@ fit_weighted_full_2 <- brm(
 
 
 summary(fit_weighted_full_2)
-saveRDS(fit_weighted_full_2, file = "brms_models/brms_PL_weighted_full_more_2.rds")
-
+saveRDS(fit_weighted_full_2, file = "../brms_models/brms_PL_weighted_full_more_2.rds")
+fit_weighted_full_more_2 <- readRDS("../brms_models/brms_PL_weighted_full_more_2.rds")
 
 
 
@@ -502,7 +506,8 @@ fit_ao <- brm(
 
 
 summary(fit_ao)
-saveRDS(fit_ao, file = "brms_models/brms_ao_1.rds")
+saveRDS(fit_ao, file = "../brms_models/brms_ao_1.rds")
+fit_ao <- readRDS("../brms_models/brms_ao_1.rds")
 ###* The results from the summary tell us that with higher visitation, higher 
 ###* autogamy would be expected. However, this is not statistically significant!
 ###* (credible interval includes 0)
@@ -533,8 +538,8 @@ fit_ao_weighted <- brm(
   seed = 1234
 )
 
-saveRDS(fit_ao_weighted, file = "brms_models/brms_ao_weighted.rds")
-fit_ao_weighted <- readRDS("brms_models/brms_ao_weighted.rds")
+saveRDS(fit_ao_weighted, file = "../brms_models/brms_ao_weighted.rds")
+fit_ao_weighted <- readRDS("../brms_models/brms_ao_weighted.rds")
 summary(fit_ao_weighted)
 ###* These results tell us that with more visitors, there will be higher autogamy.
 ###* However, the model has very high Rhat and simultaniuosly very low values of
@@ -545,8 +550,8 @@ summary(fit_ao_weighted)
 ###* sense to me than getting rid of the weigths
 formula_ao_weighted_2 <- bf(mean_ao_index | weights(n_replicates) ~ log_visitors + (1|species) + (1|elevation))
 
-saveRDS(fit_ao_weighted_2, file = "brms_models/brms_ao_weighted_2.rds")
-fit_ao_weighted_2 <- readRDS("brms_models/brms_ao_weighted_2.rds")
+saveRDS(fit_ao_weighted_2, file = "../brms_models/brms_ao_weighted_2.rds")
+fit_ao_weighted_2 <- readRDS("../brms_models/brms_ao_weighted_2.rds")
 summary(fit_ao_weighted_2)
 ###* These results tell us, that with higher visitation, less autogamy would be 
 ###* expected. I would expect these results. Rhat is 1 and both ESS are reasonably
@@ -556,8 +561,8 @@ summary(fit_ao_weighted_2)
 ###* original value?
 formula_ao_weighted_3 <- bf(mean_ao_index | weights(n_replicates) ~ mean.visitors.per.minute + (1|species) + (1|elevation))
 
-saveRDS(fit_ao_weighted_3, file = "brms_models/brms_ao_weighted_3.rds")
-fit_ao_weighted_3 <- readRDS("brms_models/brms_ao_weighted_3.rds")
+saveRDS(fit_ao_weighted_3, file = "../brms_models/brms_ao_weighted_3.rds")
+fit_ao_weighted_3 <- readRDS("../brms_models/brms_ao_weighted_3.rds")
 summary(fit_ao_weighted_3)
 ###* These results tell us the opposite of the model with log transformed values
 ###* of visitation, while also being statistically significant. Also, Rhat is 1
@@ -580,8 +585,8 @@ loo_compare(loo2, loo3)
 ###* Would a model with all info but original data istead of logged be better? 
 formula_ao_weighted_4 <- bf(mean_ao_index | weights(n_replicates) ~ me(mean.visitors.per.minute, sd.visitors.per.minute) + (1|species) + (1|elevation))
 
-saveRDS(fit_ao_weighted_4, file = "brms_models/brms_ao_weighted_4.rds")
-fit_ao_weighted_4 <- readRDS("brms_models/brms_ao_weighted_4.rds")
+saveRDS(fit_ao_weighted_4, file = "../brms_models/brms_ao_weighted_4.rds")
+fit_ao_weighted_4 <- readRDS("../brms_models/brms_ao_weighted_4.rds")
 summary(fit_ao_weighted_4)
 ###* Nope, same problem as the fit_ao_weighted
 ###* 
@@ -606,7 +611,7 @@ loo_compare(loo2, loo3)
 
 
 
-
+View(ao.final.table)
 
 formula_ao_weighted <- bf(mean_ao_index | weights(n_replicates) ~ me(log_visitors, sd_log_visitors) + (1|species) + (1|elevation))
 
@@ -621,8 +626,8 @@ ao_ordbetareg <- ordbetareg(
   seed = 1234
 )
 
-saveRDS(ao_ordbetareg, file = "brms_models/brms_ao_ordbetareg.rds")
-ao_ordbetareg <- readRDS("brms_models/brms_ao_ordbetareg.rds")
+saveRDS(ao_ordbetareg, file = "../brms_models/brms_ao_ordbetareg.rds")
+ao_ordbetareg <- readRDS("../brms_models/brms_ao_ordbetareg.rds")
 summary(ao_ordbetareg)
 
 
@@ -691,7 +696,7 @@ fit_go <- brm(
 )
 
 summary(fit_ao)
-saveRDS(fit_ao, file = "brms_models/brms_ao_1.rds")
+saveRDS(fit_ao, file = "../brms_models/brms_ao_1.rds")
 
 
 
