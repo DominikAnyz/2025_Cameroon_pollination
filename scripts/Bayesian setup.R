@@ -240,13 +240,27 @@ flowering.visited <- left_join(flowering, visited, by = "plant.code") %>%
          total.visitor.count = replace_na(total.visitor.count, 0),
          morpho.visitor.count = replace_na(morpho.visitor.count, 0))
 
-###* Genearte a value of "visitors.per.minute" and "morpho.per.minute" for every
-###* "plant.code"
-flowering.visited <- flowering.visited %>%
-  mutate(visitors.per.minute = ifelse(flowering.minutes > 0, total.visitor.count / flowering.minutes, NA)) %>%
-  mutate(morpho.per.minute = ifelse(flowering.minutes > 0, morpho.visitor.count / flowering.minutes, NA))
 
-#View(flowering.visited)
+###* Genearte a value of "visitors.per.minute", "morpho.per.minute" and "scaled.visitors"
+###* for every "plant.code"
+flowering.visited <- flowering.visited %>%
+  mutate(
+    visitors.per.minute = ifelse(flowering.minutes > 0, total.visitor.count / flowering.minutes, NA),
+    morpho.per.minute = ifelse(flowering.minutes > 0, morpho.visitor.count / flowering.minutes, NA)
+  )
+
+vis_mean <- mean(flowering.visited$visitors.per.minute, na.rm = TRUE)
+vis_sd   <- sd(flowering.visited$visitors.per.minute, na.rm = TRUE)
+
+flowering.visited <- flowering.visited %>%
+  mutate(
+    scaled.visitors = if (!is.na(vis_sd) && vis_sd > 0) {
+      (visitors.per.minute - vis_mean) / vis_sd
+    } else {
+      visitors.per.minute  # fallback
+    }
+  )
+
 
 ###* Create a mode function to be able to identify the most common visitor in 
 ###* our dataset
@@ -343,10 +357,12 @@ final.table <- final.table %>%
     total.visitor.count = sum(total.visitor.count, na.rm = TRUE),
     mean.visitors.per.minute = mean(visitors.per.minute, na.rm = TRUE),
     sd.visitors.per.minute = sd(visitors.per.minute, na.rm = TRUE),
+    mean.visitors.scaled = mean(scaled.visitors, na.rm = TRUE),
+    sd.visitors.scaled = sd(scaled.visitors, na.rm = TRUE),
     .groups = 'drop'
   )
 
-hist(final.table$mean.visitors.per.minute)
+#hist(final.table$mean.visitors.per.minute)
 
 ###*
 ###*
@@ -455,6 +471,8 @@ final.table <- final.table %>%
   mutate(elevation.species = paste0(elevation, species)) %>%
   select(elevation.species, everything())
 
+#View(final.table)
+# hist(log + 1(final.table$mean.visitors.scaled))
 # ###* write csv for Rob
 # write.csv(final.table, file = "send to rob/visitation.rob.csv", row.names = FALSE)
 
@@ -468,9 +486,15 @@ c.index2 <- c.index %>%
   summarise(
     mean_seedset = round(mean(seedset, na.rm = TRUE), 3),
     se_seedset = round(sd(seedset, na.rm = TRUE) / sqrt(sum(!is.na(seedset))), 3),
+    sd_seedset = round(sd(seedset, na.rm = TRUE), 3),
     mean_PL_index = round(mean(PL.index, na.rm = TRUE), 3),
-    se_PL_index = round(sd(PL.index, na.rm = TRUE) / sqrt(sum(!is.na(PL.index))), 3)
+    se_PL_index = round(sd(PL.index, na.rm = TRUE) / sqrt(sum(!is.na(PL.index))), 3),
+    sd_PL_index = sd(PL.index, na.rm = TRUE),
+    PL_index_weight = ifelse(sd_PL_index == 0 | is.na(sd_PL_index), 1, 1 / sd_PL_index),
+    seedset_weight = ifelse(sd_seedset == 0 | is.na(sd_seedset), +, 1 / sd_seedset)
   )
+
+#View(c.index2)
 
 replicates <- seed.indices %>%
   filter(treatment == "control") %>%
@@ -497,15 +521,17 @@ c.pl.final.table <- left_join(c.pl.final.table, replicates, by = "elevation.spec
 #View(c.pl.final.table)
 ###* AO mean and sd table
 
-# View(ao.index2)
+#View(ao.index)
 
 ao.index2 <- ao.index %>%
   group_by(elevation.species) %>%
   summarise(
-    mean_ao_index = round(mean(index, na.rm = TRUE),2),
+    mean_ao_index = round(mean(index, na.rm = TRUE),3),
     se_ao_index = round(sd(index, na.rm = TRUE) / sqrt(sum(!is.na(index)))),
+    sd_ao_index = sd(index, na.rm = TRUE),
     mean_ao_index_trans = round(mean(index_trans, na.rm = TRUE),2),
-    se_ao_index_trans = round(sd(index_trans, na.rm = TRUE) / sqrt(sum(!is.na(index_trans))))
+    se_ao_index_trans = round(sd(index_trans, na.rm = TRUE) / sqrt(sum(!is.na(index_trans)))),
+    ao_index_weight = ifelse(sd_ao_index == 0 | is.na(sd_ao_index), 1, 1 / sd_ao_index)
   )
 
 replicates_ao <- seed.indices %>%
@@ -524,8 +550,10 @@ go.index2 <- go.index %>%
   summarise(
     mean_go_index = round(mean(index, na.rm = TRUE),3),
     se_go_index = round(sd(index, na.rm = TRUE) / sqrt(sum(!is.na(index)))),
+    sd_go_index = sd(index, na.rm = TRUE),
     mean_go_index_trans = round(mean(index_trans, na.rm = TRUE),3),
-    se_go_index_trans = round(sd(index_trans, na.rm = TRUE) / sqrt(sum(!is.na(index_trans))))
+    se_go_index_trans = round(sd(index_trans, na.rm = TRUE) / sqrt(sum(!is.na(index_trans)))),
+    go_index_weight = ifelse(sd_go_index == 0 | is.na(sd_go_index), 1, 1 / sd_go_index)
   )
 
 go.final.table <- left_join(final.table, go.index2, by = "elevation.species")

@@ -1,3 +1,4 @@
+
 source("scripts/setup.R")
 source("scripts/Bayesian setup.R")
 
@@ -73,7 +74,7 @@ c.pl.final.table <- c.pl.final.table %>%
          se_log_mean_seedset = se_seedset / mean_seedset,
          log_visitors = log(mean.visitors.per.minute),
          sd_log_visitors = sd.visitors.per.minute / mean.visitors.per.minute
-         )
+  )
 
 ###* Check
 hist(c.pl.final.table$log_mean_seedset)
@@ -420,10 +421,36 @@ fit_weighted_full_more_2 <- readRDS("../brms_models/brms_PL_weighted_full_more_2
 
 
 
+###* Ondra recomendations:
+###* 
+###* RESPONSE
+###* 1) Instead of n_replicates, created index_weights: before making means of index,
+###* do 1 / sd
+###* 
+###* PRESICTOR
+###* 1) Try scaling the predictor. Function scale
+###* 2) Try log + 1 on the predictor
+###* 
+###* 
+###* 
+###* How to test validity of models?
+###* 
+###* summary()
+###* pp_check()
+###* bayes_R2()
+###* plot()
+###* ppc_residuals()
+###* 
+###* loo() - propbably will not work due to low repetitions
+###* fitted_values()
+###* 
 
 
-
-
+summary()
+pp_check()
+bayes_R2()
+plot()
+ppc_residuals()
 
 
 
@@ -697,18 +724,3 @@ fit_go <- brm(
 
 summary(fit_ao)
 saveRDS(fit_ao, file = "../brms_models/brms_ao_1.rds")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
