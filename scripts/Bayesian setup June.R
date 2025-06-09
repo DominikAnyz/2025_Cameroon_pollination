@@ -5,7 +5,7 @@
 ###* 
 ###* The first part is loading the data as we have already done in 2025_glmmTMB.
 ###* Individual steps for this part are explained in that script, here all the 
-###* comments are deleteed to free up as much space as possible.
+###* comments are deleted to free up as much space as possible.
 ###* 
 ###* The only column difference between the datasets created here and the ones
 ###* created in 2025_glmmTMB is that these have an additional column 
@@ -40,7 +40,6 @@ seed.indices <- seed.indices %>%
   ))
 
 seed.indices$elevation<-as.factor(seed.indices$elevation)
-
 seed.indices$species<-as.factor(seed.indices$species)
 
 #Additional column "elevation.species"
@@ -56,37 +55,13 @@ c.index <- seed.indices %>%
          species = factor(species)) %>%
   tibble::rowid_to_column("ID") %>%
   mutate(plant.id = as.factor(paste0(elevation,species,plant_number))) %>%
-  filter(species != "Hypericum r" | elevation != 4000) %>%
+  #filter(species != "Hypericum r" | elevation != 4000) %>%
   mutate(flower.id = as.factor(paste0(elevation, species, plant_number,"_", ID)))
 
-# ###* Code to send data to Rob
-# View(c.index)
-# ###* We only want important columns, so delete "plant.id", "index" and "flower.id"
-# c.index.rob <- c.index %>% select(-plant.id, -index, -flower.id)
-# ###* Rearange columns
-# c.index.rob <- c.index.rob %>% select(ID, elevation, species, plant_number, seedset, PL.index)
-# ###* Rename columns
-# c.index.rob <- c.index.rob %>% rename(plant.number = plant_number, pl.index = PL.index)
-# ###* View
-# View(c.index.rob)
-# ###* Write table as csv to send to rob
-# write.csv(c.index.rob, file = "send to rob/c.pl.index.rob.xlsx", row.names = FALSE)
-
-str(c.index)
-summary(c.index)
-any(is.na(c.index$seedset))
-any(is.na(c.index$elevation))
-
-
-# C.glmer3 <- glmmTMB(seedset ~ elevation  + (1|species) + (1|plant.id),
-#                     ziformula=~elevation,
-#                     data = c.index,
-#                     #family = poisson)
-#                     family = nbinom2)
-# 
-# glm_model3 <- glmmTMB(PL.index ~ elevation + (1|species) +(1|plant.id), 
-#                       data = c.index,
-#                       family = ordbeta())
+# str(c.index)
+# summary(c.index)
+# any(is.na(c.index$seedset))
+# any(is.na(c.index$elevation))
 
 ao.index <- seed.indices %>%
   filter(treatment == "autogamy") %>%
@@ -100,29 +75,6 @@ ao.index <- seed.indices %>%
   filter(species != "Hypericum r" | elevation != 4000) %>%
   mutate(species.sp = as.factor(paste0(elevation,species)))
 
-# ###* Code to send data to Rob
-# ###* NECESSARY TO CHANGE INDEX.TRANS IN CODE WHEN ROUNDING
-# View(ao.index)
-# ###* We only want important columns, so delete "plant.id", "index" and "flower.id"
-# ao.index.rob <- ao.index %>% select(-plant.id, -species.sp, -plant.number.el)
-# ###* Add column ID
-# ao.index.rob <- ao.index.rob %>% mutate(ID = 1:n())
-# ###* Rearange columns
-# ao.index.rob <- ao.index.rob %>% select(ID, elevation, species, plant_number, index, index.trans)
-# ###* Rename ceratin columns
-# ao.index.rob <- ao.index.rob %>% rename(plant.number = plant_number, ao.index = index, ao.index.trans = index.trans)
-# ###* View table
-# View(ao.index.rob)
-# ###* Write table as csv to send to rob
-# write.csv(ao.index.rob, file = "send to rob/ao.index.rob.csv", row.names = FALSE)
-
-
-# ao.nb.zi <- glmmTMB(index ~ elevation + (1| species) + (1|plant.id),
-#                     ziformula=~elevation,
-#                     data = ao.index,
-#                     #family = poisson)
-#                     family = nbinom2)
-
 go.index <- seed.indices %>%
   filter(treatment == "geitonogamy") %>%
   select(index, elevation, species, plant_number, elevation.species) %>%
@@ -133,28 +85,6 @@ go.index <- seed.indices %>%
   mutate(plant.id = as.factor(paste0(elevation,species,plant_number)))%>%
   filter(species != "Lactuca i") %>%
   filter(species != "Hypericum r" | elevation != 4000)
-
-# go.po.zi <- glmmTMB(index ~ elevation + (1| species) + (1|plant.id),
-#                     ziformula=~elevation,
-#                     data = go.index,
-#                     family = poisson)
-
-# ###* Code to send data to Rob
-# ###* NECESSARY TO CHANGE INDEX.TRANS IN CODE WHEN ROUNDING
-# View(go.index)
-# ###* We only want important columns, so delete "plant.id", "index" and "flower.id"
-# go.index.rob <- go.index %>% select(-plant.id, -species.sp, -plant.number.el)
-# ###* Add column ID
-# go.index.rob <- go.index.rob %>% mutate(ID = 1:n())
-# ###* Rearange columns
-# go.index.rob <- go.index.rob %>% select(ID, elevation, species, plant_number, index, index.trans)
-# ###* Rename ceratin columns
-# go.index.rob <- go.index.rob %>% rename(plant.number = plant_number, ao.index = index, ao.index.trans = index.trans)
-# ###* View table
-# View(go.index.rob)
-# ###* Write table as csv to send to rob
-# write.csv(go.index.rob, file = "send to rob/go.index.rob.csv", row.names = FALSE)
-
 ###* 
 ###* 
 ###* 
@@ -165,7 +95,7 @@ go.index <- seed.indices %>%
 ###* 
 ###* 
 ###* Next I would like to try two things getting info from visitation data by
-###* indivudal and then by elevation combined with species
+###* indivdual and then by elevation combined with species
 ###*
 ###* So how do we extract this info from the visitation data?
 
@@ -213,7 +143,7 @@ flowering <- visitors %>%
 
 #View(flowering)
 
-###* Created datset "visited", in which only visitors from the functional groups
+###* Created dataset "visited", in which only visitors from the functional groups
 ###* which we are interested in are present
 ###* 
 ###* For each "plant.code", summarize the total number of visited flowers, the 
@@ -253,8 +183,6 @@ flowering.visited <- flowering.visited %>%
 vis_mean <- mean(flowering.visited$visitors.per.minute, na.rm = TRUE)
 vis_sd   <- sd(flowering.visited$visitors.per.minute, na.rm = TRUE)
 
-vis_sd
-
 vis_flow_mean <- mean(flowering.visited$visited.flowers.per.minute, na.rm = TRUE)
 vis_flow_sd   <- sd(flowering.visited$visited.flowers.per.minute, na.rm = TRUE)
 
@@ -273,7 +201,6 @@ flowering.visited <- flowering.visited %>%
   )
 
 View(flowering.visited)
-
 
 ###* Create a mode function to be able to identify the most common visitor in 
 ###* our dataset
@@ -477,9 +404,8 @@ final.table <- final.table %>%
 #
 #final.table$most.common.func.morpho <- gsub(",.*", "", final.table$most.common.func.morpho)
 
-View(final.table)
+# View(final.table)
 
-###* Export csv for Rob
 ###* Delete unecessary columns
 final.table <- final.table %>%
   select(-elevation.species, -flowering.minutes, -number.of.visited.flowers)
@@ -488,11 +414,13 @@ final.table <- final.table %>%
   mutate(elevation.species = paste0(elevation, species)) %>%
   select(elevation.species, everything())
 
-#View(final.table)
-# hist(log + 1(final.table$mean.visitors.scaled))
-# ###* write csv for Rob
-# write.csv(final.table, file = "send to rob/visitation.rob.csv", row.names = FALSE)
 
+###* 
+###* 
+###* 
+###* 
+###* 
+###* 
 ###* In the next part, seedset data is prepared for merging with visitor data
 ###* visitation rate mean table
 
@@ -502,40 +430,49 @@ c.index2 <- c.index %>%
   group_by(elevation.species) %>%
   summarise(
     mean_seedset = round(mean(seedset, na.rm = TRUE), 3),
-    se_seedset = round(sd(seedset, na.rm = TRUE) / sqrt(sum(!is.na(seedset))), 3),
+    #se_seedset = round(sd(seedset, na.rm = TRUE) / sqrt(sum(!is.na(seedset))), 3),
     sd_seedset = round(sd(seedset, na.rm = TRUE), 3),
     mean_PL_index = round(mean(PL.index, na.rm = TRUE), 3),
-    se_PL_index = round(sd(PL.index, na.rm = TRUE) / sqrt(sum(!is.na(PL.index))), 3),
+    #se_PL_index = round(sd(PL.index, na.rm = TRUE) / sqrt(sum(!is.na(PL.index))), 3),
     sd_PL_index = sd(PL.index, na.rm = TRUE)#,
     #PL_index_weight = ifelse(sd_PL_index == 0 | is.na(sd_PL_index), 1, 1 / sd_PL_index),
     #seedset_weight = ifelse(sd_seedset == 0 | is.na(sd_seedset), 1, 1 / sd_seedset)
   )
 
-#View(c.index2)
-
+###* Generate number of replicates per eelvation.species
 replicates <- seed.indices %>%
   filter(treatment == "control") %>%
   group_by(elevation.species) %>%
   summarise(n_replicates = n())
 
-#View(c.index)
-
-# c.index %>%
-#   ggplot(aes(x = log(seedset))) + 
-#   geom_histogram(bins = 20, color = "black", fill = "skyblue", alpha = 0.7) +
-#   facet_wrap(~ elevation.species) +   # Create separate plots for each species
-#   theme_minimal() +                   # Use a minimal theme
-#   labs(title = "Histograms of 'index' by Species",
-#        x = "Index",
-#        y = "Frequency") +
-#   theme(strip.text = element_text(size = 10, face = "bold"))  # Customize facet labels
-
-#hist(ao.index2$mean_ao_index)
-
+###* Join tables
 c.pl.final.table <- left_join(final.table, c.index2, by = "elevation.species")
 c.pl.final.table <- left_join(c.pl.final.table, replicates, by = "elevation.species")
 
+###* Make sure everything is as factor, without NA's
+c.pl.final.table$elevation <- as.factor(c.pl.final.table$elevation)
+c.pl.final.table$species <- as.factor(c.pl.final.table$species)
+c.pl.final.table <- na.omit(c.pl.final.table)
+
 #View(c.pl.final.table)
+
+c.pl.final.table <- c.pl.final.table %>%
+  mutate(mean_seedset_round = round(mean_seedset))
+
+c.pl.final.table.2 <- c.pl.final.table
+
+c.pl.final.table <- na.omit(c.pl.final.table)
+
+library(scales)  # for rescale()
+
+c.pl.final.table.4 <- c.pl.final.table.2 %>%
+  mutate(
+    seedset_weight_11sd = 1 + 1 / (1 + sd_seedset),
+    seedset_weight_12 = scales::rescale(-sd_seedset, to = c(1, 2)),
+    PL_index_weight_11sd = 1 + 1 / (1 + sd_PL_index),
+    PL_index_weight_12 = scales::rescale(-sd_PL_index, to = c(1, 2)),    
+  )
+
 ###* AO mean and sd table
 
 #View(ao.index)
@@ -544,10 +481,10 @@ ao.index2 <- ao.index %>%
   group_by(elevation.species) %>%
   summarise(
     mean_ao_index = round(mean(index, na.rm = TRUE),3),
-    se_ao_index = round(sd(index, na.rm = TRUE) / sqrt(sum(!is.na(index)))),
+    #se_ao_index = round(sd(index, na.rm = TRUE) / sqrt(sum(!is.na(index)))),
     sd_ao_index = sd(index, na.rm = TRUE),
     mean_ao_index_trans = round(mean(index_trans, na.rm = TRUE),2),
-    se_ao_index_trans = round(sd(index_trans, na.rm = TRUE) / sqrt(sum(!is.na(index_trans)))),
+    #se_ao_index_trans = round(sd(index_trans, na.rm = TRUE) / sqrt(sum(!is.na(index_trans)))),
     ao_index_weight = ifelse(sd_ao_index == 0 | is.na(sd_ao_index), 1, 1 / sd_ao_index)
   )
 
@@ -558,7 +495,16 @@ replicates_ao <- seed.indices %>%
 
 ao.final.table <- left_join(final.table, ao.index2, by = "elevation.species")
 ao.final.table <- left_join(ao.final.table, replicates_ao, by = "elevation.species")
-#View(ao.index2)
+
+ao.final.table <- na.omit(ao.final.table)
+ao.final.table$elevation <- as.factor(ao.final.table$elevation)
+ao.final.table$species <- as.factor(ao.final.table$species)
+
+ao.final.table <- ao.final.table %>%
+  mutate(
+    ao_index_weight_11sd = 1 + 1 / (1 + sd_ao_index),
+    ao_index_weight_12 = scales::rescale(-sd_ao_index, to = c(1, 2)),    
+  )
 
 ###* GO mean and sd table
 
@@ -566,15 +512,26 @@ go.index2 <- go.index %>%
   group_by(elevation.species) %>%
   summarise(
     mean_go_index = round(mean(index, na.rm = TRUE),3),
-    se_go_index = round(sd(index, na.rm = TRUE) / sqrt(sum(!is.na(index)))),
+    #se_go_index = round(sd(index, na.rm = TRUE) / sqrt(sum(!is.na(index)))),
     sd_go_index = sd(index, na.rm = TRUE),
     mean_go_index_trans = round(mean(index_trans, na.rm = TRUE),3),
-    se_go_index_trans = round(sd(index_trans, na.rm = TRUE) / sqrt(sum(!is.na(index_trans)))),
+    #se_go_index_trans = round(sd(index_trans, na.rm = TRUE) / sqrt(sum(!is.na(index_trans)))),
     go_index_weight = ifelse(sd_go_index == 0 | is.na(sd_go_index), 1, 1 / sd_go_index)
   )
 
 go.final.table <- left_join(final.table, go.index2, by = "elevation.species")
-#View(go.index2)
 
-# write.csv(merged_table, "visitors.rob.csv")
+go.final.table <- na.omit(go.final.table)
+go.final.table$elevation <- as.factor(go.final.table$elevation)
+go.final.table$species <- as.factor(go.final.table$species)
+
+go.final.table <- go.final.table %>%
+  mutate(mean_go_index = ifelse(mean_go_index > 1, 1, mean_go_index))
+
+go.final.table <- go.final.table %>%
+  mutate(
+    go_index_weight_11sd = 1 + 1 / (1 + sd_go_index),
+    go_index_weight_12 = scales::rescale(-sd_go_index, to = c(1, 2)),    
+  )
+
 
