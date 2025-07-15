@@ -180,6 +180,8 @@ flowering.visited <- flowering.visited %>%
     morpho.per.minute = ifelse(flowering.minutes > 0, morpho.visitor.count / flowering.minutes, NA)
   )
 
+#View(flowering.visited)
+
 vis_mean <- mean(flowering.visited$visitors.per.minute, na.rm = TRUE)
 vis_sd   <- sd(flowering.visited$visitors.per.minute, na.rm = TRUE)
 
@@ -200,7 +202,7 @@ flowering.visited <- flowering.visited %>%
     }
   )
 
-View(flowering.visited)
+#View(flowering.visited)
 
 ###* Create a mode function to be able to identify the most common visitor in 
 ###* our dataset
@@ -234,57 +236,85 @@ mode_function <- function(x) {
 ###* - "most.common.func.count": number of functional groups identified
 ###* - "most.common.morpho.func.count": number of functional groups identified 
 ###* (provided that they were identified into morphospecies level)
-result <- visitors %>%
+flowering.visited <- visitors %>%
   filter(functional.group %in% functional_groups) %>%
   group_by(plant.code) %>%
   summarize(
     total.morpho = n_distinct(SD.s.ID[morphospecies == 1]),
     total.func = n_distinct(functional.group),
-    most.common.func = mode_function(functional.group),
-    most.common.func.morpho = mode_function(functional.group[morphospecies == 1]),
-    most.common.morpho = mode_function(SD.s.ID[morphospecies == 1]),
-    most.common.morpho.count = sum(SD.s.ID[morphospecies == 1] == most.common.morpho, na.rm = TRUE),
-    most.common.func.count = sum(functional.group == most.common.func),
-    most.common.morpho.func.count = sum(functional.group == most.common.func.morpho),
+    #most.common.func = mode_function(functional.group),
+    #most.common.func.morpho = mode_function(functional.group[morphospecies == 1]),
+    #most.common.morpho = mode_function(SD.s.ID[morphospecies == 1]),
+    #most.common.morpho.count = sum(SD.s.ID[morphospecies == 1] == most.common.morpho, na.rm = TRUE),
+    #most.common.func.count = sum(functional.group == most.common.func),
+    #most.common.morpho.func.count = sum(functional.group == most.common.func.morpho),
     .groups = 'drop'
-  )
-
-#View(result)
-
-###* Join the tables "flowering.visited" and "results" by "plant.code"
-final.table <- left_join(flowering.visited, result, by = "plant.code")
-
-###* Replace all "NA" values in columns "total.func" and "total.morpho" with "0"
-final.table <- final.table %>%
-  mutate(
-    total.func = ifelse(is.na(total.func), 0, total.func),
-    total.morpho = ifelse(is.na(total.morpho), 0, total.morpho)
-  )
-
-###* If the column "most.common.func.morpho" is empty, replace it with the value
-###* from column "most.common.func"
-###* 
-###* If the column "most.common.func.morpho.count" is empty, replace it with the 
-###* value from column "most.common.func.count"
-###* 
-###* Create column "proportion.most.common.morpho" from the number of visits by
-###* the most common species identified into morphospecies level and the total 
-###* number of visits on a given plant
-final.table <- final.table %>%
-  mutate(
-    most.common.func.morpho = ifelse(is.na(most.common.func.morpho), most.common.func, most.common.func.morpho),
-    most.common.morpho.func.count = ifelse(is.na(most.common.morpho.func.count), most.common.func.count, most.common.morpho.func.count),
-    proportion.most.common.visitor = most.common.morpho.count / total.visitor.count,
-    proportion.most.common.morpho = most.common.morpho.count / morpho.visitor.count
   ) %>%
-  select(-most.common.func)
+###* Make sure that the functional groups, which were not identified into
+###* morphospecies level are taken into account. SO, if total.func (total 
+###* amount of functional groups) is higher than the toatal.morpho (total amount
+###* of morphospecies), the number from total.func will be added to total.morpho
+###* instead of the original number
+  mutate(
+    total.morpho = ifelse(total.func > total.morpho, total.func, total.morpho)
+  ) %>%
+  right_join(flowering.visited, by = "plant.code") %>%
+  mutate(
+    total.morpho = replace_na(total.morpho, 0),
+    total.func = replace_na(total.func, 0)
+  )
 
-#View(final.table)
+#View(flowering.visited)
+
+
+vis_morpho_mean <- mean(flowering.visited$total.morpho, na.rm = TRUE)
+vis_morpho_sd   <- sd(flowering.visited$total.morpho, na.rm = TRUE)
+vis_func_mean <- mean(flowering.visited$total.func, na.rm = TRUE)
+vis_func_sd   <- sd(flowering.visited$total.func, na.rm = TRUE)
+
+flowering.visited <- flowering.visited %>%
+  mutate(
+    scaled.total.morpho = if (!is.na(vis_morpho_sd) && vis_morpho_sd > 0) {
+      (total.morpho - vis_morpho_mean) / vis_morpho_sd
+    } else {
+      total.morpho  # fallback
+    },
+    scaled.total.func = if (!is.na(vis_func_sd) && vis_func_sd > 0) {
+      (total.func - vis_func_mean) / vis_func_sd
+    } else {
+      total.func  # fallback
+    }
+  )
+
+
+#View(flowering.visited)
 
 ###* Generate a new table, where instead of "plant.code", we will be grouping by
 ###* "elevation.species"
-final.table <- final.table %>%
+final.table <- flowering.visited %>%
   mutate(elevation.species = paste0(elevation, plant.species))
+
+#View(final.table)
+
+# ###* If the column "most.common.func.morpho" is empty, replace it with the value
+# ###* from column "most.common.func"
+# ###* 
+# ###* If the column "most.common.func.morpho.count" is empty, replace it with the 
+# ###* value from column "most.common.func.count"
+# ###* 
+# ###* Create column "proportion.most.common.morpho" from the number of visits by
+# ###* the most common species identified into morphospecies level and the total 
+# ###* number of visits on a given plant
+# final.table <- final.table %>%
+#   mutate(
+#     most.common.func.morpho = ifelse(is.na(most.common.func.morpho), most.common.func, most.common.func.morpho),
+#     most.common.morpho.func.count = ifelse(is.na(most.common.morpho.func.count), most.common.func.count, most.common.morpho.func.count),
+#     proportion.most.common.visitor = most.common.morpho.count / total.visitor.count,
+#     proportion.most.common.morpho = most.common.morpho.count / morpho.visitor.count
+#   ) %>%
+#   select(-most.common.func)
+
+#View(final.table)
 
 ###* Now I would like to summarize what I can so that it is based on elevation.species
 ###* In this way, I will get the standard deviances from the 7 recordings per species
@@ -300,9 +330,17 @@ final.table <- final.table %>%
     mean.visitors.per.minute = mean(visitors.per.minute, na.rm = TRUE),
     sd.visitors.per.minute = sd(visitors.per.minute, na.rm = TRUE),
     mean.visitors.scaled = mean(scaled.visitors, na.rm = TRUE),
-    sd.visitors.scaled = sd(scaled.visitors, na.rm = TRUE),
+    sd.visitors.scaled = sd(scaled.visitors, na.rm = TRUE) / vis_sd,
     mean.visited.flowers.scaled = mean(scaled.visited.flowers, na.rm = TRUE),
-    sd.visited.flowers.scaled = sd(scaled.visited.flowers, na.rm = TRUE),
+    sd.visited.flowers.scaled = sd(scaled.visited.flowers, na.rm = TRUE) / vis_flow_sd,
+    mean.morpho = mean(total.morpho, na.rm = TRUE),
+    sd.morpho = sd(total.morpho, na.rm = TRUE),
+    mean.morpho.scaled = mean(scaled.total.morpho, na.rm = TRUE),
+    sd.morpho.scaled = sd(scaled.total.morpho, na.rm = TRUE) / vis_morpho_sd,
+    mean.func = mean(total.func, na.rm = TRUE),
+    sd.func = sd(total.func, na.rm = TRUE),
+    mean.func.scaled = mean(scaled.total.func, na.rm = TRUE),
+    sd.func.scaled = sd(scaled.total.func, na.rm = TRUE) / vis_func_sd,
     .groups = 'drop'
   )
 
@@ -322,57 +360,59 @@ final.table <- final.table %>%
 ###* 
 ###* Generate a new table, where instead of "plant.code", we will be grouping by
 ###* "elevation.species"
+###*
+###*
 ###* 
-visitors2<- read.delim("Visitors/Visitors2.txt")
-visitors2 <- visitors2 %>%
-  mutate(elevation.species = paste0(elevation, plant.species))
-
-###* Create column with duplicate values of "minutes" and then count minutes in 
-###* recording and flowering minutes
-visitors2 <- visitors2 %>% 
-  mutate(duplicate.minutes = if_else(min == lag(min), number.of.observed.flowers, NA_real_)) %>%
-  group_by(elevation.species) %>%
-  mutate(minutes.in.recording = n() - sum(!is.na(duplicate.minutes))) %>%
-  mutate(flowering.minutes = sum(number.of.observed.flowers, na.rm = TRUE) -
-           sum(duplicate.minutes, na.rm = TRUE)) %>%
-  mutate(insect.order = ifelse(insect.order == "Syrphidae", "Diptera", insect.order)) %>%
-  ungroup()
-
-#View(visitors2)
-
-###* Merging the "visitors" and "functional" datasets into "visitors" based on
-###* column "SD.s.ID"
-visitors2 <- merge(visitors2, functional, by = "SD.s.ID", all.x = TRUE)
-
-###* Generate a dataset, where we get the following information about every 
-###* "elevation.species":
-###* - "total.visitors": number of individual visitor "species" 
-###* - "total.func": number of functional groups (from 8 groups)
-###* - "most.common.func": most common functional group
-###* - "most.common.morpho": most common species (provided that they were 
-###* identified into morphospecies level)
-###* - "most.common.morpho.count": the amount of times the most common species
-###* was present
-###* - "most.common.func.count": number of functional groups identified
-
-result.es <- visitors2 %>%
-  filter(functional.group %in% functional_groups) %>%
-  group_by(elevation.species) %>%
-  summarize(
-    sp.richness = n_distinct(SD.s.ID),
-    sp.richness.morpho = n_distinct(SD.s.ID[morphospecies == 1]),    
-    total.func = n_distinct(functional.group),
-    most.common.func = mode_function(functional.group),
-    most.common.func.count = sum(functional.group == most.common.func),    
-    most.common.morpho = mode_function(SD.s.ID[morphospecies == 1]),
-    most.common.morpho.count = sum(SD.s.ID[morphospecies == 1] == most.common.morpho, na.rm = TRUE),
-    .groups = 'drop'
-  )
-
-#View(result.es)
-
-###* Now I want to join the two tables together
-final.table <- left_join(final.table, result.es, by = "elevation.species")
+# visitors2<- read.delim("Visitors/Visitors2.txt")
+# visitors2 <- visitors2 %>%
+#   mutate(elevation.species = paste0(elevation, plant.species))
+# 
+# ###* Create column with duplicate values of "minutes" and then count minutes in 
+# ###* recording and flowering minutes
+# visitors2 <- visitors2 %>% 
+#   mutate(duplicate.minutes = if_else(min == lag(min), number.of.observed.flowers, NA_real_)) %>%
+#   group_by(elevation.species) %>%
+#   mutate(minutes.in.recording = n() - sum(!is.na(duplicate.minutes))) %>%
+#   mutate(flowering.minutes = sum(number.of.observed.flowers, na.rm = TRUE) -
+#            sum(duplicate.minutes, na.rm = TRUE)) %>%
+#   mutate(insect.order = ifelse(insect.order == "Syrphidae", "Diptera", insect.order)) %>%
+#   ungroup()
+# 
+# #View(visitors2)
+# 
+# ###* Merging the "visitors" and "functional" datasets into "visitors" based on
+# ###* column "SD.s.ID"
+# visitors2 <- merge(visitors2, functional, by = "SD.s.ID", all.x = TRUE)
+# 
+# ###* Generate a dataset, where we get the following information about every 
+# ###* "elevation.species":
+# ###* - "total.visitors": number of individual visitor "species" 
+# ###* - "total.func": number of functional groups (from 8 groups)
+# ###* - "most.common.func": most common functional group
+# ###* - "most.common.morpho": most common species (provided that they were 
+# ###* identified into morphospecies level)
+# ###* - "most.common.morpho.count": the amount of times the most common species
+# ###* was present
+# ###* - "most.common.func.count": number of functional groups identified
+# 
+# result.es <- visitors2 %>%
+#   filter(functional.group %in% functional_groups) %>%
+#   group_by(elevation.species) %>%
+#   summarize(
+#     sp.richness = n_distinct(SD.s.ID),
+#     sp.richness.morpho = n_distinct(SD.s.ID[morphospecies == 1]),    
+#     total.func = n_distinct(functional.group),
+#     most.common.func = mode_function(functional.group),
+#     most.common.func.count = sum(functional.group == most.common.func),    
+#     most.common.morpho = mode_function(SD.s.ID[morphospecies == 1]),
+#     most.common.morpho.count = sum(SD.s.ID[morphospecies == 1] == most.common.morpho, na.rm = TRUE),
+#     .groups = 'drop'
+#   )
+# 
+# #View(result.es)
+# 
+# ###* Now I want to join the two tables together
+# final.table <- left_join(final.table, result.es, by = "elevation.species")
 
 #View(final.table)
 
@@ -473,6 +513,8 @@ c.pl.final.table.4 <- c.pl.final.table.2 %>%
     PL_index_weight_12 = scales::rescale(-sd_PL_index, to = c(1, 2)),    
   )
 
+
+#View(c.pl.final.table.4)
 ###* AO mean and sd table
 
 #View(ao.index)

@@ -2,7 +2,7 @@
 ###* individual treatments/measurements and explaining how I got to them
 ###* 
 ###* Loading the necessary packages
-pacman::p_load(tidyverse, glmmTMB, DHARMa)
+pacman::p_load(tidyverse, glmmTMB, DHARMa, emmeans)
 
 select <- dplyr::select
 
@@ -12,6 +12,15 @@ set.seed(123)
 ###* Load data----
 
 seed.data<- read.delim("data/clean_seeds.txt", na = c("na"))
+
+seed.data$elevation<-as.factor(seed.data$elevation)
+
+seed.data <- seed.data %>%
+  mutate(elevation = recode(elevation,
+                            `2300` = 2300,
+                            `2800` = 2800,
+                            `3500` = 3400,
+                            `4000` = 3800))
 
 ###* 
 ###* Create new datset "seed.indices" with some configuraions
@@ -72,7 +81,7 @@ c.index <- seed.indices %>%
   filter(species != "Hypericum r" | elevation != 4000) %>%
   mutate(flower.id = as.factor(paste0(elevation, species, plant_number,"_", ID)))
 
-View(c.index)
+#View(c.index)
 
 ###* Fit a ZINB model to the data for the control treatment. This was after
 ###* trying various variations and finding out that the data did not fit well
@@ -82,8 +91,21 @@ View(c.index)
 C.glmer3 <- glmmTMB(seedset ~ elevation  + (1|species) + (1|plant.id),
                     ziformula=~elevation,
                     data = c.index,
+                    family = nbinom2)
+
+C.glmer3.null <- glmmTMB(seedset ~ 1  + (1|species) + (1|plant.id),
+                    ziformula=~elevation,
+                    data = c.index,
                     #family = poisson)
                     family = nbinom2)
+
+AIC(C.glmer3, C.glmer3.null)
+emm <- emmeans(C.glmer3, ~elevation)
+pairs(emm)
+
+saveRDS(C.glmer3, "glm_outputs/c_model.rds")
+saveRDS(C.glmer3.null, "glm_outputs/c_null.rds")
+
 
 ###* Check the summary and the redults with package DHARMA
 
@@ -104,7 +126,17 @@ glm_model3 <- glmmTMB(PL.index ~ elevation + (1|species) +(1|plant.id),
                       data = c.index,
                       family = ordbeta())
 
-###* Check the summary and results
+glm_model3.null <- glmmTMB(PL.index ~ 1 + (1|species) +(1|plant.id), 
+                      data = c.index,
+                      family = ordbeta())
+
+AIC(glm_model3, glm_model3.null)
+emm <- emmeans(glm_model3, ~elevation)
+pairs(emm)
+
+saveRDS(glm_model3, "glm_outputs/pl_model.rds")
+saveRDS(glm_model3.null, "glm_outputs/pl_null.rds")
+
 
 summary(glm_model3)
 simulationOutput <- simulateResiduals(fittedModel = glm_model3, plot = F)
@@ -123,16 +155,28 @@ ao.index <- seed.indices %>%
   mutate(index = round(index * 100)) %>%
   mutate(plant.number.el = as.factor(paste0(elevation,plant_number))) %>%
   mutate(plant.id = as.factor(paste0(elevation,species,plant_number))) %>%
-  filter(species != "Hypericum r" | elevation != 4000) %>%
+  filter(species != "Hypericum r" | elevation != 3800) %>%
   mutate(species.sp = as.factor(paste0(elevation,species)))
  
 ###* The model which best fits our data is a negative binomial with zero inflation
 
-ao.nb.zi <- glmmTMB(index ~ elevation + (1| species) + (1|plant.id),
+ao.po.zi <- glmmTMB(index ~ elevation + (1| species) + (1|plant.id),
                     ziformula=~elevation,
                     data = ao.index,
                     family = poisson)
-                    #family = nbinom2)
+
+ao.po.zi.null <- glmmTMB(index ~ 1 + (1| species) + (1|plant.id),
+                    ziformula=~elevation,
+                    data = ao.index,
+                    family = poisson)
+
+AIC(ao.po.zi, ao.po.zi.null)
+emm <- emmeans(ao.po.zi, ~elevation)
+pairs(emm)
+
+saveRDS(ao.po.zi, "glm_outputs/ao_model.rds")
+saveRDS(ao.po.zi.null, "glm_outputs/ao_null.rds")
+
 
 summary(ao.nb.zi)
 simulationOutputnbzi <- simulateResiduals(fittedModel = ao.nb.zi, plot = F)
@@ -151,7 +195,7 @@ go.index <- seed.indices %>%
   mutate(index = round(index * 100)) %>%
   mutate(plant.id = as.factor(paste0(elevation,species,plant_number)))%>%
   filter(species != "Lactuca i") %>%
-  filter(species != "Hypericum r" | elevation != 4000)
+  filter(species != "Hypericum r" | elevation != 3800)
 
 ###* The model which best fits our data is a poisson with zero inflation
 
@@ -159,6 +203,18 @@ go.po.zi <- glmmTMB(index ~ elevation + (1| species) + (1|plant.id),
                     ziformula=~elevation,
                     data = go.index,
                     family = poisson)
+
+go.po.zi.null <- glmmTMB(index ~ 1 + (1| species) + (1|plant.id),
+                    ziformula=~elevation,
+                    data = go.index,
+                    family = poisson)
+
+AIC(go.po.zi, go.po.zi.null)
+emm <- emmeans(go.po.zi, ~elevation)
+pairs(emm)
+
+saveRDS(go.po.zi, "glm_outputs/go_model.rds")
+saveRDS(go.po.zi.null, "glm_outputs/go_null.rds")
 
 summary(go.po.zi)
 simulationOutputpozi <- simulateResiduals(fittedModel = go.po.zi, plot = F)
