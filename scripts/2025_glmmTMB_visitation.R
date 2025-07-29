@@ -16,6 +16,12 @@ View(final.table)
 
 final.table$elevation <- as.factor(final.table$elevation)
 
+# Recode incorrect elevation values
+final.table <- final.table %>%
+  mutate(elevation = recode(elevation,
+                            `3500` = "3400",
+                            `4000` = "3800"))
+
 hist(final.table$total.morpho)
 hist(log(final.table$total.morpho))
 hist(final.table$total.func)
@@ -38,6 +44,8 @@ mod.morpho.null <- glmmTMB(total.morpho ~ 1  + (1|plant.species),
                       family = poisson
 )
 
+
+summary(mod.morpho.null)
 saveRDS(mod.morpho, "glm_outputs/m_model.rds")
 saveRDS(mod.morpho.null, "glm_outputs/m_null.rds")
 
@@ -68,6 +76,7 @@ mod.func.null <- glmmTMB(total.func ~ 1  + (1|plant.species),
                            family = poisson
 )
 
+summary(mod.func.null)
 saveRDS(mod.func, "glm_outputs/f_model.rds")
 saveRDS(mod.func.null, "glm_outputs/f_null.rds")
 
@@ -104,6 +113,7 @@ mod.visited.null <- glmmTMB(visited.0.1.scaled ~ 1  + (1|plant.species),
                          family = ordbeta
 )
 
+summary(mod.visited.null)
 saveRDS(mod.visited, "glm_outputs/v_model.rds")
 saveRDS(mod.visited.null, "glm_outputs/v_null.rds")
 

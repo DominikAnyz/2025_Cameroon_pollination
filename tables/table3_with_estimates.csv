@@ -1,0 +1,7 @@
+Contrast,Seedset_estimate,Seedset_pval,PL_estimate,PL_pval,VF_estimate,VF_pval,MR_estimate,MR_pval,FR_estimate,FR_pval
+elevation2300 - elevation2800,-0.36,p < 0.01,0.19,p = 0.80,-0.37,p = 0.15,0.68,p < 0.001,0.33,p = 0.06
+elevation2300 - elevation3400,0.17,p = 0.89,-0.44,p = 0.64,-0.23,p = 0.73,0.86,p < 0.001,0.55,p = 0.022
+elevation2300 - elevation3800,0.91,p < 0.01,-2.40,p < 0.001,1.90,p < 0.001,2.69,p < 0.001,1.39,p < 0.001
+elevation2800 - elevation3400,0.53,p = 0.08,-0.63,p = 0.28,0.13,p = 0.88,0.19,p = 0.48,0.22,p = 0.54
+elevation2800 - elevation3800,1.27,p < 0.001,-2.59,p < 0.001,2.26,p < 0.001,2.02,p < 0.001,1.06,p < 0.001
+elevation3400 - elevation3800,0.73,p = 0.012,-1.96,p < 0.001,2.13,p < 0.001,1.83,p < 0.001,0.84,p < 0.001

@@ -1,0 +1,5 @@
+Index,Distribution,Zero_Inflated,Delta_AIC,Elevation_Effect
+Natural seed-set,nbinom2,Yes,28.403,Yes
+Pollen limitaion,ordbeta,No,65.831,Yes
+Autogamy,poisson,Yes,0.89,No
+Geitonogamy,poisson,Yes,-0.515,No

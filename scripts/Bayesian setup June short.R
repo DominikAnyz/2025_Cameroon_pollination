@@ -168,6 +168,15 @@ visited <- visitors %>%
     .groups = 'drop'
   )
 
+# Count the total number of unique morphospecies
+total.morphospecies <- visitors %>%
+  filter(functional.group %in% functional_groups, morphospecies == 1) %>%
+  distinct(SD.s.ID) %>%
+  nrow()
+
+total.morphospecies
+
+
 #View(visited)
 
 ###* Join the tables "flowering" and "visited" by "plant.code"

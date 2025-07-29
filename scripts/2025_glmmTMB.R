@@ -78,7 +78,7 @@ c.index <- seed.indices %>%
   mutate(plant.id = as.factor(paste0(elevation,species,plant_number))) %>%
   #* filter out Hypericum in elevation 4000, since the plant didn't produce any
   #* seeds in the highest elevation and this could scew the results
-  filter(species != "Hypericum r" | elevation != 4000) %>%
+  #filter(species != "Hypericum r" | elevation != 3800) %>%
   mutate(flower.id = as.factor(paste0(elevation, species, plant_number,"_", ID)))
 
 #View(c.index)
@@ -88,17 +88,19 @@ c.index <- seed.indices %>%
 ###* with any other distributions. The other tested distributions were poisson,
 ###* zero inflated poisson and  negative binomial distribution.
 
+
 C.glmer3 <- glmmTMB(seedset ~ elevation  + (1|species) + (1|plant.id),
                     ziformula=~elevation,
                     data = c.index,
                     family = nbinom2)
 
+
 C.glmer3.null <- glmmTMB(seedset ~ 1  + (1|species) + (1|plant.id),
                     ziformula=~elevation,
                     data = c.index,
-                    #family = poisson)
                     family = nbinom2)
 
+summary(C.glmer3.null)
 AIC(C.glmer3, C.glmer3.null)
 emm <- emmeans(C.glmer3, ~elevation)
 pairs(emm)
@@ -108,7 +110,6 @@ saveRDS(C.glmer3.null, "glm_outputs/c_null.rds")
 
 
 ###* Check the summary and the redults with package DHARMA
-
 summary(C.glmer3)
 simulationOutput3 <- simulateResiduals(fittedModel = C.glmer3, plot = F)
 testDispersion(simulationOutput3)
@@ -121,6 +122,9 @@ deviance(C.glmer3)
 ###* calculate it using bayesian statistics, however glmmTMB has a package 
 ###* "ordbetareg" which can simulate ordered beta regression without the need
 ###* for bayesian statistics
+c.index <- c.index %>%
+  filter(species != "Hypericum r" | elevation != 3800)
+View(c.index)
 
 glm_model3 <- glmmTMB(PL.index ~ elevation + (1|species) +(1|plant.id), 
                       data = c.index,
@@ -130,6 +134,7 @@ glm_model3.null <- glmmTMB(PL.index ~ 1 + (1|species) +(1|plant.id),
                       data = c.index,
                       family = ordbeta())
 
+summary(glm_model3.null)
 AIC(glm_model3, glm_model3.null)
 emm <- emmeans(glm_model3, ~elevation)
 pairs(emm)

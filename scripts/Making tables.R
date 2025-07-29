@@ -97,32 +97,35 @@ rep_table <- replicate_summary_2 %>%
   select(Species, Elevation = elevation, Autogamy = A, Geitonogamy = G,
          Outcrossing = O, Control = C)
 
-# Build and display the table
-gt(rep_table) %>%
-  fmt_markdown(columns = "Species") %>%
-  tab_options(
-    table.font.size = "small",
-    data_row.padding = px(2)
-  )
+# # Build and display the table
+# gt(rep_table) %>%
+#   fmt_markdown(columns = "Species") %>%
+#   tab_options(
+#     table.font.size = "small",
+#     data_row.padding = px(2)
+#   )
+# 
+# # Title for table
+# tab_header(
+#   title = md("**Table 1.** Overview of experimental species and sample sizes per treatment across elevations.")
+# )
+# 
+# # Build and store the gt table
+# rep_table_gt <- gt(rep_table) %>%
+#   fmt_markdown(columns = "Species") %>%
+#   tab_header(
+#     title = md("**Table 1.** Overview of experimental species and sample sizes per treatment across elevations.")
+#   ) %>%
+#   tab_options(
+#     table.font.size = "small",
+#     data_row.padding = px(2),
+#     column_labels.font.weight = "bold"
+#   )
+# 
+# gtsave(rep_table_gt, "tables/table1.html")
 
-# Title for table
-tab_header(
-  title = md("**Table 1.** Overview of experimental species and sample sizes per treatment across elevations.")
-)
+readr::write_csv(rep_table, "tables/table1.csv")
 
-# Build and store the gt table
-rep_table_gt <- gt(rep_table) %>%
-  fmt_markdown(columns = "Species") %>%
-  tab_header(
-    title = md("**Table 1.** Overview of experimental species and sample sizes per treatment across elevations.")
-  ) %>%
-  tab_options(
-    table.font.size = "small",
-    data_row.padding = px(2),
-    column_labels.font.weight = "bold"
-  )
-
-gtsave(rep_table_gt, "tables/table1.html")
 
 
 
@@ -154,7 +157,7 @@ extract_model_summary <- function(index_name_display, model, null_model) {
     if (zi_char == "0") "No" else "Yes"
   }
   # Number of observations
-  n_obs <- nobs(model)
+  #n_obs <- nobs(model)
   # ΔAIC
   delta_aic <- round(AIC(null_model) - AIC(model), 3)
   # Likelihood ratio test for elevation effect
@@ -163,19 +166,19 @@ extract_model_summary <- function(index_name_display, model, null_model) {
   }, error = function(e) NA)
   elevation_sig <- if (!is.na(anova_res) && anova_res < 0.05) "Yes" else "No"
   # Format p-value
-  p_value_fmt <- case_when(
-    is.na(anova_res)        ~ "NA",
-    anova_res < 0.001       ~ "< 0.001",
-    TRUE                    ~ formatC(anova_res, format = "f", digits = 3)
-  )
+  # p_value_fmt <- case_when(
+  #   is.na(anova_res)        ~ "NA",
+  #   anova_res < 0.001       ~ "< 0.001",
+  #   TRUE                    ~ formatC(anova_res, format = "f", digits = 3)
+  #)
   tibble(
     Index = index_name_display,
     Distribution = dist_family,
     Zero_Inflated = zero_inflated,
-    Observations = n_obs,
+    #Observations = n_obs,
     Delta_AIC = delta_aic,
     Elevation_Effect = elevation_sig,
-    P_value = p_value_fmt
+    #P_value = p_value_fmt
   )
 }
 
@@ -189,31 +192,7 @@ table2 <- bind_rows(
 # View table
 print(table2)
 
-# Create the gt table
-gt_table2 <- table2 %>%
-  gt() %>%
-  cols_label(
-    Index = "Index",
-    Distribution = "Distribution",
-    Zero_Inflated = "Zero-inflated",
-    Observations = "n",
-    Delta_AIC = "ΔAIC",
-    Elevation_Effect = "Elevation effect",
-    P_value = "p-value"
-  ) %>%
-  cols_align(align = "center", columns = everything()) %>%
-  tab_options(
-    table.font.size = "small",
-    data_row.padding = px(2),
-    column_labels.font.weight = "bold"
-  ) %>%
-  tab_header(
-    title = md("**Table 2.** Generalized linear mixed models testing the effect of elevation on reproductive indices.")
-  )
-
-gt_table2
-
-gtsave(gt_table2, "tables/table2.html")
+readr::write_csv(table2, "tables/table2.csv")
 
 
 
@@ -245,7 +224,7 @@ extract_model_summary <- function(index_name_display, model, null_model) {
     if (zi_char == "0") "No" else "Yes"
   }
   # Number of observations
-  n_obs <- nobs(model)
+  #n_obs <- nobs(model)
   # ΔAIC
   delta_aic <- round(AIC(null_model) - AIC(model), 3)
   # Elevation effect (likelihood ratio test)
@@ -254,19 +233,19 @@ extract_model_summary <- function(index_name_display, model, null_model) {
   }, error = function(e) NA)
   elevation_sig <- if (!is.na(anova_res) && anova_res < 0.05) "Yes" else "No"
   # Format p-value
-  p_value_fmt <- case_when(
-    is.na(anova_res)        ~ "NA",
-    anova_res < 0.001       ~ "< 0.001",
-    TRUE                    ~ formatC(anova_res, format = "f", digits = 3)
-  )
+  # p_value_fmt <- case_when(
+  #   is.na(anova_res)        ~ "NA",
+  #   anova_res < 0.001       ~ "< 0.001",
+  #   TRUE                    ~ formatC(anova_res, format = "f", digits = 3)
+  # )
   tibble(
     Response = index_name_display,
     Distribution = dist_family,
     Zero_Inflated = zero_inflated,
-    Observations = n_obs,
+    #Observations = n_obs,
     Delta_AIC = delta_aic,
     Elevation_Effect = elevation_sig,
-    P_value = p_value_fmt
+    #P_value = p_value_fmt
   )
 }
 
@@ -276,28 +255,28 @@ table3 <- bind_rows(
   extract_model_summary("Functional group richness", f_model, f_null)
 )
 
-gt_table3 <- table3 %>%
-  gt() %>%
-  cols_label(
-    Response = "Response variable",
-    Distribution = "Distribution",
-    Zero_Inflated = "Zero-inflated",
-    Observations = "n",
-    Delta_AIC = "ΔAIC",
-    Elevation_Effect = "Elevation effect",
-    P_value = "p-value"
-  ) %>%
-  cols_align(align = "center", columns = everything()) %>%
-  tab_options(
-    table.font.size = "small",
-    data_row.padding = px(2),
-    column_labels.font.weight = "bold"
-  ) %>%
-  tab_header(
-    title = md("**Table 3.** Generalized linear mixed models testing the effect of elevation on pollinator visitation metrics.")
-  )
 
-gtsave(gt_table3, "tables/table3.html")
+readr::write_csv(table3, "tables/table3.csv")
+
+
+
+
+
+
+
+#TABLE 3.5
+# Rename column in table3 to match table2
+table3 <- table3 %>%
+  rename(Index = Response)
+
+# Combine the two tables
+combined_table <- bind_rows(table2, table3)
+
+# View or export the combined table
+print(combined_table)
+
+readr::write_csv(combined_table, "tables/table3.5.csv")
+
 
 
 
@@ -443,9 +422,173 @@ gt_table4 <- table4 %>%
     title = md("**Table 4.** Bayesian models testing the relationship between reproductive indices and pollinator visitation metrics.")
   )
 
+readr::write_csv(table4, "tables/table4.csv")
+
 # Save
 gtsave(gt_table4, "tables/table4.html")
 #gtsave(gt_table4, "tables/table4.pdf")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+library(dplyr)
+library(emmeans)
+
+# Load models
+c_model <- readRDS("glm_outputs/c_model.rds")
+pl_model <- readRDS("glm_outputs/pl_model.rds")
+v_model <- readRDS("glm_outputs/v_model.rds")
+m_model <- readRDS("glm_outputs/m_model.rds")
+f_model <- readRDS("glm_outputs/f_model.rds")
+
+# Extract pairwise post-hoc comparisons
+c_emm <- pairs(emmeans(c_model, ~ elevation))
+pl_emm <- pairs(emmeans(pl_model, ~ elevation))
+v_emm <- pairs(emmeans(v_model, ~ elevation))
+m_emm <- pairs(emmeans(m_model, ~ elevation))
+f_emm <- pairs(emmeans(f_model, ~ elevation))
+
+# Convert to data frames
+c_df <- as.data.frame(c_emm)[, c("contrast", "p.value")]
+pl_df <- as.data.frame(pl_emm)[, c("contrast", "p.value")]
+v_df <- as.data.frame(v_emm)[, c("contrast", "p.value")]
+m_df <- as.data.frame(m_emm)[, c("contrast", "p.value")]
+f_df <- as.data.frame(f_emm)[, c("contrast", "p.value")]
+
+# Create full contrast list
+all_contrasts <- unique(c(
+  c_df$contrast, pl_df$contrast, v_df$contrast, m_df$contrast, f_df$contrast
+))
+
+format_pval <- function(p) {
+  if (is.na(p)) {
+    return("")
+  } else if (p < 0.001) {
+    return("p < 0.001")
+  } else if (p < 0.01) {
+    return("p < 0.01")
+  } else if (p < 0.05) {
+    return(paste0("p = ", format(round(p, 3), nsmall = 3)))
+  } else {
+    return(paste0("p = ", format(round(p, 2), nsmall = 2)))
+  }
+}
+
+
+# Initialize result table
+posthoc_table <- data.frame(Contrast = all_contrasts)
+
+# Merge p-values into the table
+posthoc_table$`Natural seed-set` <- c_df$p.value[match(posthoc_table$Contrast, c_df$contrast)]
+posthoc_table$`Pollen limitation` <- pl_df$p.value[match(posthoc_table$Contrast, pl_df$contrast)]
+posthoc_table$`Visitation frequency` <- v_df$p.value[match(posthoc_table$Contrast, v_df$contrast)]
+posthoc_table$`Morphospecies richness` <- m_df$p.value[match(posthoc_table$Contrast, m_df$contrast)]
+posthoc_table$`Functional group richness` <- f_df$p.value[match(posthoc_table$Contrast, f_df$contrast)]
+
+posthoc_table_formatted <- posthoc_table
+posthoc_table_formatted[, -1] <- lapply(posthoc_table_formatted[, -1], function(col) sapply(col, format_pval))
+
+
+# View the final table
+print(posthoc_table_formatted)
+
+readr::write_csv(posthoc_table_formatted, "tables/table5.csv")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Convert to data frames including estimate
+c_df <- as.data.frame(c_emm)[, c("contrast", "estimate", "p.value")]
+pl_df <- as.data.frame(pl_emm)[, c("contrast", "estimate", "p.value")]
+v_df <- as.data.frame(v_emm)[, c("contrast", "estimate", "p.value")]
+m_df <- as.data.frame(m_emm)[, c("contrast", "estimate", "p.value")]
+f_df <- as.data.frame(f_emm)[, c("contrast", "estimate", "p.value")]
+
+posthoc_table <- data.frame(Contrast = all_contrasts)
+
+# Helper function for estimates
+format_estimate <- function(e) ifelse(is.na(e), "", format(round(e, 2), nsmall = 2))
+
+# Add values to the table
+posthoc_table$`Seedset_estimate` <- c_df$estimate[match(posthoc_table$Contrast, c_df$contrast)]
+posthoc_table$`Seedset_pval`     <- c_df$p.value[match(posthoc_table$Contrast, c_df$contrast)]
+
+posthoc_table$`PL_estimate` <- pl_df$estimate[match(posthoc_table$Contrast, pl_df$contrast)]
+posthoc_table$`PL_pval`     <- pl_df$p.value[match(posthoc_table$Contrast, pl_df$contrast)]
+
+posthoc_table$`VF_estimate` <- v_df$estimate[match(posthoc_table$Contrast, v_df$contrast)]
+posthoc_table$`VF_pval`     <- v_df$p.value[match(posthoc_table$Contrast, v_df$contrast)]
+
+posthoc_table$`MR_estimate` <- m_df$estimate[match(posthoc_table$Contrast, m_df$contrast)]
+posthoc_table$`MR_pval`     <- m_df$p.value[match(posthoc_table$Contrast, m_df$contrast)]
+
+posthoc_table$`FR_estimate` <- f_df$estimate[match(posthoc_table$Contrast, f_df$contrast)]
+posthoc_table$`FR_pval`     <- f_df$p.value[match(posthoc_table$Contrast, f_df$contrast)]
+
+
+# Apply formatting
+posthoc_table_formatted <- posthoc_table
+posthoc_table_formatted[grep("_pval", names(posthoc_table_formatted))] <- lapply(
+  posthoc_table_formatted[grep("_pval", names(posthoc_table_formatted))],
+  function(col) sapply(col, format_pval)
+)
+
+posthoc_table_formatted[grep("_estimate", names(posthoc_table_formatted))] <- lapply(
+  posthoc_table_formatted[grep("_estimate", names(posthoc_table_formatted))],
+  function(col) sapply(col, format_estimate)
+)
+
+readr::write_csv(posthoc_table_formatted, "tables/table3_with_estimates.csv")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

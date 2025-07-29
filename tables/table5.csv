@@ -1,0 +1,7 @@
+Contrast,Natural seed-set,Pollen limitation,Visitation frequency,Morphospecies richness,Functional group richness
+elevation2300 - elevation2800,p < 0.01,p = 0.80,p = 0.15,p < 0.001,p = 0.06
+elevation2300 - elevation3400,p = 0.89,p = 0.64,p = 0.73,p < 0.001,p = 0.022
+elevation2300 - elevation3800,p < 0.01,p < 0.001,p < 0.001,p < 0.001,p < 0.001
+elevation2800 - elevation3400,p = 0.08,p = 0.28,p = 0.88,p = 0.48,p = 0.54
+elevation2800 - elevation3800,p < 0.001,p < 0.001,p < 0.001,p < 0.001,p < 0.001
+elevation3400 - elevation3800,p = 0.012,p < 0.001,p < 0.001,p < 0.001,p < 0.001

@@ -1,0 +1,21 @@
+Species,Elevation,Autogamy,Geitonogamy,Outcrossing,Control
+<i>Clematis simensis</i> (Ranunculaceae),2300,32,24,34,25
+,2800,18,20,19,22
+<i>Crepis hypochoeridea</i> (Asteraceae),2800,9,7,7,7
+,3400,4,4,5,9
+,3800,14,19,21,28
+<i>Geranium arabicum</i> (Geraniaceae),2300,19,0,17,18
+,2800,9,0,10,18
+<i>Hypericum revolutum</i> (Hypericaceae),2300,27,30,34,33
+,2800,6,11,15,11
+,3800,14,9,12,11
+<i>Lactuca inermis</i> (Asteraceae),2300,25,0,30,25
+,2800,12,1,9,17
+,3400,9,0,10,9
+,3800,10,3,1,11
+<i>Senecio burtonii</i> (Asteraceae),2800,19,17,15,19
+,3400,2,5,1,5
+<i>Senecio purpureus</i> (Asteraceae),2300,25,20,21,28
+,2800,31,25,27,35
+,3400,6,8,7,6
+,3800,38,32,22,34

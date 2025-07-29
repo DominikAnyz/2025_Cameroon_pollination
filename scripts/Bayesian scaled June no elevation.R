@@ -130,12 +130,12 @@ c.pl.final.table.5 <- c.pl.final.table.4 %>%
 
 View(c.pl.final.table.5)
 
-bayesian_pl_noel_w12_p1_f <- brm(
+bayesian_pl_noel_w12_p1_vmf <- brm(
   formula = bf(
     mean_PL_index | weights(PL_index_weight_12) ~ 
       #1 +
-      #me(mean.visited.flowers.scaled, sd.visited.flowers.scaled) +
-      #me(mean.morpho.scaled, sd.morpho.scaled) +
+      me(mean.visited.flowers.scaled, sd.visited.flowers.scaled) +
+      me(mean.morpho.scaled, sd.morpho.scaled) +
       me(mean.func.scaled, sd.func.scaled) + 
       (1|species)
   ),
@@ -291,6 +291,12 @@ fit <- bayesian_pl_noel_w12_p0.5_vmf
 # fit <- bayesian_pl_w12_p0.75_12k
 # fit <- bayesian_pl_w12_p0.5
 
+
+
+
+library(loo)
+waic_result <- waic(bayesian_pl_noel_w12_p1_vmf)
+print(waic_result)
 
 library(marginaleffects)
 

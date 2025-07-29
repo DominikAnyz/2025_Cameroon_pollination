@@ -1,0 +1,4 @@
+Response,Distribution,Zero_Inflated,Delta_AIC,Elevation_Effect
+Visitation frequency,ordbeta,No,112.278,Yes
+Morphospecies richness,poisson,No,275.483,Yes
+Functional group richness,poisson,No,59.657,Yes
