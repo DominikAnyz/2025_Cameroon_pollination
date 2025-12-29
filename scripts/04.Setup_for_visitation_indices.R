@@ -1,18 +1,15 @@
-###* Here we will try a Bayesian approach to our data
-###* Everything prepared should be here
+###* This script is for setting up the data for the GLMM for analyzing 
+###* visitation indices based on elevation
 ###* 
-###* Comparing seed data with visitation data
+###* The difference between this setup and the next is that for the setup of 
+###* analysis for visitation indices based on elevation, we need to have 
+###* everything agregated at the observation level. For the analyses of 
+###* pollination indices based on visitation indices, we need to have 
+###* everything agregated at the elevation and species levels. Although it sounds 
+###* like a small fix, I belive it is best to run these scripts separately in 
+###* order to avoid complications.
 ###* 
-###* The first part is loading the data as we have already done in 2025_glmmTMB.
-###* Individual steps for this part are explained in that script, here all the 
-###* comments are deleted to free up as much space as possible.
-###* 
-###* The only column difference between the datasets created here and the ones
-###* created in 2025_glmmTMB is that these have an additional column 
-###* "elevation.species", which is a combination of values of elevation and 
-###* species for a given entry. This column is used for merging the visitor and
-###* seedset data
-pacman::p_load(tidyverse, glmmTMB, DHARMa)
+pacman::p_load(tidyverse)
 
 select <- dplyr::select
 
@@ -110,12 +107,12 @@ go.index <- seed.indices %>%
 
 ###* Loading visitor data, which has all the information of the video recordings 
 ###* and the visitors from the videos
-visitors<- read.delim("Visitors/Visitors2.txt")
+visitors<- read.delim("data/visitors.txt")
 #View(functional)
 
 ###* Loading .txt "functional", which contains the functional groups of all of 
 ###* visitors from the table "Visitors2"
-functional <- read.delim("Visitors/functional.txt")
+functional <- read.delim("data/functional.txt")
 #View (visitors)
 
 ###* Creating a dataframe "functional_groups", which will contain only the 8

@@ -1,24 +1,31 @@
-###* Here we will try a Bayesian approach to our data
-###* Everything prepared should be here
+###* This script is for setting up the data for the GLMM for analyzing 
+###* the effect of visitation indices on pollination indeices
 ###* 
-###* Comparing seed data with visitation data
+###* The difference between this setup and the next is that for the setup of 
+###* analysis for visitation indices based on elevation, we need to have 
+###* everything agreggated at the observation level. For the analyses of 
+###* polllination indices based on visitation indices, we need to have 
+###* everything agregated at the elvation and species levels. Although it sounds 
+###* like a small fix, I belive it is best to run these scripts separately in 
+###* order to avoid complications.
 ###* 
-###* The first part is loading the data as we have already done in 2025_glmmTMB.
-###* Individual steps for this part are explained in that script, here all the 
-###* comments are deleted to free up as much space as possible.
-###* 
-###* The only column difference between the datasets created here and the ones
-###* created in 2025_glmmTMB is that these have an additional column 
-###* "elevation.species", which is a combination of values of elevation and 
-###* species for a given entry. This column is used for merging the visitor and
-###* seedset data
-pacman::p_load(tidyverse, glmmTMB, DHARMa)
+
+pacman::p_load(tidyverse, scales)
 
 select <- dplyr::select
 
 set.seed(1234)
 
 seed.data<- read.delim("data/clean_seeds.txt", na = c("na"))
+
+seed.data$elevation<-as.factor(seed.data$elevation)
+
+seed.data <- seed.data %>%
+  mutate(elevation = recode(elevation,
+                            `2300` = 2300,
+                            `2800` = 2800,
+                            `3500` = 3400,
+                            `4000` = 3800))
 
 seed.indices <- 
   seed.data %>% 
@@ -55,7 +62,7 @@ c.index <- seed.indices %>%
          species = factor(species)) %>%
   tibble::rowid_to_column("ID") %>%
   mutate(plant.id = as.factor(paste0(elevation,species,plant_number))) %>%
-  filter(species != "Hypericum r") %>%
+  #filter(species != "Hypericum r" | elevation != 4000) %>%
   mutate(flower.id = as.factor(paste0(elevation, species, plant_number,"_", ID)))
 
 # str(c.index)
@@ -72,7 +79,7 @@ ao.index <- seed.indices %>%
   mutate(index_trans = round(index * 100)) %>%
   mutate(plant.number.el = as.factor(paste0(elevation,plant_number))) %>%
   mutate(plant.id = as.factor(paste0(elevation,species,plant_number))) %>%
-  filter(species != "Hypericum r") %>%
+  filter(species != "Hypericum r" | elevation != 4000) %>%
   mutate(species.sp = as.factor(paste0(elevation,species)))
 
 go.index <- seed.indices %>%
@@ -84,7 +91,7 @@ go.index <- seed.indices %>%
   mutate(index_trans = round(index * 100)) %>%
   mutate(plant.id = as.factor(paste0(elevation,species,plant_number)))%>%
   filter(species != "Lactuca i") %>%
-  filter(species != "Hypericum r")
+  filter(species != "Hypericum r" | elevation != 4000)
 ###* 
 ###* 
 ###* 
@@ -101,25 +108,28 @@ go.index <- seed.indices %>%
 
 ###* Loading visitor data, which has all the information of the video recordings 
 ###* and the visitors from the videos
-visitors<- read.delim("Visitors/Visitors2.txt")
+visitors<- read.delim("data/visitors.txt")
 #View(functional)
+
+visitors <- visitors %>%
+  mutate(elevation = as.character(elevation)) %>%
+  mutate(elevation = recode(elevation, `3500` = "3400", `4000` = "3800")) %>%
+  mutate(elevation = factor(elevation))
+
 
 ###* Loading .txt "functional", which contains the functional groups of all of 
 ###* visitors from the table "Visitors2"
-functional <- read.delim("Visitors/functional.txt")
+functional <- read.delim("data/functional.txt")
 #View (visitors)
 
 ###* Creating a dataframe "functional_groups", which will contain only the 8
 ###* functional groups, which are important for us
 functional_groups <- c("Hoverfly", "Bee", "Wasp", "Bird", "Beetle", "Butterfly", "Moth", "Other fly")
 
-View(visitors)
-
 ###* Create column with duplicate values of "minutes" and then count minutes in 
 ###* recording and flowering minutes.
 visitors <- visitors %>% 
   mutate(duplicate.minutes = if_else(min == lag(min), number.of.observed.flowers, NA_real_)) %>%
-  filter(plant.species != "revolutum") %>%
   group_by(plant.code) %>%
   mutate(minutes.in.recording = n() - sum(!is.na(duplicate.minutes))) %>%
   mutate(flowering.minutes = sum(number.of.observed.flowers, na.rm = TRUE) -
@@ -191,6 +201,11 @@ vis_sd   <- sd(flowering.visited$visitors.per.minute, na.rm = TRUE)
 vis_flow_mean <- mean(flowering.visited$visited.flowers.per.minute, na.rm = TRUE)
 vis_flow_sd   <- sd(flowering.visited$visited.flowers.per.minute, na.rm = TRUE)
 
+vis_flow_mean
+vis_flow_sd
+
+#View(flowering.visited)
+
 flowering.visited <- flowering.visited %>%
   mutate(
     scaled.visitors = if (!is.na(vis_sd) && vis_sd > 0) {
@@ -242,7 +257,6 @@ mode_function <- function(x) {
 flowering.visited <- visitors %>%
   filter(functional.group %in% functional_groups) %>%
   group_by(plant.code) %>%
-  filter(plant.species != "revolutum") %>%
   summarize(
     total.morpho = n_distinct(SD.s.ID[morphospecies == 1]),
     total.func = n_distinct(functional.group),
@@ -254,11 +268,11 @@ flowering.visited <- visitors %>%
     #most.common.morpho.func.count = sum(functional.group == most.common.func.morpho),
     .groups = 'drop'
   ) %>%
-  ###* Make sure that the functional groups, which were not identified into
-  ###* morphospecies level are taken into account. SO, if total.func (total 
-  ###* amount of functional groups) is higher than the toatal.morpho (total amount
-  ###* of morphospecies), the number from total.func will be added to total.morpho
-  ###* instead of the original number
+###* Make sure that the functional groups, which were not identified into
+###* morphospecies level are taken into account. SO, if total.func (total 
+###* amount of functional groups) is higher than the toatal.morpho (total amount
+###* of morphospecies), the number from total.func will be added to total.morpho
+###* instead of the original number
   mutate(
     total.morpho = ifelse(total.func > total.morpho, total.func, total.morpho)
   ) %>%
@@ -334,19 +348,26 @@ final.table <- final.table %>%
     mean.visitors.per.minute = mean(visitors.per.minute, na.rm = TRUE),
     sd.visitors.per.minute = sd(visitors.per.minute, na.rm = TRUE),
     mean.visitors.scaled = mean(scaled.visitors, na.rm = TRUE),
-    sd.visitors.scaled = sd(scaled.visitors, na.rm = TRUE) / vis_sd,
+    sd.visitors.scaled = sd(scaled.visitors, na.rm = TRUE),
     mean.visited.flowers.scaled = mean(scaled.visited.flowers, na.rm = TRUE),
-    sd.visited.flowers.scaled = sd(scaled.visited.flowers, na.rm = TRUE) / vis_flow_sd,
+    sd.visited.flowers.scaled = sd(scaled.visited.flowers, na.rm = TRUE),
     mean.morpho = mean(total.morpho, na.rm = TRUE),
     sd.morpho = sd(total.morpho, na.rm = TRUE),
     mean.morpho.scaled = mean(scaled.total.morpho, na.rm = TRUE),
-    sd.morpho.scaled = sd(scaled.total.morpho, na.rm = TRUE) / vis_morpho_sd,
+    sd.morpho.scaled = sd(scaled.total.morpho, na.rm = TRUE),
     mean.func = mean(total.func, na.rm = TRUE),
     sd.func = sd(total.func, na.rm = TRUE),
     mean.func.scaled = mean(scaled.total.func, na.rm = TRUE),
-    sd.func.scaled = sd(scaled.total.func, na.rm = TRUE) / vis_func_sd,
+    sd.func.scaled = sd(scaled.total.func, na.rm = TRUE),
+    n_reps = sum(!is.na(scaled.visitors)),
+    n_vpm    = sum(!is.na(visited.flowers.per.minute)),
+    n_vis    = sum(!is.na(visitors.per.minute)),
+    n_morpho    = sum(!is.na(total.morpho)),
+    n_func    = sum(!is.na(total.func)),
     .groups = 'drop'
   )
+
+#View(final.table)
 
 #hist(final.table$mean.visitors.per.minute)
 
@@ -503,11 +524,20 @@ c.pl.final.table <- na.omit(c.pl.final.table)
 c.pl.final.table <- c.pl.final.table %>%
   mutate(mean_seedset_round = round(mean_seedset))
 
+# Calculate mean and sd of seedset
+seed_mean <- mean(c.pl.final.table$mean_seedset, na.rm = TRUE)
+seed_sd   <- sd(c.pl.final.table$mean_seedset, na.rm = TRUE)
+
+# Add z-transformed column
+c.pl.final.table <- c.pl.final.table %>%
+  mutate(scaled_seedset = (mean_seedset - seed_mean) / seed_sd) %>%
+  mutate(log_seedset = log1p(mean_seedset)) %>%
+  mutate(scaled_log_seedset = (log_seedset - mean(log_seedset, na.rm=TRUE)) / sd(log_seedset, na.rm=TRUE))
+
+
 c.pl.final.table.2 <- c.pl.final.table
 
 c.pl.final.table <- na.omit(c.pl.final.table)
-
-library(scales)  # for rescale()
 
 c.pl.final.table.4 <- c.pl.final.table.2 %>%
   mutate(
