@@ -1,0 +1,8 @@
+Metric,Distribution,Zero_inflation,Delta_LOO,SE,Include elevation effect?
+Natural seed-set,NegBinomial,Yes,0,0,No
+Pollen limitation,Ordered Beta,No,0,0,No
+Autogamy index,NegBinomial,Yes,0,0,No
+Geitonogamy index,NegBinomial,Yes,0,0,No
+Morphospecies richness,NegBinomial,No,0,0,No
+Functional group richness,Poisson,No,0,0,No
+Visitation frequency,Ordered Beta,No,0,0,No

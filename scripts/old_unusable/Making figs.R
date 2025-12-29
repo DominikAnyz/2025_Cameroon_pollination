@@ -368,6 +368,7 @@ c_model <- readRDS("glm_outputs/c_model.rds")
 
 # Extract estimated marginal means and post-hoc comparisons
 c_emm <- emmeans(c_model, ~ elevation)
+pairs(c_emm)
 summary(c_model)
 # Generate compact letter display
 cld_c <- multcomp::cld(c_emm, adjust = "tukey", Letters = letters) %>%
@@ -376,6 +377,8 @@ cld_c <- multcomp::cld(c_emm, adjust = "tukey", Letters = letters) %>%
     elevation = factor(elevation, levels = c("2300", "2800", "3400", "3800")),
     .group = str_trim(.group)
   )
+
+cld_c
 
 # Get max y-value to position letters
 y_max_c <- max(c.index$seedset, na.rm = TRUE)
@@ -387,7 +390,7 @@ control_combined_plot_with_letters <- control_combined_plot +
             size = 7,
             fontface = "bold")
 
-#control_combined_plot_with_letters
+control_combined_plot_with_letters
 
 # Save the final figure
 ggsave("figs/fig2.2.pdf",

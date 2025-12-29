@@ -55,7 +55,7 @@ c.index <- seed.indices %>%
          species = factor(species)) %>%
   tibble::rowid_to_column("ID") %>%
   mutate(plant.id = as.factor(paste0(elevation,species,plant_number))) %>%
-  #filter(species != "Hypericum r" | elevation != 4000) %>%
+  filter(species != "Hypericum r") %>%
   mutate(flower.id = as.factor(paste0(elevation, species, plant_number,"_", ID)))
 
 # str(c.index)
@@ -72,7 +72,7 @@ ao.index <- seed.indices %>%
   mutate(index_trans = round(index * 100)) %>%
   mutate(plant.number.el = as.factor(paste0(elevation,plant_number))) %>%
   mutate(plant.id = as.factor(paste0(elevation,species,plant_number))) %>%
-  filter(species != "Hypericum r" | elevation != 4000) %>%
+  filter(species != "Hypericum r") %>%
   mutate(species.sp = as.factor(paste0(elevation,species)))
 
 go.index <- seed.indices %>%
@@ -84,7 +84,7 @@ go.index <- seed.indices %>%
   mutate(index_trans = round(index * 100)) %>%
   mutate(plant.id = as.factor(paste0(elevation,species,plant_number)))%>%
   filter(species != "Lactuca i") %>%
-  filter(species != "Hypericum r" | elevation != 4000)
+  filter(species != "Hypericum r")
 ###* 
 ###* 
 ###* 
@@ -113,10 +113,13 @@ functional <- read.delim("Visitors/functional.txt")
 ###* functional groups, which are important for us
 functional_groups <- c("Hoverfly", "Bee", "Wasp", "Bird", "Beetle", "Butterfly", "Moth", "Other fly")
 
+View(visitors)
+
 ###* Create column with duplicate values of "minutes" and then count minutes in 
 ###* recording and flowering minutes.
 visitors <- visitors %>% 
   mutate(duplicate.minutes = if_else(min == lag(min), number.of.observed.flowers, NA_real_)) %>%
+  filter(plant.species != "revolutum") %>%
   group_by(plant.code) %>%
   mutate(minutes.in.recording = n() - sum(!is.na(duplicate.minutes))) %>%
   mutate(flowering.minutes = sum(number.of.observed.flowers, na.rm = TRUE) -
@@ -239,6 +242,7 @@ mode_function <- function(x) {
 flowering.visited <- visitors %>%
   filter(functional.group %in% functional_groups) %>%
   group_by(plant.code) %>%
+  filter(plant.species != "revolutum") %>%
   summarize(
     total.morpho = n_distinct(SD.s.ID[morphospecies == 1]),
     total.func = n_distinct(functional.group),
@@ -250,11 +254,11 @@ flowering.visited <- visitors %>%
     #most.common.morpho.func.count = sum(functional.group == most.common.func.morpho),
     .groups = 'drop'
   ) %>%
-###* Make sure that the functional groups, which were not identified into
-###* morphospecies level are taken into account. SO, if total.func (total 
-###* amount of functional groups) is higher than the toatal.morpho (total amount
-###* of morphospecies), the number from total.func will be added to total.morpho
-###* instead of the original number
+  ###* Make sure that the functional groups, which were not identified into
+  ###* morphospecies level are taken into account. SO, if total.func (total 
+  ###* amount of functional groups) is higher than the toatal.morpho (total amount
+  ###* of morphospecies), the number from total.func will be added to total.morpho
+  ###* instead of the original number
   mutate(
     total.morpho = ifelse(total.func > total.morpho, total.func, total.morpho)
   ) %>%

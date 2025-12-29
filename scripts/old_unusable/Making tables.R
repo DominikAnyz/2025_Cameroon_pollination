@@ -1,6 +1,12 @@
 ###* Tables for the manuscript
 ###* 
-###* FIRST table, plant species summary
+###* 
+###* 
+###* 
+###* Table 1 - Plant species summary
+###* 
+###* 
+###* 
 ###* 
 ###* I would like to create a table in which I have information about the amounts 
 ###* of observations from distinct treatmen
@@ -53,21 +59,26 @@ replicate_summary_2 <- seed.indices %>%
                             "outcrossing" = "O")) %>%
   filter(treatment %in% c("A", "G", "O", "C")) %>%
   group_by(species, elevation, treatment) %>%
-  summarise(n_replicates = n(), .groups = "drop") %>%
+  summarise(n_replicates = n(), 
+            mean_seedset = mean(seedset, na.rm = TRUE),
+            .groups = "drop") %>%
+  mutate(mean_seedset = round(mean_seedset, 1)) %>%
   pivot_wider(
     names_from = treatment,
-    values_from = n_replicates,
+    values_from = c(n_replicates, mean_seedset),
+    names_glue = "{treatment}_{.value}",
     values_fill = 0
   ) %>%
   arrange(species, elevation)
-
-
-
-
-
-
-
-
+###* 
+###* 
+###* 
+###* 
+###* 
+###* 
+###* 
+###* 
+###* 
 ###* TABLE 1
 # Recode incorrect elevation values
 replicate_summary_2 <- replicate_summary_2 %>%
@@ -94,105 +105,90 @@ rep_table <- replicate_summary_2 %>%
   group_by(Species) %>%
   mutate(Species = ifelse(row_number() == 1, Species, "")) %>%
   ungroup() %>%
-  select(Species, Elevation = elevation, Autogamy = A, Geitonogamy = G,
-         Outcrossing = O, Control = C)
+  select(
+    Species,
+    Elevation = elevation,
+    `Autogamy n`          = A_n_replicates,
+    `Autogamy mean`       = A_mean_seedset,
+    `Geitonogamy n`       = G_n_replicates,
+    `Geitonogamy mean`    = G_mean_seedset,
+    `Outcrossing n`       = O_n_replicates,
+    `Outcrossing mean`    = O_mean_seedset,
+    `Control n`           = C_n_replicates,
+    `Control mean`        = C_mean_seedset
+  )
 
-# # Build and display the table
-# gt(rep_table) %>%
-#   fmt_markdown(columns = "Species") %>%
-#   tab_options(
-#     table.font.size = "small",
-#     data_row.padding = px(2)
-#   )
+rep_table
+
+readr::write_csv(rep_table, "tables/table1_with_seedset.csv")
+
+
+
+
+
+
+
+
+
+# ###* TABLE 2
 # 
-# # Title for table
-# tab_header(
-#   title = md("**Table 1.** Overview of experimental species and sample sizes per treatment across elevations.")
+# c_model <- readRDS("glm_outputs/c_model.rds")
+# c_null  <- readRDS("glm_outputs/c_null.rds")
+# pl_model <- readRDS("glm_outputs/pl_model.rds")
+# pl_null  <- readRDS("glm_outputs/pl_null.rds")
+# ao_model <- readRDS("glm_outputs/ao_model.rds")
+# ao_null  <- readRDS("glm_outputs/ao_null.rds")
+# go_model <- readRDS("glm_outputs/go_model.rds")
+# go_null  <- readRDS("glm_outputs/go_null.rds")
+# 
+# extract_model_summary <- function(index_name_display, model, null_model) {
+#   # Extract distribution family
+#   dist_family <- as.character(model$call$family)[1]
+#   # Check zero-inflation
+#   ziform <- model$call$ziformula
+#   zero_inflated <- if (is.null(ziform)) {
+#     "No"
+#   } else {
+#     zi_char <- as.character(ziform)[2]
+#     if (zi_char == "0") "No" else "Yes"
+#   }
+#   # Number of observations
+#   #n_obs <- nobs(model)
+#   # ΔAIC
+#   delta_aic <- round(AIC(null_model) - AIC(model), 3)
+#   # Likelihood ratio test for elevation effect
+#   anova_res <- tryCatch({
+#     anova(null_model, model)$`Pr(>Chisq)`[2]
+#   }, error = function(e) NA)
+#   elevation_sig <- if (!is.na(anova_res) && anova_res < 0.05) "Yes" else "No"
+#   # Format p-value
+#   # p_value_fmt <- case_when(
+#   #   is.na(anova_res)        ~ "NA",
+#   #   anova_res < 0.001       ~ "< 0.001",
+#   #   TRUE                    ~ formatC(anova_res, format = "f", digits = 3)
+#   #)
+#   tibble(
+#     Index = index_name_display,
+#     Distribution = dist_family,
+#     Zero_Inflated = zero_inflated,
+#     #Observations = n_obs,
+#     Delta_AIC = delta_aic,
+#     Elevation_Effect = elevation_sig,
+#     #P_value = p_value_fmt
+#   )
+# }
+# 
+# table2 <- bind_rows(
+#   extract_model_summary("Natural seed-set", c_model, c_null),
+#   extract_model_summary("Pollen limitaion", pl_model, pl_null),
+#   extract_model_summary("Autogamy", ao_model, ao_null),
+#   extract_model_summary("Geitonogamy", go_model, go_null)
 # )
 # 
-# # Build and store the gt table
-# rep_table_gt <- gt(rep_table) %>%
-#   fmt_markdown(columns = "Species") %>%
-#   tab_header(
-#     title = md("**Table 1.** Overview of experimental species and sample sizes per treatment across elevations.")
-#   ) %>%
-#   tab_options(
-#     table.font.size = "small",
-#     data_row.padding = px(2),
-#     column_labels.font.weight = "bold"
-#   )
+# # View table
+# print(table2)
 # 
-# gtsave(rep_table_gt, "tables/table1.html")
-
-readr::write_csv(rep_table, "tables/table1.csv")
-
-
-
-
-
-
-
-
-
-###* TABLE 2
-
-c_model <- readRDS("glm_outputs/c_model.rds")
-c_null  <- readRDS("glm_outputs/c_null.rds")
-pl_model <- readRDS("glm_outputs/pl_model.rds")
-pl_null  <- readRDS("glm_outputs/pl_null.rds")
-ao_model <- readRDS("glm_outputs/ao_model.rds")
-ao_null  <- readRDS("glm_outputs/ao_null.rds")
-go_model <- readRDS("glm_outputs/go_model.rds")
-go_null  <- readRDS("glm_outputs/go_null.rds")
-
-extract_model_summary <- function(index_name_display, model, null_model) {
-  # Extract distribution family
-  dist_family <- as.character(model$call$family)[1]
-  # Check zero-inflation
-  ziform <- model$call$ziformula
-  zero_inflated <- if (is.null(ziform)) {
-    "No"
-  } else {
-    zi_char <- as.character(ziform)[2]
-    if (zi_char == "0") "No" else "Yes"
-  }
-  # Number of observations
-  #n_obs <- nobs(model)
-  # ΔAIC
-  delta_aic <- round(AIC(null_model) - AIC(model), 3)
-  # Likelihood ratio test for elevation effect
-  anova_res <- tryCatch({
-    anova(null_model, model)$`Pr(>Chisq)`[2]
-  }, error = function(e) NA)
-  elevation_sig <- if (!is.na(anova_res) && anova_res < 0.05) "Yes" else "No"
-  # Format p-value
-  # p_value_fmt <- case_when(
-  #   is.na(anova_res)        ~ "NA",
-  #   anova_res < 0.001       ~ "< 0.001",
-  #   TRUE                    ~ formatC(anova_res, format = "f", digits = 3)
-  #)
-  tibble(
-    Index = index_name_display,
-    Distribution = dist_family,
-    Zero_Inflated = zero_inflated,
-    #Observations = n_obs,
-    Delta_AIC = delta_aic,
-    Elevation_Effect = elevation_sig,
-    #P_value = p_value_fmt
-  )
-}
-
-table2 <- bind_rows(
-  extract_model_summary("Natural seed-set", c_model, c_null),
-  extract_model_summary("Pollen limitaion", pl_model, pl_null),
-  extract_model_summary("Autogamy", ao_model, ao_null),
-  extract_model_summary("Geitonogamy", go_model, go_null)
-)
-
-# View table
-print(table2)
-
-readr::write_csv(table2, "tables/table2.csv")
+# readr::write_csv(table2, "tables/table2.csv")
 
 
 
@@ -204,78 +200,78 @@ readr::write_csv(table2, "tables/table2.csv")
 
 
 
-###* TABLE 3
-v_model <- readRDS("glm_outputs/v_model.rds")
-v_null  <- readRDS("glm_outputs/v_null.rds")
-m_model <- readRDS("glm_outputs/m_model.rds")
-m_null  <- readRDS("glm_outputs/m_null.rds")
-f_model <- readRDS("glm_outputs/f_model.rds")
-f_null  <- readRDS("glm_outputs/f_null.rds")
-
-extract_model_summary <- function(index_name_display, model, null_model) {
-  # Distribution family
-  dist_family <- as.character(model$call$family)[1]
-  # Zero-inflation check
-  ziform <- model$call$ziformula
-  zero_inflated <- if (is.null(ziform)) {
-    "No"
-  } else {
-    zi_char <- as.character(ziform)[2]
-    if (zi_char == "0") "No" else "Yes"
-  }
-  # Number of observations
-  #n_obs <- nobs(model)
-  # ΔAIC
-  delta_aic <- round(AIC(null_model) - AIC(model), 3)
-  # Elevation effect (likelihood ratio test)
-  anova_res <- tryCatch({
-    anova(null_model, model)$`Pr(>Chisq)`[2]
-  }, error = function(e) NA)
-  elevation_sig <- if (!is.na(anova_res) && anova_res < 0.05) "Yes" else "No"
-  # Format p-value
-  # p_value_fmt <- case_when(
-  #   is.na(anova_res)        ~ "NA",
-  #   anova_res < 0.001       ~ "< 0.001",
-  #   TRUE                    ~ formatC(anova_res, format = "f", digits = 3)
-  # )
-  tibble(
-    Response = index_name_display,
-    Distribution = dist_family,
-    Zero_Inflated = zero_inflated,
-    #Observations = n_obs,
-    Delta_AIC = delta_aic,
-    Elevation_Effect = elevation_sig,
-    #P_value = p_value_fmt
-  )
-}
-
-table3 <- bind_rows(
-  extract_model_summary("Visitation frequency", v_model, v_null),
-  extract_model_summary("Morphospecies richness", m_model, m_null),
-  extract_model_summary("Functional group richness", f_model, f_null)
-)
-
-
-readr::write_csv(table3, "tables/table3.csv")
-
-
-
-
-
-
-
-#TABLE 3.5
-# Rename column in table3 to match table2
-table3 <- table3 %>%
-  rename(Index = Response)
-
-# Combine the two tables
-combined_table <- bind_rows(table2, table3)
-
-# View or export the combined table
-print(combined_table)
-
-readr::write_csv(combined_table, "tables/table3.5.csv")
+# ###* TABLE 3
+# v_model <- readRDS("glm_outputs/v_model.rds")
+# v_null  <- readRDS("glm_outputs/v_null.rds")
+# m_model <- readRDS("glm_outputs/m_model.rds")
+# m_null  <- readRDS("glm_outputs/m_null.rds")
+# f_model <- readRDS("glm_outputs/f_model.rds")
+# f_null  <- readRDS("glm_outputs/f_null.rds")
+# 
+# extract_model_summary <- function(index_name_display, model, null_model) {
+#   # Distribution family
+#   dist_family <- as.character(model$call$family)[1]
+#   # Zero-inflation check
+#   ziform <- model$call$ziformula
+#   zero_inflated <- if (is.null(ziform)) {
+#     "No"
+#   } else {
+#     zi_char <- as.character(ziform)[2]
+#     if (zi_char == "0") "No" else "Yes"
+#   }
+#   # Number of observations
+#   #n_obs <- nobs(model)
+#   # ΔAIC
+#   delta_aic <- round(AIC(null_model) - AIC(model), 3)
+#   # Elevation effect (likelihood ratio test)
+#   anova_res <- tryCatch({
+#     anova(null_model, model)$`Pr(>Chisq)`[2]
+#   }, error = function(e) NA)
+#   elevation_sig <- if (!is.na(anova_res) && anova_res < 0.05) "Yes" else "No"
+#   # Format p-value
+#   # p_value_fmt <- case_when(
+#   #   is.na(anova_res)        ~ "NA",
+#   #   anova_res < 0.001       ~ "< 0.001",
+#   #   TRUE                    ~ formatC(anova_res, format = "f", digits = 3)
+#   # )
+#   tibble(
+#     Response = index_name_display,
+#     Distribution = dist_family,
+#     Zero_Inflated = zero_inflated,
+#     #Observations = n_obs,
+#     Delta_AIC = delta_aic,
+#     Elevation_Effect = elevation_sig,
+#     #P_value = p_value_fmt
+#   )
+# }
+# 
+# table3 <- bind_rows(
+#   extract_model_summary("Visitation frequency", v_model, v_null),
+#   extract_model_summary("Morphospecies richness", m_model, m_null),
+#   extract_model_summary("Functional group richness", f_model, f_null)
+# )
+# 
+# 
+# readr::write_csv(table3, "tables/table3.csv")
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# #TABLE 3.5
+# # Rename column in table3 to match table2
+# table3 <- table3 %>%
+#   rename(Index = Response)
+# 
+# # Combine the two tables
+# combined_table <- bind_rows(table2, table3)
+# 
+# # View or export the combined table
+# print(combined_table)
+# 
+# readr::write_csv(combined_table, "tables/table3.5.csv")
 
 
 
@@ -422,7 +418,9 @@ gt_table4 <- table4 %>%
     title = md("**Table 4.** Bayesian models testing the relationship between reproductive indices and pollinator visitation metrics.")
   )
 
-readr::write_csv(table4, "tables/table4.csv")
+#readr::write_csv(table4, "tables/table4.csv")
+
+gt_table4
 
 # Save
 gtsave(gt_table4, "tables/table4.html")
