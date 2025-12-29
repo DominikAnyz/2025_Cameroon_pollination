@@ -1,0 +1,493 @@
+SD.s.ID	functional.group
+	
+Curculionidaesp.1	Beetle
+Curculionidaesp.2	Beetle
+Curculionidaesp.3	Beetle
+Curculionidaesp.4	Beetle
+Curculionidaesp.5	Beetle
+Curculionidaesp.6	Beetle
+Curculionidaesp.7	Beetle
+Curculionidaesp.8	Beetle
+Curculionidaesp.9	Beetle
+Curculionidaesp.10	Beetle
+Curculionidaesp.11	Beetle
+Curculionidaesp.12	Beetle
+Curculionidaesp.13	Beetle
+Elateridaesp.1	Beetle
+Elateridaesp.2	Beetle
+Elateridaesp.3	Beetle
+Elateridaesp.4	Beetle
+Elateridaesp.5	Beetle
+Chrysomelidaesp.1	Beetle
+Chrysomelidaesp.2	Beetle
+Chrysomelidaesp.3	Beetle
+Chrysomelidaesp.4	Beetle
+Chrysomelidaesp.5	Beetle
+Chrysomelidaesp.6	Beetle
+Chrysomelidaesp.7	Beetle
+Chrysomelidaesp.8	Beetle
+Chrysomelidaesp.9	Beetle
+Chrysomelidaesp.10	Beetle
+Chrysomelidaesp.11	Beetle
+Chrysomelidaesp.12	Beetle
+Chrysomelidaesp.13	Beetle
+Chrysomelidaesp.14	Beetle
+Chrysomelidaesp.15	Beetle
+Chrysomelidaesp.16	Beetle
+Chrysomelidaesp.17	Beetle
+Chrysomelidaesp.18	Beetle
+Chrysomelidaesp.19	Beetle
+Chrysomelidaesp.20	Beetle
+Cassidinaesp.01	Beetle
+Cantharidaesp.02=Cantharidaesp.01	Beetle
+Cantharidaesp.02	Beetle
+Cantharidaesp.01	Beetle
+Cantharidaesp.03	Beetle
+Tenebrionidaesp.01	Beetle
+Coccinelidaesp.1	Beetle
+Coccinelidaesp.2	Beetle
+Coccinelidaesp.3	Beetle
+Coccinelidaesp.4	Beetle
+Coccinelidaesp.5	Beetle
+Coccinelidaesp.06	Beetle
+Coccinelidaelarvasp.01	Beetle
+Scarabeidaesp.1	Beetle
+Scarabeidaesp.2	Beetle
+Scarabeidaesp.3	Beetle
+Scarabeidaesp.4	Beetle
+Scarabeidaesp.5	Beetle
+Erotylidaesp.1	Beetle
+Staphylinidaesp.1	Beetle
+Staphylinidaesp.2	Beetle
+Staphylinidaesp.3	Beetle
+Staphylinidaesp.4	Beetle
+Carabidaesp.1	Beetle
+Carabidaesp.2	Beetle
+Carabidaesp.3	Beetle
+Carabidaesp.4	Beetle
+Carabidaesp.5	Beetle
+Carabidaesp.6	Beetle
+Cerambycidaesp.1	Beetle
+Cerambycidaesp.2	Beetle
+Cerambycidaesp.3	Beetle
+Cerambycidaesp.4	Beetle
+Cerambycidaesp.5	Beetle
+Nitidulidaesp.01=Nitidulidaesp.1	Beetle
+Nitidulidaesp.1	Beetle
+Nitidulidaesp.01	Beetle
+Coleopterasp.01	Beetle
+Coleopterasp.02	Beetle
+Coleopterasp.03	Beetle
+Coleopterasp.04	Beetle
+Coleopterasp.07	Beetle
+Coleopterasp.05	Beetle
+Coleopterasp.06	Beetle
+Graptomyzasp.1(blackish)	Hoverfly
+Graptomyzasp.4(blackandyellow)	Hoverfly
+Graptomyzasp.5(nowingpattern)	Hoverfly
+Dolichopodidaesp.2	Other fly
+SmallorangeAcalyptratae	Other fly
+Dipterasp.09	Other fly
+SmallstripedAcalyptratae	Other fly
+SmallblackabdomenAcalyptratae	Other fly
+SmallorangeAcalyptrataewithwhiteabdomen	Other fly
+Dipterasp.15	Other fly
+RobustbrownAcalyptratae	Other fly
+SmallmetallicAcalyptratae	Other fly
+Long-leggedAcalyptratae	Other fly
+SmallAcalyptrataewithwhiteabdomenalstripe	Other fly
+RedeyedB&WAcalyptratae	Other fly
+BigheadedAcalyptrataewithstripedabdomen	Other fly
+BigheadedblackAcalyptratae	Other fly
+Acalyptrataesp.01	Other fly
+RobustmetallicAcalyptratae	Other fly
+Brown/whiteAcalyptratae	Other fly
+Yellowabdomenfly	Other fly
+Pallopteridaesp.1=Tephritoideasp.3dots	Other fly
+Pallopteridaesp.1	Other fly
+Tephritoideasp.3dots	Other fly
+Darkmetallicfly=Calliphoridaesp.2	Other fly
+Darkmetallicfly	Other fly
+Calliphoridaesp.2	Other fly
+Tephritoideasp.1patt+	Other fly
+Tephritoideasp.2thick	Other fly
+Tephritoideasp.3dots	Other fly
+Tephritoideasp.4light	Other fly
+Tephritoideasp.5	Other fly
+Tephritoideasp.6	Other fly
+Tephritoideasp.07	Other fly
+Tephritoideasp.8	Other fly
+Tephritoideasp.9	Other fly
+Tephritoideasp.10	Other fly
+Tephritoideasp.25	Other fly
+Tephritoideasp.11	Other fly
+Tephritoideasp.12	Other fly
+Tephritoideasp.13	Other fly
+Tephritoideasp.14	Other fly
+Tephritoideasp.15	Other fly
+Tephritoideasp.16	Other fly
+Tephritoideasp.17	Other fly
+Tephritoideasp.18	Other fly
+Tephritoideasp.19	Other fly
+Tephritoideasp.20	Other fly
+Tephritoideasp.21	Other fly
+Tephritoideasp.22	Other fly
+Tephritoideasp.23	Other fly
+Tephritoideasp.24	Other fly
+Tephritoideasp.26	Other fly
+AfrSp1fly=Calliphoridaesp.01	Other fly
+AfrSp1fly	Other fly
+Calliphoridaesp.01	Other fly
+Calyptrataecf.Glossinasp.	Other fly
+Stripedthinfly2	Other fly
+Robustyellowwingedfly	Other fly
+Robustflywithyellowabdomenalband	Other fly
+TabVenfly=Calliphoridaesp.03	Other fly
+TabVenfly	Other fly
+Calliphoridaesp.03	Other fly
+Metallicstripedfly=Calliphoridaesp.04	Other fly
+Metallicstripedfly	Other fly
+Calliphoridaesp.04	Other fly
+Calliphoridaesp.07	Other fly
+Calliphoridaesp.05	Other fly
+StripedSarcophagidae=Bigstripedfly	Other fly
+StripedSarcophagidae	Other fly
+Bigstripedfly	Other fly
+Bigblackandwhitefly	Other fly
+Bigblackandwhitefly2	Other fly
+Bigblackandwhiteabdomenfly	Other fly
+Bigorangeandblackendedabdomenfly	Other fly
+Anthomyiasp.02=Anthomiyasp.02=Anthomyiasp.02=Anthomyiasp.2	Other fly
+Anthomyiasp.02	Other fly
+Anthomiyasp.02	Other fly
+Anthomyiasp.02	Other fly
+Anthomyiasp.2	Other fly
+Calyptrataesp.01	Other fly
+Anthomyiasp.03	Other fly
+Anthomyiasp.04	Other fly
+Orangehairyfly	Other fly
+Orange-blackfly	Other fly
+Yellowspottedfly=Calliphoridaesp.5	Other fly
+Yellowspottedfly	Other fly
+Calliphoridaesp.5	Other fly
+Bigorangefly	Other fly
+Stripedfly	Other fly
+Stripedflysp.02=Stripedflywithant	Other fly
+Stripedflysp.02	Other fly
+Stripedflywithant	Other fly
+Stripedthinfly	Other fly
+Bluemetallicfly=Stratiomyidaesp.01=Metallicbluefly	Other fly
+Bluemetallicfly	Other fly
+Stratiomyidaesp.01	Other fly
+Metallicbluefly	Other fly
+Blackwingfly	Other fly
+Tabanidaesp.01	Other fly
+Micropezidaesp.01	Other fly
+Micropezidaesp.02	Other fly
+Smallorangeflywithant.	Other fly
+Dolichopodidaesp.03=Tachinidaesp.02=Dolichopodidaesp.01=Tahcinidaesp.2	Other fly
+Dolichopodidaesp.03	Other fly
+Tachinidaesp.02	Other fly
+Dolichopodidaesp.01	Other fly
+Tachinidaesp.2	Other fly
+Dolichopodidaesp.4=Tachinidaesp.3	Other fly
+Dolichopodidaesp.04	Other fly
+Tachinidaesp.03	Other fly
+Dolichopodidaesp.5=Tachinidaesp.4	Other fly
+Dolichopodidaesp.05	Other fly
+Tachinidaesp.04	Other fly
+Dolichopodidaesp.6=Tachinidaesp.5	Other fly
+Dolichopodidaesp.06	Other fly
+Tachinidaesp.05	Other fly
+Tachinidaesp.06	Other fly
+Greyflywithdots=Calyptrataesp.02=Blackflywithdots	Other fly
+Greyflywithdots	Other fly
+Calyptrataesp.02	Other fly
+Blackflywithdots	Other fly
+Asilidaesp.01	Other fly
+Asilidaesp.02	Other fly
+StripedCulicid	Other fly
+Diopsidaesp.03	Other fly
+Stylogastersp.1=Dolichopodidaesp.1	Other fly
+Stylogastersp.01	Other fly
+Dolichopodidaesp.01	Other fly
+Stylogastersp.02	Hoverfly
+Stylogastersp.03	Other fly
+Tipulasp.01	Other fly
+Tipulidaesp.01	Other fly
+Tipulidaesp.02	Other fly
+Limoniidaesp.01=Nematocera=smallNematocera	Other fly
+Limoniidaesp.01	Other fly
+Nematocera	Other fly
+smallNematocera	Other fly
+Dipterasp.08	Other fly
+Dipterasp.16	Other fly
+Syrphidaesp.02=Dipterasp.01=Dipterasp.02	Hoverfly
+Syrphidaesp.02	Hoverfly
+Dipterasp.01	Hoverfly
+Dipterasp.02	Hoverfly
+Dipterasp.10	Other fly
+Dipterasp.03	Other fly
+Dipterasp.04	Other fly
+Dipterasp.05	Other fly
+Dipterasp.07	Other fly
+Dipterasp.11	Other fly
+Dipterasp.13	Other fly
+Syrphidaesp.01	Hoverfly
+Syrphidaesp.03	Hoverfly
+Dipterasp.18	Other fly
+Calyptrataesp.03	Other fly
+Melanostomasp.01	Hoverfly
+Episyrphussp.	Hoverfly
+Syrphidaesp.04	Hoverfly
+Brachycerasp.01	Other fly
+Brachycerasp.02	Other fly
+Blackshinyfly	Other fly
+Stratiomyidaesp.02	Other fly
+Brachycerasp.03	Other fly
+Brachycerasp.03=Stratiomyidaesp.02	Other fly
+BrownAmegilla=Long-tonguedanthophorid	Bee
+BrownAmegilla	Bee
+Long-tonguedanthophorid	Bee
+BlackAmegilla	Bee
+BluebuttAmegilla	Bee
+OrangethoraxAmegilla	Bee
+Xylocopasp.01	Bee
+Xylocopasp.02	Bee
+Bigblackscoliid	Wasp
+Bigmetallicscoliid	Wasp
+OrangeBelonogaster	Wasp
+StripedBelonogaster	Wasp
+CollaredBelonogaster	Wasp
+BlackandorangePompilid	Wasp
+BlackPompilidwithorangewings	Wasp
+Bigorangelegwasp	Wasp
+Smallblackandyellowwasp	Wasp
+Greywaspwithyellowlegs	Wasp
+YellowbellyMegachilid	Bee
+OrangeabdomenApoidea	Bee
+SmallorangeabdomenApoidea=red-buttbee+orangemeliponini	Bee
+red-buttbee	Bee
+orangemeliponini	Bee
+SmallorangeabdomenApoidea	Bee
+BlackandyellowApoidea	Bee
+BlackspottedApoidea	Bee
+StripedApoidea	Bee
+Apismellifera	Bee
+BigblackandwhiteApoidea	Bee
+BlackApoidea	Bee
+BlackApoideawithorangeband	Bee
+BrownApoideawithorangeband	Bee
+Halictidaewithorangeband	Bee
+YellowstripedHalictidae	Bee
+StripedHalictidae=StripedHalticidae	Bee
+StripedHalictidae	Bee
+StripedHalticidae	Bee
+StripedthinHalictidae	Bee
+smallApoidea=smallHalictidae	Bee
+smallApoidea	Bee
+smallHalictidae	Bee
+OrangeTrinchostoma	Bee
+BlackTrinchostoma	Bee
+StripedTrinchostoma	Bee
+Thyreussp.01	Bee
+Ichneumonidsp.01	Wasp
+Ichneumonidsp.02	Wasp
+Ichneumonidsp.03	Wasp
+Ichneumonidsp.04	Wasp
+Ichneumonidaesp.04	Wasp
+Ichneumonidsp.05	Wasp
+Ichneumonidsp.06	Wasp
+Ichneumonidsp.07	Wasp
+Ichneumonidsp.08	Wasp
+Ichneumonidsp.09	Wasp
+BlackandyellowEchthromorpha	Wasp
+BlackandyellowEchthromorpha	Wasp
+Hymenopterasp.01	Wasp
+Blattodeasp.01	Cockroach
+Blattodeasp.02	Cockroach
+Blattodeasp.03	Cockroach
+Blattodeasp.04	Cockroach
+Blattodeasp.05	Cockroach
+Blattodeasp.06	Cockroach
+Blattodeasp.07	Cockroach
+Blattodeasp.08	Cockroach
+Blattodeasp.09	Cockroach
+Blattodeasp.10	Cockroach
+Aphididae	Aphididae
+Heteropterasp.01	Heteroptera
+Heteropterasp.02	Heteroptera
+Heteropterasp.03	Heteroptera
+Araneae(sp.01)	Araneae
+Araneae(sp.02)	Araneae
+Araneaesp.03	Araneae
+Araneaesp.04	Araneae
+Araneaesp.05	Araneae
+Araneaesp.06	Araneae
+Araneaesp.07	Araneae
+Unknown1	Unknown
+Unknown2	Unknown
+Thysanopterasp.01	Thysanoptera
+Orthopterasp.01	Orthoptera
+Caterpillar01	Catepillar
+Caterpillar02	Catepillar
+Hesperidaesp.01	Butterfly
+Cacyreusspp.=Carcyreussp.	Butterfly
+Cacyreusspp.	Butterfly
+Carcyreussp.	Butterfly
+Noctuidaesp.02	Moth
+Noctuidaesp.04	Moth
+Noctuidaesp.39	Moth
+Noctuidaesp.31	Moth
+Mentaxyasp.01	Moth
+Noctuidaesp.06	Moth
+Noctuidaesp.07=Noctuidaesp.10	Moth
+Noctuidaesp.07	Moth
+Noctuidaesp.10	Moth
+Noctuidaesp.30	Moth
+Noctuoideasp.08	Moth
+Noctuidaesp.09	Moth
+Noctuidaesp.38	Moth
+Noctuidaesp.11	Moth
+Noctuidaesp.12	Moth
+Noctuidaesp.13	Moth
+Noctuidaesp.36	Moth
+Noctuidaesp.14	Moth
+Noctuidaesp.33	Moth
+Noctuidaesp.35	Moth
+Noctuidaesp.15=Noctuidae	Moth
+Noctuidaesp.15	Moth
+Noctuidae	Moth
+Noctuidaesp.16	Moth
+Noctuidaesp.17	Moth
+Noctuidaesp.18	Moth
+Noctuidaesp.19	Moth
+Noctuidaesp.20=Noctuidaesp.21	Moth
+Noctuidaesp.20	Moth
+Noctuidaesp.21	Moth
+Noctuidaesp.40	Moth
+Noctuidaesp.22	Moth
+Noctuidaesp.25	Moth
+Noctuidaesp.26	Moth
+Erebidaesp.02	Moth
+Noctuidaesp.27	Moth
+Erebidaesp.01	Moth
+Erebidaesp.03	Moth
+Noctuidaesp.28	Moth
+Noctuidaesp.32	Moth
+Erebidaesp.05	Moth
+Noctuidaesp.34=Erebidaesp.07	Moth
+Noctuidaesp.34	Moth
+Erebidaesp.07	Moth
+Erebidaesp.06	Moth
+Noctuidaesp.41	Moth
+Hippotionspp.	Moth
+Agriusconvolvuli	Moth
+Sphingidaesp.01	Moth
+Basiothiamedea	Moth
+Sphingidaesp.02	Moth
+Sphingidaesp.03	Moth
+Geometridaesp.01	Moth
+Geometridaesp.10	Moth
+Geometridaesp.02	Moth
+Geometridaesp.03	Moth
+Geometridaesp.04	Moth
+Geometridaesp.05	Moth
+Geometridaesp.06	Moth
+Geometridaesp.07	Moth
+Geometridaesp.08	Moth
+Geometridaesp.09	Moth
+Crambidaesp.01	Moth
+Adelidaesp.01=Adelidaesp.01	Moth
+Adelidaesp.01	Moth
+Adelidaesp.01	Moth
+Adelidaesp.02	Moth
+Pterophoridaesp.01	Moth
+Pterophoridaesp.02	Moth
+Micromothsp.01=Microsp.01	Moth
+Micromothsp.01	Moth
+Microsp.01	Moth
+Micromothsp.02	Moth
+Micromothsp.03	Moth
+Micromothsp.04	Moth
+Micromothsp.05	Moth
+Micromothsp.06	Moth
+Micromothsp.04	Moth
+Coleoptera	Beetle
+Diptera	Other fly
+Sarcophagidae=Brachycera	Other fly
+Brachycera	Other fly
+Sarcophagidae	Other fly
+Apismelifera	Bee
+smallColeoptera	Beetle
+Apoidea	Bee
+Anthomyiidae	Other fly
+Araneae(sp.07)	Araneae
+tinyDiptera	Other fly
+Lepidoptera	Butterfly
+smallDiptera	Other fly
+Araneae(sp.06)	Araneae
+tinyColeoptera	Beetle
+smallBrachycera	Other fly
+Formicidae	Ant
+Noctuoidea	Moth
+Geometridae	Moth
+Araneae	Araneae
+Thysanoptera	Thysanoptera
+Erebidae	Moth
+Erebidae/Noctuidae	Moth
+Sphingidae	Moth
+Calyptratae	Other fly
+Syrphidae	Hoverfly
+Hymenoptera	Wasp
+Halictidae	Bee
+Ichneumonidae=smallparasiticwasp	Wasp
+Ichneumonidae	Wasp
+smallparasiticwasp	Wasp
+Chrysomelidae	Beetle
+Hippotionsp.	Moth
+Melanostoma	Hoverfly
+Acalyptratae=Acalyptrataesp.	Other fly
+Acalyptratae	Other fly
+Acalyptrataesp.	Other fly
+Calliphoridae	Other fly
+smallHymenoptera	Bee
+smallfly	Other fly
+Staphylinidae	Beetle
+Tipulidae	Other fly
+Orthoptera	Orthoptera
+Anthomyidae	Other fly
+smallbeetle	Beetle
+spider	Araneae
+Curculionidae	Beetle
+Cinnyrisreichenowi	Bird
+Zosteropsmelanocephalus	Bird
+Neuroptera	Neuroptera
+Hesperidae	Moth
+Anthomyiasp.	Other fly
+Caterpillar	Catepillar
+caterpillar/larva	Catepillar
+Collembola	Collembola
+Dolichopodidae	Other fly
+Episyrphussp.03	Hoverfly
+Hemiptera	Hemiptera
+Heteroptera	Heteroptera
+Hippotioncelerio	Moth
+Ichneumonidea	Wasp
+Larva	Larva
+leafhopper=leafhopper	Leefhopper
+leafhopper	Leefhopper
+leafhopper	Leefhopper
+Micromoth	Moth
+Moth	Moth
+Psychodidae	Other fly
+Pterophoridae	Moth
+Tachinidae	Other fly
+Tachinidaesp.1=Tachinidaesp.01	Other fly
+Tachinidaesp.1	Other fly
+Tachinidaesp.01	Other fly
+Tephritidae=Tephritoidea=Tephritoidae	Other fly
+Tephritidae	Other fly
+Tephritoidea	Other fly
+Tephritoidae	Other fly
+NeuropteraorOdonata	Neuroptera
