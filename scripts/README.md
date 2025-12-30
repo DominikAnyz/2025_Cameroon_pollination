@@ -1,6 +1,8 @@
 
-This script serves as a walkthrough of all the scripts contains in this
-repository.
+## Script organization
+
+This README serves as a walkthrough of all the scripts contains in this
+folder.
 
 All the individual sripts have their own descriptions about what each
 segment of code does, this should help with making sense of why
@@ -20,7 +22,7 @@ The script contains all the packages, which are used throughout the
 scripts. This is handy to run if you will be carrying out all the
 analyses again, however is not necessary. If you are interested only in
 a certain script, it might be easier to load the packages in each script
-separately. If you do not have cmdstanr on your computer for running
+separately. If you do nothave cmdstanr on your computer for running
 Bayesian analyses, this might take a while.
 
 ### 02.Cleaning_raw_seedset_data
