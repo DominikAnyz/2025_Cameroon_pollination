@@ -23,17 +23,18 @@ Insect Community Ecology Group of Charles University.*
 ## Folder Structure
 
 Out of the five folders in this repository, two are necessary for
-reproducibility of the results: **scripts** and **data**. Before running
-any scripts, go through the README in **scripts**. **data** has it’s own
-REAMDE explaining any and all manipulation carried out on the data,
-however the same information is repeated in the README of **scripts**,
-since it is usefull for understanding the process.
+reproducibility of the results: [📁 scripts](/scripts/) and [📁
+data](/data/). Before running any scripts, go through the README in
+**scripts**. **data** has it’s own REAMDE explaining any and all
+manipulation carried out on the data, however the same information is
+repeated in the README of **scripts**, since it is usefull for
+understanding the process.
 
-Folders **figs** contain figures generated during the process of
-creating the manuscript. Folders **tables** contain figures generated
-during the process of creating the manuscript. Folders **unused**, which
-can be found in the main repo and withing different folders are not
-useless, just not used anymore.
+Folders [📁 figs](/figs/) contain figures generated during the process
+of creating the manuscript. Folders [📁 tables](/tables/) contain
+figures generated during the process of creating the manuscript. Folders
+[📁 unused](/unused/), which can be found in the main repo and withing
+different folders are not useless, just not used anymore.
 
 ## How to run it
 
@@ -46,12 +47,12 @@ You can download the entire project as a `.zip` from this
 [URL](https://github.com/SaileeSakhalkar/Pollination-Cameroon/archive/refs/heads/main.zip).
 After unzipping:
 
-- Open the `Pollination-Cameroon.Rproj` file, found at the root of the
-  project, in RStudio
+- Open the `2025_Cameroon_pollination.Rproj` file, found at the root of
+  the project, in RStudio
 
-- Run either the 00_setup.R or sequentially the scripts found in the [📁
-  scripts](/scripts/) folder. It will rebuild the model outputs and
-  figures presented in the main text of the article.
+- Open folder [📁 scripts](/scripts/) and run the scripts sequentially,
+  from 01. to 07. It will rebuild the model outputs and figures
+  presented in the main text of the article.
 
 ## Workflow
 
