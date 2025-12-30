@@ -1,4 +1,14 @@
-## 
+---
+output: github_document
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
 
 This script serves as a walkthrough of all the scripts contains in this 
 repository. 
@@ -27,7 +37,7 @@ while.
 ### 02.Cleaning_raw_seedset_data
 
 The script take the raw data collected from finished seeds and cleans the
-dataset, so it doesn't contain any unusable observations. The dataset is
+dataset, so it dos not contain any unusable observations. The dataset is
 striped of any seedsets, where the comment would suggest infestation, loss of
 flower or uncertainty of treatment.
 
