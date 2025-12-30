@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
   fig.path = "README-"
 )
 # Please put your title here to include it in the file below.
-Title <- "Shifts in reproductive strategies of seven plant species along an elevational gradient in Afromontane grasslands"
+Title <- "Elevational pattern in plant mating systems and pollen limitation in Afrotropical montane grasslands"
 ```
 
 ![GitHub](https://img.shields.io/badge/licence-MIT-green)
@@ -18,7 +18,7 @@ Title <- "Shifts in reproductive strategies of seven plant species along an elev
 
 This repository contains the R scripts and data used to carry out analyses for this research article:
 
-**Anýž et al., unpublished - Shifts in reproductive strategies of seven plant species along an elevational gradient in Afromontane grasslands** [Link to be posted]()
+**Anýž et al., unpublished - Elevational pattern in plant mating systems and pollen limitation in Afrotropical montane grasslands** [Link to be posted]()
 
 🌱🌰 *This project is a part of the PhD thesis of [Dominik Anýž](http://www.insect-communities.cz/en/team/dominik-anyz/), supervised by [Robert Tropek](http://www.insect-communities.cz/en/team/robert-tropek/) at the Insect Community Ecology Group of Charles University.*
 
