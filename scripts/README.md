@@ -1,5 +1,5 @@
 
-## Script organization
+# Script organization
 
 This README serves as a walkthrough of all the scripts contains in this
 folder.
@@ -16,7 +16,7 @@ parameters for the individual models might have to be set differently.
 
 COME BACK TO THIS!!!!!!!!!
 
-### 01.Setup_for_analysis
+## 01.Setup_for_analysis
 
 The script contains all the packages, which are used throughout the
 scripts. This is handy to run if you will be carrying out all the
@@ -25,7 +25,7 @@ a certain script, it might be easier to load the packages in each script
 separately. If you do not have cmdstanr on your computer for running
 Bayesian analyses, this might take a while.
 
-### 02.Cleaning_raw_seedset_data
+## 02.Cleaning_raw_seedset_data
 
 The script take the raw data collected from finished seeds and cleans
 the dataset, so it dos not contain any unusable observations. The
@@ -40,7 +40,7 @@ to not be tied with any one other plant number.
 The manipulation with the rest of the data was carried out using this
 code in R
 
-### 03.GLMM_pollination_indices
+## 03.GLMM_pollination_indices
 
 The script contains all the code used to run glmm’s for the four
 hand-pollination indices, which were used to assess the effect of
@@ -50,7 +50,7 @@ geitonogamy).
 The script contains paths to saved models in order not to have to rerun
 them again.
 
-### 04.Setup_for_visitation_indices
+## 04.Setup_for_visitation_indices
 
 The script is used to setup the datasets for the analyses of individual
 pollination indices. It has a similar setup as
@@ -82,7 +82,7 @@ csv’s (found in folder **csv files**) were then combined and the
 original version of the combined document if under the name
 \*\_combined\* in the file **csv files**.
 
-***visitors.txt***
+### visitors.txt
 
 This csv file was imported into an xls file labeled *Pollination
 necessary.xlsx*. In this excel the unecessary columns were deleted.
@@ -99,7 +99,7 @@ The information from this excel was transported into the excel
 *Pollination necessary.xlsx*, from which the file *visitors.txt* was
 created in folder **data**.
 
-***functional.txt***
+### functional.txt
 
 The text document *functional.txt* was created from the excel *Cameroon
 grassland species - morphospecies.xlsx*. After all the visitors have
@@ -110,7 +110,7 @@ exported into the file *functional.txt* in folder **data**
 The following functional groups were used: Bee, Wasp, Hoverfly, Other
 fly, Beetle, Butterfly, Moth and Bird
 
-### 05.GLMM_visitation_indices
+## 05.GLMM_visitation_indices
 
 The script contains all the code used to run glmm’s for the three
 visitation indices, which were used to assess the effect of elevation of
@@ -119,7 +119,7 @@ them.
 The script contains paths to saved models in order not to have to rerun
 them again.
 
-### 06.Setup_for_index_comparisons
+## 06.Setup_for_index_comparisons
 
 The script contains all the code necessary for setup of running bayesian
 GLMM’s comparing the hand-pollination experiment with the visitation
@@ -132,29 +132,29 @@ different plant individuals and so the only way to compare them was by
 using bayesian statistics with measurement error and weights for each
 value. This is done in the script
 
-### 07.Comparing_indices
+## 07.Comparing_indices
 
 The script
 
 The script contains paths to saved models in order not to have to rerun
 them again.
 
-### 08.Making_figs_main_text
+## 08.Making_figs_main_text
 
 The script serves to create figures found in the main text of the
 manuscript
 
-### 09.Making_tables_main_text
+## 09.Making_tables_main_text
 
 The script serves to create tables found in the main text of the
 manuscript
 
-### 10.Making_figs_supplementary
+## 10.Making_figs_supplementary
 
 The script serves to create figures found in the supplementary text of
 the manuscript
 
-### 11.Making_tables_supplementary
+## 11.Making_tables_supplementary
 
 The script serves to create tables found in the supplementary text of
 the manuscript
