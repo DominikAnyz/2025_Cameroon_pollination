@@ -68,21 +68,23 @@ which the datasets were created is as follows:
 The raw visitation data is in the form of excels, 7 for each species for
 each elevation (provided that the species was in a given elevation).
 These excels an be found in [📁
-elevation_excels](/data/visitors/elevation_excels/).
+elevation_excels](/data/visitors/elevation_excels/)**(/data/visitors/elevation_excels/)**.
 
 It was necessary to combine all the excels into one. The steps for the
 combining all the excels can be found in the document *Processing
-steps.docx* in the folder **../data/visitors/process**.
+steps.docx* in the folder [📁
+process](/data/visitors/elevation_excels/)**(/data/visitors/process/)**.
 
 TLDR; first it is necessary to check that all excels are filled in
 correctly. This was done manually. All the excels can be found in the
-folder **../data/visitors/elevation excels**. Next, it was necessary to
-export every excel as a csv to make the files as small as possible. This
-was done with the *XLS to CSV converter.hta* in the
-**../data/visitors/process** folder. The csv’s (found in folder
-**../data/visitors/csv files**) were then combined and the original
-version of the combined document if under the name \*\_combined.csv\* in
-the file **../data/visitors/csv files**.
+folder [📁 elevation_excels](/data/visitors/elevation_excels/). Next, it
+was necessary to export every excel as a csv to make the files as small
+as possible. This was done with the *XLS to CSV converter.hta* in the
+[📁 process](/data/visitors/elevation_excels/) folder. The csv’s (found
+in folder [📁 csv_files](/data/visitors/csv_files/)**(/data/visitors/csv
+files/)**) were then combined and the original version of the combined
+document if under the name \*\_combined.csv\* in the file [📁
+csv_files](/data/visitors/csv_files/).
 
 ### visitors.txt
 
@@ -99,7 +101,7 @@ can be identified as a “morphospecies” or not.
 
 The information from this excel was transported into the excel
 *Pollination necessary.xlsx*, from which the file *visitors.txt* was
-created in folder **../data**.
+created in folder [📁 data](/data/)**(/data/)**.
 
 ### functional.txt
 
@@ -107,7 +109,7 @@ The text document *functional.txt* was created from the excel *Cameroon
 grassland species - morphospecies.xlsx*. After all the visitors have
 been identified, only the columns “SD.s.ID” (Sylvain Delabye’s ID) and
 “functional.group” (which functional group the visitor belongs to) were
-exported into the file *functional.txt* in folder **../data**
+exported into the file *functional.txt* in folder [📁 data](/data/)
 
 The following functional groups were used: Bee, Wasp, Hoverfly, Other
 fly, Beetle, Butterfly, Moth and Bird
