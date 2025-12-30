@@ -1,0 +1,44 @@
+---
+output: github_document
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+# Organization of folder data
+
+The data which are used in the scripts are *clean_seeds.txt*, *functional.txt* and *visitors.txt*.
+
+## Obtaining *clean_seeds.txt*
+
+*Clean_seeds.txt* is the dataset used to analyze the effect of elevation on seed sets produced by four hand-pollination treatments. 
+
+The document *Mt.Cameroon seed count raw.xlsx* is the raw data which was collected. The only changes made to this document before manipulation i R, are that if a specimen was missing a plant number, a unique number would be appointed to it as to not be tied with any one other plant number.
+
+The rest of the manipulation was carried out in R and can be found in the folder **scripts** (in the main repo) under *02.Cleaning_raw_seedset_data.R*
+
+## Obtaining *functional.txt* and *visitors.txt*
+
+*Functional.txt* and *visitors.txt* are the datasets used to analyze the effect of elevation on visitation metrics.
+
+### visitors.txt
+
+The raw visitation data is in the form of excels, 7 for each species for each elevation (provided that the species was in a given elevation). These excels an be found in **visitors/elevation excels**.
+
+It was necessary to combine all the excels into one. The steps for the combining all the excels can be found in the document *Processing steps.docx* in the folder **visitors/process**.
+
+TLDR; first it is necessary to check that all excels are filled in correctly. This was done manually. All the excels can be found in the folder **visitors/elevation excels**. Next, it was necessary to export every excel as a csv to make the files as small as possible. This was done with the *XLS to CSV converter.hta* in the **visitors/process** folder. The csv's (found in folder **visitors/csv files**) were then combined and the original version of the combined document if under the name *_combined.csv* in the file **visitors/csv files**.
+
+This csv file was imported into an xls file labeled *Pollination necessary.xlsx*. In this excel the unnecessary columns were deleted. Also, all the names of identified visitors were exported and added to special excel *Cameroon grasslands species - morphospecies.xlsx*. This excels was checked so that all the names were unified throughout the excel. The names were unified by the visitor identifiers (the people who ID'd the visitors). Every time one species was the same as another, it is recorded in the excel and then the name used for each given species is bolded. Identifiers also recorded whether or not the visitor can be identified as a "morphospecies" or not.
+
+The information from this excel was transported into the excel *Pollination necessary.xlsx*, from which the file *visitors.txt* was created in the main repository folder **data**.
+
+### functional.txt
+
+The text document *functional.txt* was created from the excel *Cameroon grassland species - morphospecies.xlsx*. After all the visitors have been identified, only the columns "SD.s.ID" (Sylvain Delabye's ID) and "functional.group" (which functional group the visitor belongs to) were exported into the file *functional.txt* in folder **data**
+
+The following functional groups were used: Bee, Wasp, Hoverfly, Other fly, Beetle, Butterfly, Moth and Bird

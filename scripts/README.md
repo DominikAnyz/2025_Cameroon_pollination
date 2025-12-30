@@ -55,32 +55,33 @@ them again.
 The script is used to setup the datasets for the analyses of individual
 pollination indices. It has a similar setup as
 *06.Setup_for_index_comparisons*. This script has data aggregated at
-individual observation level, wheras *06.Setup_for_index_comparisons*
+individual observation level, whereas *06.Setup_for_index_comparisons*
 has data aggregated at elevation and species level. Although it might
 seem like a small change, the code would have been more complicated if
 one script was to be made for both datasets, so we chose to separate it
 into two.
 
 Both of these setup scripts pull datasets *visitors.txt* and
-*functional.txt*, which have been altered outside R. For full
-transperancy, here is the process in which they were created:
+*functional.txt*, which have been altered outside R. The process in
+which the datasets were created is as follows:
 
-The aquired data for visitors was in the form of excels, 7 for each
-species for each elevation (provided that the species was in a given
-elevation).
+The raw visitation data is in the form of excels, 7 for each species for
+each elevation (provided that the species was in a given elevation).
+These excels an be found in **../data/visitors/elevation excels**.
 
 It was necessary to combine all the excels into one. The steps for the
 combining all the excels can be found in the document *Processing
-steps.docx* in the folder **process**.
+steps.docx* in the folder **../data/visitors/process**.
 
 TLDR; first it is necessary to check that all excels are filled in
 correctly. This was done manually. All the excels can be found in the
-folder **elevation excels**. Next, it was necessary to export every
-excel as a csv to make the files as small as possible. This was done
-with the *XLS to CSV converter.hta* in the **process” folder**. The
-csv’s (found in folder **csv files**) were then combined and the
-original version of the combined document if under the name
-\*\_combined\* in the file **csv files**.
+folder **../data/visitors/elevation excels**. Next, it was necessary to
+export every excel as a csv to make the files as small as possible. This
+was done with the *XLS to CSV converter.hta* in the
+**../data/visitors/process** folder. The csv’s (found in folder
+**../data/visitors/csv files**) were then combined and the original
+version of the combined document if under the name \*\_combined.csv\* in
+the file **../data/visitors/csv files**.
 
 ### visitors.txt
 
@@ -97,7 +98,7 @@ can be identified as a “morphospecies” or not.
 
 The information from this excel was transported into the excel
 *Pollination necessary.xlsx*, from which the file *visitors.txt* was
-created in folder **data**.
+created in folder **../data**.
 
 ### functional.txt
 
@@ -105,7 +106,7 @@ The text document *functional.txt* was created from the excel *Cameroon
 grassland species - morphospecies.xlsx*. After all the visitors have
 been identified, only the columns “SD.s.ID” (Sylvain Delabye’s ID) and
 “functional.group” (which functional group the visitor belongs to) were
-exported into the file *functional.txt* in folder **data**
+exported into the file *functional.txt* in folder **../data**
 
 The following functional groups were used: Bee, Wasp, Hoverfly, Other
 fly, Beetle, Butterfly, Moth and Bird
