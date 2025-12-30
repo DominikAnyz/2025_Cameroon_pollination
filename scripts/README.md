@@ -67,8 +67,8 @@ which the datasets were created is as follows:
 
 The raw visitation data is in the form of excels, 7 for each species for
 each elevation (provided that the species was in a given elevation).
-These excels an be found in [📁 elevation
-excels](data/visitors/elevation_excels/).
+These excels an be found in [📁
+elevation_excels](/data/visitors/elevation_excels/).
 
 It was necessary to combine all the excels into one. The steps for the
 combining all the excels can be found in the document *Processing
