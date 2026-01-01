@@ -26,10 +26,10 @@ final.table <- final.table %>%
 
 
 ###* MORPHOSPECIES RICHNESS
-m_brm_model_po <- readRDS("../brms_models/m_brm_model_po.rds")
-m_brm_model_zipo <- readRDS("../brms_models/m_brm_model_zipo.rds")
-m_brm_model_nb <- readRDS("../brms_models/m_brm_model_nb.rds")
-m_brm_model_zinb <- readRDS("../brms_models/m_brm_model_zinb.rds")
+m_brm_model_po <- readRDS("brms_models/m_brm_model_po.rds")
+m_brm_model_zipo <- readRDS("brms_models/m_brm_model_zipo.rds")
+m_brm_model_nb <- readRDS("brms_models/m_brm_model_nb.rds")
+m_brm_model_zinb <- readRDS("brms_models/m_brm_model_zinb.rds")
 
 loo(m_brm_model_po, m_brm_model_zipo, m_brm_model_nb, m_brm_model_zinb)
 bayes_R2(m_brm_model_po)
@@ -69,8 +69,8 @@ m_brm_null_nb <- brm(
   seed = 1234
 )
 
-saveRDS(m_brm_null_nb, file = "../brms_models/m_brm_null_nb.rds")
-m_brm_null_nb <- readRDS("../brms_models/m_brm_null_nb.rds")
+saveRDS(m_brm_null_nb, file = "brms_models/m_brm_null_nb.rds")
+m_brm_null_nb <- readRDS("brms_models/m_brm_null_nb.rds")
 
 loo(m_brm_null_nb, m_brm_model_nb)
 bayes_R2(m_brm_null_nb)
@@ -127,10 +127,10 @@ bayes_R2(m_brm_model_nb)
 ###* 
 
 ###* FUNCTIONAL GROUP RICHNESS
-f_brm_model_po <- readRDS("../brms_models/f_brm_model_po.rds")
-f_brm_model_zipo <- readRDS("../brms_models/f_brm_model_zipo.rds")
-f_brm_model_nb <- readRDS("../brms_models/f_brm_model_nb.rds")
-f_brm_model_zinb <- readRDS("../brms_models/f_brm_model_zinb.rds")
+f_brm_model_po <- readRDS("brms_models/f_brm_model_po.rds")
+f_brm_model_zipo <- readRDS("brms_models/f_brm_model_zipo.rds")
+f_brm_model_nb <- readRDS("brms_models/f_brm_model_nb.rds")
+f_brm_model_zinb <- readRDS("brms_models/f_brm_model_zinb.rds")
 
 loo(f_brm_model_po, f_brm_model_zipo, f_brm_model_zinb)
 bayes_R2(f_brm_model_po)
@@ -152,7 +152,7 @@ f_brm_model_nb <- brm(
   seed = 123
 )
 
-saveRDS(f_brm_model_nb, file = "../brms_models/f_brm_model_nb.rds")
+saveRDS(f_brm_model_nb, file = "brms_models/f_brm_model_nb.rds")
 
 ###* Null model to check if model explains more than random
 
@@ -170,8 +170,8 @@ f_brm_null_po <- brm(
   seed = 1234
 )
 
-saveRDS(f_brm_null_po, file = "../brms_models/f_brm_null_po.rds")
-f_brm_null_po <- readRDS("../brms_models/f_brm_null_po.rds")
+saveRDS(f_brm_null_po, file = "brms_models/f_brm_null_po.rds")
+f_brm_null_po <- readRDS("brms_models/f_brm_null_po.rds")
 
 loo(f_brm_null_po, f_brm_model_po)
 bayes_R2(f_brm_null_po)
@@ -218,8 +218,8 @@ vis_ord_model <- ordbetareg(
   seed = 1234
 )
 
-saveRDS(vis_ord_model, file = "../brms_models/vis_ord_model.rds")
-vis_ord_model <- readRDS("../brms_models/vis_ord_model.rds")
+saveRDS(vis_ord_model, file = "brms_models/vis_ord_model.rds")
+vis_ord_model <- readRDS("brms_models/vis_ord_model.rds")
 
 final.table$intercept_only <- 1
 
@@ -231,8 +231,8 @@ vis_ord_null <- ordbetareg(
   seed = 1234
 )
 
-saveRDS(vis_ord_null, file = "../brms_models/vis_ord_null.rds")
-vis_ord_null <- readRDS("../brms_models/vis_ord_null.rds")
+saveRDS(vis_ord_null, file = "brms_models/vis_ord_null.rds")
+vis_ord_null <- readRDS("brms_models/vis_ord_null.rds")
 
 loo(vis_ord_model, vis_ord_null)
 bayes_R2(vis_ord_model)

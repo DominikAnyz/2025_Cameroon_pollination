@@ -22,7 +22,7 @@ Insect Community Ecology Group of Charles University.*
 
 ## Folder Structure
 
-Out of the five folders in this repository, two are necessary for
+Out of the six folders in this repository, two are necessary for
 reproducibility of the results: [📁 scripts](/scripts/) and [📁
 data](/data/). Before running any scripts, go through the README in
 **scripts**. **data** has it’s own REAMDE explaining any and all
@@ -30,11 +30,13 @@ manipulation carried out on the data, however the same information is
 repeated in the README of **scripts**, since it is usefull for
 understanding the process.
 
-Folders [📁 figs](/figs/) contain figures generated during the process
-of creating the manuscript. Folders [📁 tables](/tables/) contain
-figures generated during the process of creating the manuscript. Folders
-[📁 unused](/unused/), which can be found in the main repo and withing
-different folders are not useless, just not used anymore.
+Folder [📁 brms_models](/brms_models/) contain all models generated
+during the process of creating the manuscript. Folder [📁 figs](/figs/)
+contain figures generated during the process of creating the manuscript.
+Folder [📁 tables](/tables/) contain figures generated during the
+process of creating the manuscript. Folders [📁 unused](/unused/), which
+can be found in the main repo and withing different folders are not
+useless, just not used anymore.
 
 ## How to run it
 

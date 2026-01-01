@@ -310,7 +310,7 @@ control_combined_plot <- ggplot(c.index, aes(x = elevation, y = seedset, fill = 
 
 
 # Load Bayesian model
-c_brm_model_zinb_new <- readRDS("../brms_models/c_brm_model_zinb_new.rds")
+c_brm_model_zinb_new <- readRDS("brms_models/c_brm_model_zinb_new.rds")
 
 # posterior draws for pairwise elevation contrasts
 contr_draws <- emmeans(c_brm_model_zinb_new, ~ elevation) %>%
@@ -448,7 +448,7 @@ pl_plot <- ggplot(c.index, aes(x = elevation, y = PL.index, fill = elevation)) +
 
 # --- MODEL-BASED marginal means on RESPONSE scale (+ 95% CrI) ----------------
 # Load your Bayesian ordbetareg model (already fitted)
-pl_ord_model_new <- readRDS("../brms_models/pl_ord_model_new.rds")
+pl_ord_model_new <- readRDS("brms_models/pl_ord_model_new.rds")
 
 # Get emmeans; ensure we are on the response scale.
 # Some ordbetareg methods ignore type="response"; regrid() guarantees back-transform.
@@ -575,7 +575,7 @@ ao_plot_base <- ggplot(ao.index,
 ## 4) MODEL-BASED marginal means (ZINB, response scale, /100) -----------------
 
 # Load the fitted model if needed
-ao_brm_model_zinb_new <- readRDS("../brms_models/ao_brm_model_zinb_new.rds")
+ao_brm_model_zinb_new <- readRDS("brms_models/ao_brm_model_zinb_new.rds")
 
 emm_ao <- emmeans(
   ao_brm_model_zinb_new,
@@ -721,7 +721,7 @@ go_plot_base <- ggplot(go.index,
 ## 4) MODEL-BASED marginal means (ZINB, response scale, /100) -----------------
 
 # Load the fitted model if needed
-go_brm_model_zinb_new <- readRDS("../brms_models/go_brm_model_zinb_new.rds")
+go_brm_model_zinb_new <- readRDS("brms_models/go_brm_model_zinb_new.rds")
 
 emm_go <- emmeans(
   go_brm_model_zinb_new,
@@ -948,7 +948,7 @@ vis_freq_plot <- plot_visitation_metric(
 )
 
 ## Load model (still fitted on 0–1–scaled response)
-vis_ord_model <- readRDS("../brms_models/vis_ord_model.rds")
+vis_ord_model <- readRDS("brms_models/vis_ord_model.rds")
 
 ## Emmeans on link scale, back-transform to original units
 emm_vis_link <- emmeans(vis_ord_model, ~ elevation)
@@ -1011,7 +1011,7 @@ vis_freq_plot_with_letters
 ###*
 ###* FIG 3F - MORPHOSPECIES
 ## Load model
-m_brm_model_nb <- readRDS("../brms_models/m_brm_model_nb.rds")
+m_brm_model_nb <- readRDS("brms_models/m_brm_model_nb.rds")
 
 ## Base plot (counts; we override y-scale later)
 morpho_plot <- plot_visitation_metric(
@@ -1099,7 +1099,7 @@ ggsave("figs/fig3.2_bayes.pdf",
 ###*
 ###* FIG 3F - FUNCTIONAL GROUP
 ## Load model
-f_brm_model_po <- readRDS("../brms_models/f_brm_model_po.rds")
+f_brm_model_po <- readRDS("brms_models/f_brm_model_po.rds")
 
 ## Base plot
 func_plot <- plot_visitation_metric(

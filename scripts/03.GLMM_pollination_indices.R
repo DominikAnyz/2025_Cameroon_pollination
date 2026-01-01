@@ -106,16 +106,16 @@ c_brm_model_nb_new_bbb <- brm(
 )
 
 ###* Save models with different distributions
-# saveRDS(c_brm_model_zinb_new, "../brms_models/c_brm_model_zinb_new.rds")
-# saveRDS(c_brm_model_po_new, "../brms_models/c_brm_model_po_new.rds")
-# saveRDS(c_brm_model_zipo_new, "../brms_models/c_brm_model_zipo_new.rds")
-# saveRDS(c_brm_model_nb_new, "../brms_models/c_brm_model_nb_new.rds")
+# saveRDS(c_brm_model_zinb_new, "brms_models/c_brm_model_zinb_new.rds")
+# saveRDS(c_brm_model_po_new, "brms_models/c_brm_model_po_new.rds")
+# saveRDS(c_brm_model_zipo_new, "brms_models/c_brm_model_zipo_new.rds")
+# saveRDS(c_brm_model_nb_new, "brms_models/c_brm_model_nb_new.rds")
 
 ###* Load models with different distributions
-c_brm_model_po_new <- readRDS("../brms_models/c_brm_model_po_new.rds")
-c_brm_model_zipo_new <- readRDS("../brms_models/c_brm_model_zipo_new.rds")
-c_brm_model_nb_new <- readRDS("../brms_models/c_brm_model_nb_new.rds")
-c_brm_model_zinb_new <- readRDS("../brms_models/c_brm_model_zinb_new.rds")
+c_brm_model_po_new <- readRDS("brms_models/c_brm_model_po_new.rds")
+c_brm_model_zipo_new <- readRDS("brms_models/c_brm_model_zipo_new.rds")
+c_brm_model_nb_new <- readRDS("brms_models/c_brm_model_nb_new.rds")
+c_brm_model_zinb_new <- readRDS("brms_models/c_brm_model_zinb_new.rds")
 
 ###* Check loo's of models
 loo(c_brm_model_po_new, c_brm_model_zipo_new, c_brm_model_nb_new, c_brm_model_zinb_new)
@@ -125,19 +125,19 @@ loo(c_brm_model_zinb_new)
 ###* Getting rid of pareto warnings by using kfold
 ###* 
 # c_brm_model_zinb_new_k <- kfold(c_brm_model_zinb_new, K = 5, cores = 5)
-# saveRDS(c_brm_model_zinb_new_k, "../brms_models/c_brm_model_zinb_new_k.rds")
+# saveRDS(c_brm_model_zinb_new_k, "brms_models/c_brm_model_zinb_new_k.rds")
 # c_brm_model_po_new_k <- kfold(c_brm_model_po_new, K = 5, cores = 5)
-# saveRDS(c_brm_model_po_new_k, "../brms_models/c_brm_model_po_new_k.rds")
+# saveRDS(c_brm_model_po_new_k, "brms_models/c_brm_model_po_new_k.rds")
 # c_brm_model_zipo_new_k <- kfold(c_brm_model_zipo_new, K = 5, cores = 5)
-# saveRDS(c_brm_model_zipo_new_k, "../brms_models/c_brm_model_zipo_new_k.rds")
+# saveRDS(c_brm_model_zipo_new_k, "brms_models/c_brm_model_zipo_new_k.rds")
 # c_brm_model_nb_new_k <- kfold(c_brm_model_nb_new, K = 5, cores = 5)
-# saveRDS(c_brm_model_nb_new_k, "../brms_models/c_brm_model_nb_new_k.rds")
+# saveRDS(c_brm_model_nb_new_k, "brms_models/c_brm_model_nb_new_k.rds")
 
 ###* Prepared loo images for models
-c_brm_model_zinb_new_k <- readRDS("../brms_models/c_brm_model_zinb_new_k.rds")
-c_brm_model_po_new_k <- readRDS("../brms_models/c_brm_model_po_new_k.rds")
-c_brm_model_zipo_new_k <- readRDS("../brms_models/c_brm_model_zipo_new_k.rds")
-c_brm_model_nb_new_k <- readRDS("../brms_models/c_brm_model_nb_new_k.rds")
+c_brm_model_zinb_new_k <- readRDS("brms_models/c_brm_model_zinb_new_k.rds")
+c_brm_model_po_new_k <- readRDS("brms_models/c_brm_model_po_new_k.rds")
+c_brm_model_zipo_new_k <- readRDS("brms_models/c_brm_model_zipo_new_k.rds")
+c_brm_model_nb_new_k <- readRDS("brms_models/c_brm_model_nb_new_k.rds")
 
 ###* Comparing models after kfolding
 loo_compare(c_brm_model_po_new_k, c_brm_model_zipo_new_k, c_brm_model_nb_new_k, c_brm_model_zinb_new_k)
@@ -163,17 +163,17 @@ c_brm_null_zinb_new <- brm(
 )
 
 ###* Save model
-saveRDS(c_brm_null_zinb_new, file = "../brms_models/c_brm_null_zinb_new.rds")
-c_brm_null_zinb_new <- readRDS("../brms_models/c_brm_null_zinb_new.rds")
+saveRDS(c_brm_null_zinb_new, file = "brms_models/c_brm_null_zinb_new.rds")
+c_brm_null_zinb_new <- readRDS("brms_models/c_brm_null_zinb_new.rds")
 loo(c_brm_null_zinb_new)
 ###* Also problem with pareto
 
 ###* Fix pareto problem in null
 c_brm_null_zinb_new_k <- kfold(c_brm_null_zinb_new, K = 5, cores = 5)
-saveRDS(c_brm_null_zinb_new_k, "../brms_models/c_brm_null_zinb_new_k.rds")
+saveRDS(c_brm_null_zinb_new_k, "brms_models/c_brm_null_zinb_new_k.rds")
 
 ###* Fit kfold fixed model
-c_brm_null_zinb_new_k <- readRDS("../brms_models/c_brm_null_zinb_new_k.rds")
+c_brm_null_zinb_new_k <- readRDS("brms_models/c_brm_null_zinb_new_k.rds")
 
 c_brm_model_zinb_new_k
 c_brm_null_zinb_new_k
@@ -203,7 +203,7 @@ loo_compare(c_brm_null_zinb_new_k, c_brm_model_zinb_new_k)
 ###* So now that we know which model is the best and that it is more reliable
 ###* than the null, can it be trusted?
 ###* 
-c_brm_model_zinb_new <- readRDS("../brms_models/c_brm_model_zinb_new.rds")
+c_brm_model_zinb_new <- readRDS("brms_models/c_brm_model_zinb_new.rds")
 summary(c_brm_model_zinb_new)
 
 pp_check(c_brm_model_zinb_new, type = "dens_overlay")
@@ -248,14 +248,14 @@ pl_ord_model_new <- ordbetareg(
 )
 
 ###* Save model and check loo
-saveRDS(pl_ord_model_new, file = "../brms_models/pl_ord_model_new.rds")
-pl_ord_model_new <- readRDS("../brms_models/pl_ord_model_new.rds")
+saveRDS(pl_ord_model_new, file = "brms_models/pl_ord_model_new.rds")
+pl_ord_model_new <- readRDS("brms_models/pl_ord_model_new.rds")
 loo(pl_ord_model_new)
 
 ###* K-fold, since pareto warnings
 pl_ord_model_new_k <- kfold(pl_ord_model_new, K = 5, cores = 5)
-saveRDS(pl_ord_model_new_k, "../brms_models/pl_ord_model_new_k.rds")
-pl_ord_model_new_k <- readRDS("../brms_models/pl_ord_model_new_k.rds")
+saveRDS(pl_ord_model_new_k, "brms_models/pl_ord_model_new_k.rds")
+pl_ord_model_new_k <- readRDS("brms_models/pl_ord_model_new_k.rds")
 
 ###* Add "intercept = 1" to dataset, in order to be able to run null model. The
 ###* ordbetarteg package does not understand replacing fixes factor with "1", 
@@ -273,20 +273,20 @@ pl_ord_null_new <- ordbetareg(
   seed = 1234
 )
 
-saveRDS(pl_ord_null_new, file = "../brms_models/pl_ord_null_new.rds")
-pl_ord_null_new <- readRDS("../brms_models/pl_ord_null_new.rds")
+saveRDS(pl_ord_null_new, file = "brms_models/pl_ord_null_new.rds")
+pl_ord_null_new <- readRDS("brms_models/pl_ord_null_new.rds")
 
 ###* K-fold null because of parteto warnings
 pl_ord_null_new_k <- kfold(pl_ord_null_new, K = 5, cores = 5)
-saveRDS(pl_ord_null_new_k, "../brms_models/pl_ord_null_new_k.rds")
-pl_ord_null_new_k <- readRDS("../brms_models/pl_ord_null_new_k.rds")
+saveRDS(pl_ord_null_new_k, "brms_models/pl_ord_null_new_k.rds")
+pl_ord_null_new_k <- readRDS("brms_models/pl_ord_null_new_k.rds")
 
 ###* Compare loo§s of models
 loo_compare(pl_ord_null_new_k, pl_ord_model_new_k)
 ###* yes, model is better than null
 
 ###* MODEL OUTPUT
-pl_ord_model_new <- readRDS("../brms_models/pl_ord_model_new.rds")
+pl_ord_model_new <- readRDS("brms_models/pl_ord_model_new.rds")
 summary(pl_ord_model_new)
 
 pp_check(pl_ord_model_new, type = "dens_overlay")
@@ -349,16 +349,16 @@ ao_brm_model_zipo_new <- brm(
 
 
 ###* Save models with different distributions
-# saveRDS(ao_brm_model_po_new, "../brms_models/ao_brm_model_po_new.rds")
-# saveRDS(ao_brm_model_zipo_new, "../brms_models/ao_brm_model_zipo_new.rds")
-# saveRDS(ao_brm_model_nb_new, "../brms_models/ao_brm_model_nb_new.rds")
-# saveRDS(ao_brm_model_zinb_new, "../brms_models/ao_brm_model_zinb_new.rds")
+# saveRDS(ao_brm_model_po_new, "brms_models/ao_brm_model_po_new.rds")
+# saveRDS(ao_brm_model_zipo_new, "brms_models/ao_brm_model_zipo_new.rds")
+# saveRDS(ao_brm_model_nb_new, "brms_models/ao_brm_model_nb_new.rds")
+# saveRDS(ao_brm_model_zinb_new, "brms_models/ao_brm_model_zinb_new.rds")
 
 ###* Load models with different distributions
-ao_brm_model_po_new <- readRDS("../brms_models/ao_brm_model_po_new.rds")
-ao_brm_model_zipo_new <- readRDS("../brms_models/ao_brm_model_zipo_new.rds")
-ao_brm_model_nb_new <- readRDS("../brms_models/ao_brm_model_nb_new.rds")
-ao_brm_model_zinb_new <- readRDS("../brms_models/ao_brm_model_zinb_new.rds")
+ao_brm_model_po_new <- readRDS("brms_models/ao_brm_model_po_new.rds")
+ao_brm_model_zipo_new <- readRDS("brms_models/ao_brm_model_zipo_new.rds")
+ao_brm_model_nb_new <- readRDS("brms_models/ao_brm_model_nb_new.rds")
+ao_brm_model_zinb_new <- readRDS("brms_models/ao_brm_model_zinb_new.rds")
 
 ###* Check loo's of models
 loo(ao_brm_model_po_new, ao_brm_model_zipo_new, ao_brm_model_nb_new, ao_brm_model_zinb_new)
@@ -369,23 +369,23 @@ loo(ao_brm_model_zinb_new)
 ###* 
 # ao_brm_model_po_new_k <- kfold(ao_brm_model_po_new, K = 2, cores = 5)
 # ao_brm_model_po_new_k
-# saveRDS(ao_brm_model_po_new_k, "../brms_models/ao_brm_model_po_new_k.rds")
+# saveRDS(ao_brm_model_po_new_k, "brms_models/ao_brm_model_po_new_k.rds")
 # ao_brm_model_zipo_new_k <- kfold(ao_brm_model_zipo_new, K = 3, cores = 5)
 # ao_brm_model_zipo_new_k
-# saveRDS(ao_brm_model_zipo_new_k, "../brms_models/ao_brm_model_zipo_new_k.rds")
+# saveRDS(ao_brm_model_zipo_new_k, "brms_models/ao_brm_model_zipo_new_k.rds")
 # ao_brm_model_nb_new_k <- kfold(ao_brm_model_nb_new, K = 3, cores = 5)
 # ao_brm_model_nb_new_k
-# saveRDS(ao_brm_model_nb_new_k, "../brms_models/ao_brm_model_nb_new_k.rds")
+# saveRDS(ao_brm_model_nb_new_k, "brms_models/ao_brm_model_nb_new_k.rds")
 # ao_brm_model_zinb_new_k <- kfold(ao_brm_model_zinb_new, K = 3, cores = 5)
 # ao_brm_model_zinb_new_k
-# saveRDS(ao_brm_model_zinb_new_k, "../brms_models/ao_brm_model_zinb_new_k.rds")
+# saveRDS(ao_brm_model_zinb_new_k, "brms_models/ao_brm_model_zinb_new_k.rds")
 
 
 ###* Prepared loo images for models
-ao_brm_model_zinb_new_k <- readRDS("../brms_models/ao_brm_model_zinb_new_k.rds")
-ao_brm_model_po_new_k <- readRDS("../brms_models/ao_brm_model_po_new_k.rds")
-ao_brm_model_zipo_new_k <- readRDS("../brms_models/ao_brm_model_zipo_new_k.rds")
-ao_brm_model_nb_new_k <- readRDS("../brms_models/ao_brm_model_nb_new_k.rds")
+ao_brm_model_zinb_new_k <- readRDS("brms_models/ao_brm_model_zinb_new_k.rds")
+ao_brm_model_po_new_k <- readRDS("brms_models/ao_brm_model_po_new_k.rds")
+ao_brm_model_zipo_new_k <- readRDS("brms_models/ao_brm_model_zipo_new_k.rds")
+ao_brm_model_nb_new_k <- readRDS("brms_models/ao_brm_model_nb_new_k.rds")
 
 ###* Comopare loo for models
 loo_compare(ao_brm_model_zinb_new_k, ao_brm_model_po_new_k, ao_brm_model_zipo_new_k, ao_brm_model_nb_new_k)
@@ -408,8 +408,8 @@ ao_brm_null_zinb <- brm(
   seed = 1234
 )
 
-saveRDS(ao_brm_null_zinb, file = "../brms_models/ao_brm_null_zinb.rds")
-ao_brm_null_zinb <- readRDS("../brms_models/ao_brm_null_zinb.rds")
+saveRDS(ao_brm_null_zinb, file = "brms_models/ao_brm_null_zinb.rds")
+ao_brm_null_zinb <- readRDS("brms_models/ao_brm_null_zinb.rds")
 
 ###* Check loo
 loo(ao_brm_null_zinb)
@@ -417,7 +417,7 @@ loo(ao_brm_null_zinb)
 ###* K-fold model to get rid of pareto warnings
 ao_brm_null_zinb_k <- kfold(ao_brm_null_zinb, K = 2, cores = 5)
 ao_brm_null_zinb_k
-saveRDS(ao_brm_null_zinb_k, "../brms_models/ao_brm_null_zinb_k.rds")
+saveRDS(ao_brm_null_zinb_k, "brms_models/ao_brm_null_zinb_k.rds")
 
 ###* Compare full and null model
 loo_compare(ao_brm_null_zinb_k, ao_brm_model_zinb_new_k)
@@ -427,7 +427,7 @@ loo_compare(ao_brm_null_zinb_k, ao_brm_model_zinb_new_k)
 ###* 
 ###* 
 ###* MODEL OUTPUT
-ao_brm_model_zinb <- readRDS("../brms_models/ao_brm_model_zinb.rds")
+ao_brm_model_zinb <- readRDS("brms_models/ao_brm_model_zinb.rds")
 summary(ao_brm_model_zinb)
 
 ###* PP check
@@ -486,16 +486,16 @@ go_brm_model_zinb_new <- brm(
 )
 
 ###* Save models with different distributions
-# saveRDS(go_brm_model_po_new, "../brms_models/go_brm_model_po_new.rds")
-# saveRDS(go_brm_model_zipo_new, "../brms_models/go_brm_model_zipo_new.rds")
-# saveRDS(go_brm_model_nb_new, "../brms_models/go_brm_model_nb_new.rds")
-# saveRDS(go_brm_model_zinb_new, "../brms_models/go_brm_model_zinb_new.rds")
+# saveRDS(go_brm_model_po_new, "brms_models/go_brm_model_po_new.rds")
+# saveRDS(go_brm_model_zipo_new, "brms_models/go_brm_model_zipo_new.rds")
+# saveRDS(go_brm_model_nb_new, "brms_models/go_brm_model_nb_new.rds")
+# saveRDS(go_brm_model_zinb_new, "brms_models/go_brm_model_zinb_new.rds")
 
 ###* Load models with different distributions
-go_brm_model_po_new <- readRDS("../brms_models/go_brm_model_po_new.rds")
-go_brm_model_zipo_new <- readRDS("../brms_models/go_brm_model_zipo_new.rds")
-go_brm_model_nb_new <- readRDS("../brms_models/go_brm_model_nb_new.rds")
-go_brm_model_zinb_new <- readRDS("../brms_models/go_brm_model_zinb_new.rds")
+go_brm_model_po_new <- readRDS("brms_models/go_brm_model_po_new.rds")
+go_brm_model_zipo_new <- readRDS("brms_models/go_brm_model_zipo_new.rds")
+go_brm_model_nb_new <- readRDS("brms_models/go_brm_model_nb_new.rds")
+go_brm_model_zinb_new <- readRDS("brms_models/go_brm_model_zinb_new.rds")
 
 ###* Check loo's of models
 loo(go_brm_model_po_new, go_brm_model_zipo_new, go_brm_model_nb_new, go_brm_model_zinb_new)
@@ -506,23 +506,23 @@ loo(go_brm_model_zinb_new)
 ###* 
 # go_brm_model_po_new_k <- kfold(go_brm_model_po_new, K = 2, cores = 5)
 # go_brm_model_po_new_k
-# saveRDS(go_brm_model_po_new_k, "../brms_models/go_brm_model_po_new_k.rds")
+# saveRDS(go_brm_model_po_new_k, "brms_models/go_brm_model_po_new_k.rds")
 # go_brm_model_zipo_new_k <- kfold(go_brm_model_zipo_new, K = 3, cores = 5)
 # go_brm_model_zipo_new_k
-# saveRDS(go_brm_model_zipo_new_k, "../brms_models/go_brm_model_zipo_new_k.rds")
+# saveRDS(go_brm_model_zipo_new_k, "brms_models/go_brm_model_zipo_new_k.rds")
 # go_brm_model_nb_new_k <- kfold(go_brm_model_nb_new, K = 3, cores = 5)
 # go_brm_model_nb_new_k
-# saveRDS(go_brm_model_nb_new_k, "../brms_models/go_brm_model_nb_new_k.rds")
+# saveRDS(go_brm_model_nb_new_k, "brms_models/go_brm_model_nb_new_k.rds")
 # go_brm_model_zinb_new_k <- kfold(go_brm_model_zinb_new, K = 3, cores = 5)
 # go_brm_model_zinb_new_k
-# saveRDS(go_brm_model_zinb_new_k, "../brms_models/go_brm_model_zinb_new_k.rds")
+# saveRDS(go_brm_model_zinb_new_k, "brms_models/go_brm_model_zinb_new_k.rds")
 
 
 ###* Prepared loo images for models
-go_brm_model_zinb_new_k <- readRDS("../brms_models/go_brm_model_zinb_new_k.rds")
-go_brm_model_po_new_k <- readRDS("../brms_models/go_brm_model_po_new_k.rds")
-go_brm_model_zipo_new_k <- readRDS("../brms_models/go_brm_model_zipo_new_k.rds")
-go_brm_model_nb_new_k <- readRDS("../brms_models/go_brm_model_nb_new_k.rds")
+go_brm_model_zinb_new_k <- readRDS("brms_models/go_brm_model_zinb_new_k.rds")
+go_brm_model_po_new_k <- readRDS("brms_models/go_brm_model_po_new_k.rds")
+go_brm_model_zipo_new_k <- readRDS("brms_models/go_brm_model_zipo_new_k.rds")
+go_brm_model_nb_new_k <- readRDS("brms_models/go_brm_model_nb_new_k.rds")
 
 loo_compare(go_brm_model_po_new_k, go_brm_model_zipo_new_k, go_brm_model_nb_new_k, go_brm_model_zinb_new_k)
 
@@ -543,15 +543,15 @@ go_brm_null_zinb <- brm(
   seed = 1234
 )
 
-saveRDS(go_brm_null_zinb, file = "../brms_models/go_brm_null_zinb.rds")
-go_brm_null_zinb <- readRDS("../brms_models/go_brm_null_zinb.rds")
+saveRDS(go_brm_null_zinb, file = "brms_models/go_brm_null_zinb.rds")
+go_brm_null_zinb <- readRDS("brms_models/go_brm_null_zinb.rds")
 
 loo(go_brm_null_zinb)
 
 ###* K-fold model to get rid of pareto warnings
 go_brm_null_zinb_k <- kfold(go_brm_null_zinb, K = 2, cores = 5)
 go_brm_null_zinb_k
-saveRDS(go_brm_null_zinb_k, "../brms_models/go_brm_null_zinb_k.rds")
+saveRDS(go_brm_null_zinb_k, "brms_models/go_brm_null_zinb_k.rds")
 
 
 loo_compare(go_brm_null_zinb_k, go_brm_model_zinb_new_k)

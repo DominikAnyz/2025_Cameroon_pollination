@@ -372,14 +372,14 @@ extract_bayes_model_info <- function(index_name, model = NULL, null_model = NULL
 
 
 # Load your models
-pl_model <- readRDS("../brms_models/bayesian_pl_noel_w12_p1_vmf.rds")
-pl_null  <- readRDS("../brms_models/bayesian_pl_noel_w12_p1_null.rds")
+pl_model <- readRDS("brms_models/bayesian_pl_noel_w12_p1_vmf.rds")
+pl_null  <- readRDS("brms_models/bayesian_pl_noel_w12_p1_null.rds")
 
-ao_model <- readRDS("../brms_models/bayesian_ao_noel_w12_p1_f.rds")
-ao_null  <- readRDS("../brms_models/bayesian_ao_noel_w12_p1_null.rds")
+ao_model <- readRDS("brms_models/bayesian_ao_noel_w12_p1_f.rds")
+ao_null  <- readRDS("brms_models/bayesian_ao_noel_w12_p1_null.rds")
 
-go_model <- readRDS("../brms_models/bayesian_go_noel_w12_p1_v.rds")
-go_null  <- readRDS("../brms_models/bayesian_go_noel_w12_p1_null.rds")
+go_model <- readRDS("brms_models/bayesian_go_noel_w12_p1_v.rds")
+go_null  <- readRDS("brms_models/bayesian_go_noel_w12_p1_null.rds")
 
 # For control model, which failed
 c_summary <- extract_bayes_model_info("Natural seed-set", model = NULL, distribution = "–")
