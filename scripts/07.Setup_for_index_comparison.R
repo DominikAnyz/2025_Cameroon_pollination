@@ -9,102 +9,9 @@
 ###* like a small fix, I belive it is best to run these scripts separately in 
 ###* order to avoid complications.
 ###* 
-
 pacman::p_load(tidyverse, scales)
 
-select <- dplyr::select
-
-set.seed(1234)
-
-seed.data<- read.delim("data/clean_seeds.txt", na = c("na"))
-
-seed.data$elevation<-as.factor(seed.data$elevation)
-
-seed.data <- seed.data %>%
-  mutate(elevation = recode(elevation,
-                            `2300` = 2300,
-                            `2800` = 2800,
-                            `3500` = 3400,
-                            `4000` = 3800))
-
-seed.indices <- 
-  seed.data %>% 
-  group_by(elevation,plant_number, species) %>% 
-  mutate(O.mean.plantnumber = mean(seedset[treatment == "outcrossing"], na.rm = TRUE)) %>% 
-  ungroup() %>% 
-  group_by(elevation, species) %>% 
-  mutate(O.mean.elevation = mean(seedset[treatment == "outcrossing"], na.rm = TRUE)) %>%
-  mutate(O.mean = case_when(is.nan(O.mean.plantnumber) ~ O.mean.elevation,
-                            .default = O.mean.plantnumber)) %>% 
-  mutate(index = seedset/O.mean) %>%
-  mutate(seedset = if_else(seedset != round(seedset), round(seedset), seedset))
-
-seed.indices <- seed.indices %>% 
-  filter(!(index %in% c("NA", "Inf")|is.na(seedset))) %>% 
-  mutate(index = case_when(
-    is.finite (index) ~index,
-    .default = 0
-  ))
-
-seed.indices$elevation<-as.factor(seed.indices$elevation)
-seed.indices$species<-as.factor(seed.indices$species)
-
-#Additional column "elevation.species"
-seed.indices <- seed.indices %>%
-  mutate(elevation.species = paste0(elevation, species))
-
-c.index <- seed.indices %>%
-  filter(treatment == "control") %>%
-  select(seedset, index, elevation, species, plant_number, elevation.species) %>%
-  mutate(seedset = round (seedset)) %>%
-  mutate(PL.index = replace(1 - index, 1 - index < 0, 0)) %>%
-  mutate(elevation = factor(elevation),
-         species = factor(species)) %>%
-  tibble::rowid_to_column("ID") %>%
-  mutate(plant.id = as.factor(paste0(elevation,species,plant_number))) %>%
-  #filter(species != "Hypericum r" | elevation != 4000) %>%
-  mutate(flower.id = as.factor(paste0(elevation, species, plant_number,"_", ID)))
-
-# str(c.index)
-# summary(c.index)
-# any(is.na(c.index$seedset))
-# any(is.na(c.index$elevation))
-
-ao.index <- seed.indices %>%
-  filter(treatment == "autogamy") %>%
-  select(index, elevation, species, plant_number, plant_number, elevation.species) %>%
-  mutate(elevation = factor(elevation),
-         species = factor(species)) %>%
-  mutate(index = index) %>%
-  mutate(index_trans = round(index * 100)) %>%
-  mutate(plant.number.el = as.factor(paste0(elevation,plant_number))) %>%
-  mutate(plant.id = as.factor(paste0(elevation,species,plant_number))) %>%
-  filter(species != "Hypericum r" | elevation != 4000) %>%
-  mutate(species.sp = as.factor(paste0(elevation,species)))
-
-go.index <- seed.indices %>%
-  filter(treatment == "geitonogamy") %>%
-  select(index, elevation, species, plant_number, elevation.species) %>%
-  mutate(elevation = factor(elevation),
-         species = factor(species)) %>%
-  mutate(index = index) %>%
-  mutate(index_trans = round(index * 100)) %>%
-  mutate(plant.id = as.factor(paste0(elevation,species,plant_number)))%>%
-  filter(species != "Lactuca i") %>%
-  filter(species != "Hypericum r" | elevation != 4000)
-###* 
-###* 
-###* 
-###* 
-###* 
-###* 
-###* 
-###* 
-###* 
-###* Next I would like to try two things getting info from visitation data by
-###* indivdual and then by elevation combined with species
-###*
-###* So how do we extract this info from the visitation data?
+source("scripts/03.Setup_for_pollination_indices.R")
 
 ###* Loading visitor data, which has all the information of the video recordings 
 ###* and the visitors from the videos
@@ -115,7 +22,6 @@ visitors <- visitors %>%
   mutate(elevation = as.character(elevation)) %>%
   mutate(elevation = recode(elevation, `3500` = "3400", `4000` = "3800")) %>%
   mutate(elevation = factor(elevation))
-
 
 ###* Loading .txt "functional", which contains the functional groups of all of 
 ###* visitors from the table "Visitors2"
@@ -201,8 +107,8 @@ vis_sd   <- sd(flowering.visited$visitors.per.minute, na.rm = TRUE)
 vis_flow_mean <- mean(flowering.visited$visited.flowers.per.minute, na.rm = TRUE)
 vis_flow_sd   <- sd(flowering.visited$visited.flowers.per.minute, na.rm = TRUE)
 
-vis_flow_mean
-vis_flow_sd
+# vis_flow_mean
+# vis_flow_sd
 
 #View(flowering.visited)
 
@@ -221,22 +127,6 @@ flowering.visited <- flowering.visited %>%
   )
 
 #View(flowering.visited)
-
-###* Create a mode function to be able to identify the most common visitor in 
-###* our dataset
-mode_function <- function(x) {
-  if (length(x) == 0 || all(is.na(x))) {
-    return(NA_character_)
-  }
-  tbl <- table(x)
-  max_freq <- max(tbl)
-  most_common <- as.character(names(tbl)[which(tbl == max_freq)])
-  if (length(most_common) > 1) {
-    return(paste(most_common, collapse = ", "))
-  } else {
-    return(most_common)
-  }
-}
 
 ###* Generate a dataset, where we get the following information about every 
 ###* "plant.code":
@@ -371,22 +261,12 @@ final.table <- final.table %>%
 
 #hist(final.table$mean.visitors.per.minute)
 
-###*
-###*
-###*
-###*
 ###* Now I need to get information, which should be grouped by elevation.species
 ###* in order to be correct and them merge the two tables. This includes the most 
 ###* common visitors and their Genuses
 ###* 
-###* 
-###* 
-###* 
-###* 
 ###* Generate a new table, where instead of "plant.code", we will be grouping by
 ###* "elevation.species"
-###*
-###*
 ###* 
 # visitors2<- read.delim("Visitors/Visitors2.txt")
 # visitors2 <- visitors2 %>%
@@ -479,32 +359,24 @@ final.table <- final.table %>%
   mutate(elevation.species = paste0(elevation, species)) %>%
   select(elevation.species, everything())
 
-
-###* 
-###* 
-###* 
-###* 
-###* 
 ###* 
 ###* In the next part, seedset data is prepared for merging with visitor data
 ###* visitation rate mean table
+###* 
 
 ###* C/PL mean and sd table
 
+###* Create mean and sd for each observation grouped by elevation.species
 c.index2 <- c.index %>%
   group_by(elevation.species) %>%
   summarise(
     mean_seedset = round(mean(seedset, na.rm = TRUE), 3),
-    #se_seedset = round(sd(seedset, na.rm = TRUE) / sqrt(sum(!is.na(seedset))), 3),
     sd_seedset = round(sd(seedset, na.rm = TRUE), 3),
     mean_PL_index = round(mean(PL.index, na.rm = TRUE), 3),
-    #se_PL_index = round(sd(PL.index, na.rm = TRUE) / sqrt(sum(!is.na(PL.index))), 3),
-    sd_PL_index = sd(PL.index, na.rm = TRUE)#,
-    #PL_index_weight = ifelse(sd_PL_index == 0 | is.na(sd_PL_index), 1, 1 / sd_PL_index),
-    #seedset_weight = ifelse(sd_seedset == 0 | is.na(sd_seedset), 1, 1 / sd_seedset)
+    sd_PL_index = sd(PL.index, na.rm = TRUE)
   )
 
-###* Generate number of replicates per eelvation.species
+###* Generate number of replicates per elevation.species
 replicates <- seed.indices %>%
   filter(treatment == "control") %>%
   group_by(elevation.species) %>%
@@ -514,100 +386,106 @@ replicates <- seed.indices %>%
 c.pl.final.table <- left_join(final.table, c.index2, by = "elevation.species")
 c.pl.final.table <- left_join(c.pl.final.table, replicates, by = "elevation.species")
 
-###* Make sure everything is as factor, without NA's
+###* Make sure everything is as factor, without NA's (delete rows, which contain NA's)
 c.pl.final.table$elevation <- as.factor(c.pl.final.table$elevation)
 c.pl.final.table$species <- as.factor(c.pl.final.table$species)
 c.pl.final.table <- na.omit(c.pl.final.table)
 
-#View(c.pl.final.table)
-
+###* Round mean_seedset, to fit into distributions
 c.pl.final.table <- c.pl.final.table %>%
   mutate(mean_seedset_round = round(mean_seedset))
 
-# Calculate mean and sd of seedset
-seed_mean <- mean(c.pl.final.table$mean_seedset, na.rm = TRUE)
-seed_sd   <- sd(c.pl.final.table$mean_seedset, na.rm = TRUE)
-
-# Add z-transformed column
-c.pl.final.table <- c.pl.final.table %>%
-  mutate(scaled_seedset = (mean_seedset - seed_mean) / seed_sd) %>%
-  mutate(log_seedset = log1p(mean_seedset)) %>%
-  mutate(scaled_log_seedset = (log_seedset - mean(log_seedset, na.rm=TRUE)) / sd(log_seedset, na.rm=TRUE))
-
+# # Calculate mean and sd of seedset
+# seed_mean <- mean(c.pl.final.table$mean_seedset, na.rm = TRUE)
+# seed_sd   <- sd(c.pl.final.table$mean_seedset, na.rm = TRUE)
+# 
+# # Add z-transformed column
+# c.pl.final.table <- c.pl.final.table %>%
+#   mutate(scaled_seedset = (mean_seedset - seed_mean) / seed_sd) %>%
+#   mutate(log_seedset = log1p(mean_seedset)) %>%
+#   mutate(scaled_log_seedset = (log_seedset - mean(log_seedset, na.rm=TRUE)) / sd(log_seedset, na.rm=TRUE))
 
 c.pl.final.table.2 <- c.pl.final.table
 
-c.pl.final.table <- na.omit(c.pl.final.table)
-
+###* Generate weights for go index. Use a "12" weighing scheme (linear rescaling
+###* of the withing group SD to a bounded 1-2 range)
 c.pl.final.table.4 <- c.pl.final.table.2 %>%
   mutate(
-    seedset_weight_11sd = 1 + 1 / (1 + sd_seedset),
     seedset_weight_12 = scales::rescale(-sd_seedset, to = c(1, 2)),
-    PL_index_weight_11sd = 1 + 1 / (1 + sd_PL_index),
-    PL_index_weight_12 = scales::rescale(-sd_PL_index, to = c(1, 2)),    
+    PL_index_weight_12 = scales::rescale(-sd_PL_index, to = c(1, 2))    
   )
 
 
 #View(c.pl.final.table.4)
+###* 
+###* 
 ###* AO mean and sd table
 
 #View(ao.index)
 
+###* Create mean and sd for each observation grouped by elevation.species
 ao.index2 <- ao.index %>%
   group_by(elevation.species) %>%
   summarise(
     mean_ao_index = round(mean(index, na.rm = TRUE),3),
-    #se_ao_index = round(sd(index, na.rm = TRUE) / sqrt(sum(!is.na(index)))),
     sd_ao_index = sd(index, na.rm = TRUE),
     mean_ao_index_trans = round(mean(index_trans, na.rm = TRUE),2),
-    #se_ao_index_trans = round(sd(index_trans, na.rm = TRUE) / sqrt(sum(!is.na(index_trans)))),
     ao_index_weight = ifelse(sd_ao_index == 0 | is.na(sd_ao_index), 1, 1 / sd_ao_index)
   )
 
+###* Generate number of replicates per elevation.species
 replicates_ao <- seed.indices %>%
   filter(treatment == "autogamy") %>%
   group_by(elevation.species) %>%
   summarise(n_replicates = n())
 
+###* Join tables
 ao.final.table <- left_join(final.table, ao.index2, by = "elevation.species")
 ao.final.table <- left_join(ao.final.table, replicates_ao, by = "elevation.species")
 
+###* Make sure everything is as factor, without NA's (delete rows, which contain NA's)
 ao.final.table <- na.omit(ao.final.table)
 ao.final.table$elevation <- as.factor(ao.final.table$elevation)
 ao.final.table$species <- as.factor(ao.final.table$species)
 
+###* Generate weights for go index. Use a "12" weighing scheme (linear rescaling
+###* of the withing group SD to a bounded 1-2 range)
 ao.final.table <- ao.final.table %>%
   mutate(
-    ao_index_weight_11sd = 1 + 1 / (1 + sd_ao_index),
-    ao_index_weight_12 = scales::rescale(-sd_ao_index, to = c(1, 2)),    
+    ao_index_weight_12 = scales::rescale(-sd_ao_index, to = c(1, 2))    
   )
 
+###* 
+###* 
 ###* GO mean and sd table
 
+###* Create mean and sd for each observation grouped by elevation.species
 go.index2 <- go.index %>%
   group_by(elevation.species) %>%
   summarise(
     mean_go_index = round(mean(index, na.rm = TRUE),3),
-    #se_go_index = round(sd(index, na.rm = TRUE) / sqrt(sum(!is.na(index)))),
     sd_go_index = sd(index, na.rm = TRUE),
     mean_go_index_trans = round(mean(index_trans, na.rm = TRUE),3),
-    #se_go_index_trans = round(sd(index_trans, na.rm = TRUE) / sqrt(sum(!is.na(index_trans)))),
     go_index_weight = ifelse(sd_go_index == 0 | is.na(sd_go_index), 1, 1 / sd_go_index)
   )
 
+###* Join tables
 go.final.table <- left_join(final.table, go.index2, by = "elevation.species")
 
+###* Make sure everything is as factor, without NA's (delete rows, which contain NA's)
 go.final.table <- na.omit(go.final.table)
 go.final.table$elevation <- as.factor(go.final.table$elevation)
 go.final.table$species <- as.factor(go.final.table$species)
 
+
 go.final.table <- go.final.table %>%
   mutate(mean_go_index = ifelse(mean_go_index > 1, 1, mean_go_index))
 
+###* Generate weights for go index. Use a "12" weighing scheme (linear rescaling
+###* of the withing group SD to a bounded 1-2 range)
 go.final.table <- go.final.table %>%
   mutate(
-    go_index_weight_11sd = 1 + 1 / (1 + sd_go_index),
-    go_index_weight_12 = scales::rescale(-sd_go_index, to = c(1, 2)),    
+    go_index_weight_12 = scales::rescale(-sd_go_index, to = c(1, 2))    
   )
 
 

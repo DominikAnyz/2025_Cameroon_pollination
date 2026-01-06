@@ -1,20 +1,12 @@
-### The final results for the brms models
-###* Loading the necessary packages
-pacman::p_load(tidyverse, brms, ordbetareg, scales)
-
-select <- dplyr::select
-
-set.seed(1234)
-source("scripts/03. Setup for visitation indices.R")
-
-###* 
-###* 
 ###* This script is to test the effect of the predictors "total.morphospecies", 
 ###* "total.functional.groups" and "visited.flowers.per.minute"
-###* 
-###* 
 
-#View(final.table)
+###* Loading the necessary packages
+pacman::p_load(tidyverse, brms, ordbetareg, scales, loo)
+
+set.seed(1234)
+
+source("scripts/05.Setup_for_visitation_indices.R")
 
 final.table$elevation <- as.factor(final.table$elevation)
 
@@ -25,6 +17,27 @@ final.table <- final.table %>%
                             `4000` = "3800"))
 
 
+###* For each response index, I fit a set of four candidate models that reflect
+###* the observed distribution of the response (morpho): Poisson, zero-inflated
+###* Poisson, negative binomial, and zero-inflated negative binomial.
+###*
+###* Across candidates, the model structure is identical; only these elements 
+###* vary:
+###*   (i) model name (po / zipo / nb / zinb),
+###*   (ii) whether a zero-inflation component is included,
+###*   (iii) the family (poisson / zero_inflated_poisson / negbinomial /
+###*        zero_inflated_negbinomial),
+###*   (iv) the prior on the zero-inflation intercept (for ZI families).
+###*
+###* All fitted models are saved as .rds files. The paths are kept in the script
+###* so that models can be loaded quickly without refitting. (This is helpful
+###* because model fitting and, where needed, k-fold cross-validation are 
+###* time-consuming.)
+###*
+###* Model comparison is done using LOO-CV by default. If LOO diagnostics indicate
+###* unreliable importance sampling (e.g., Pareto k > 0.7), I re-fit comparisons
+###* using k-fold CV. (Saved objects are also kept for transparency and reuse.)
+
 ###* MORPHOSPECIES RICHNESS
 m_brm_model_po <- readRDS("brms_models/m_brm_model_po.rds")
 m_brm_model_zipo <- readRDS("brms_models/m_brm_model_zipo.rds")
@@ -32,10 +45,6 @@ m_brm_model_nb <- readRDS("brms_models/m_brm_model_nb.rds")
 m_brm_model_zinb <- readRDS("brms_models/m_brm_model_zinb.rds")
 
 loo(m_brm_model_po, m_brm_model_zipo, m_brm_model_nb, m_brm_model_zinb)
-bayes_R2(m_brm_model_po)
-bayes_R2(m_brm_model_zipo)
-bayes_R2(m_brm_model_nb)
-bayes_R2(m_brm_model_zinb)
 
 ###* clearly, the negative binomial model is the best fit
 ###* The code for it is:
@@ -115,7 +124,6 @@ resids <- residuals(m_brm_model_nb, type = "pearson")
 plot(resids)      # residual distribution
 hist(resids)      # check symmetry/variance
 
-bayes_R2(m_brm_model_nb)
 ###* model is good fit! 
 ###* 
 ###* 
@@ -133,9 +141,6 @@ f_brm_model_nb <- readRDS("brms_models/f_brm_model_nb.rds")
 f_brm_model_zinb <- readRDS("brms_models/f_brm_model_zinb.rds")
 
 loo(f_brm_model_po, f_brm_model_zipo, f_brm_model_zinb)
-bayes_R2(f_brm_model_po)
-bayes_R2(f_brm_model_zipo)
-bayes_R2(f_brm_model_zinb)
 
 f_brm_model_nb <- brm(
   formula = bf(total.func ~ elevation  + (1|plant.species)),
@@ -194,21 +199,10 @@ hist(resids)      # check symmetry/variance
 bayes_R2(f_brm_model_po)
 
 
-
-
-
-
-
-
-
-
-
-
-
+###* VISITATION FREQUENCY
 final.table <- final.table %>%
   ungroup() %>%  # Ensure no grouping is active
   mutate(visited.0.1.scaled = rescale(visited.flowers.per.minute, to = c(0, 1), na.rm = TRUE))
-
 
 vis_ord_model <- ordbetareg(
   formula = visited.0.1.scaled ~ elevation  + (1|plant.species),
@@ -252,10 +246,3 @@ plot(resids)      # residual distribution
 hist(resids)      # check symmetry/variance
 
 bayes_R2(vis_ord_model)
-
-
-
-
-
-
-

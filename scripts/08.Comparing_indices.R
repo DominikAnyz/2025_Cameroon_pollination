@@ -1,10 +1,10 @@
 ###* This script serves as running and interpreting the results from the best 
 ###* models created with the data which we have.
-pacman::p_load(brms, dplyr, ggplot2, scales, patchwork, loo)
+pacman::p_load(brms, tidyverse, loo)
 
 options(brms.backend = "cmdstanr")
 
-source("scripts/06.Setup_for_index_comparison.R")
+source("scripts/07.Setup_for_index_comparison.R")
 
 ###* Renaming for easier interpretation
 c.pl.final.table.4 <- c.pl.final.table.4 %>%
@@ -35,7 +35,6 @@ c.pl.final.table.4 <- c.pl.final.table.4 %>%
     sz = pmax(z_func_sd   / sqrt(pmax(n_reps,  1L)), eps)
     
   )
-
 
 View(c.pl.final.table.4)
 

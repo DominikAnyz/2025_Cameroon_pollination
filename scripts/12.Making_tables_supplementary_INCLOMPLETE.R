@@ -16,9 +16,8 @@
 ###* 
 ###* Making tables - supplementary
 ###* 
-library(loo)
-library(dplyr)
-library(tibble)
+pacman::p_load(dplyr, loo, emmeans)
+
 
 
 
@@ -32,8 +31,6 @@ pl_ord_model_new <- readRDS("brms_models/pl_ord_model_new.rds")
 ao_brm_model_zinb_new <- readRDS("brms_models/ao_brm_model_zinb_new.rds")
 go_brm_model_zinb_new <- readRDS("brms_models/go_brm_model_zinb_new.rds")
 
-library(emmeans)
-library(dplyr)
 
 # Example: contrasts for Natural seed-set model
 c_emm <- emmeans(c_brm_model_zinb_new, ~ elevation)

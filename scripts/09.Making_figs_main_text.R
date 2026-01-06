@@ -9,10 +9,9 @@
 ###* 
 ###* Making graphs
 ###* library(ggplot2)
-pacman::p_load(tidyverse, glmmTMB, DHARMa, emmeans, paletteer, emmeans, ggpubr,
-               multcompView, sf, ggplot2, ggspatial, elevatr, dplyr, raster,
-               paletteer, marginaleffects, scales, multcomp, readr, stringr,
-               rnaturalearth, cowplot)
+pacman::p_load(tidyverse, emmeans, tidybayes, sf, rnaturalearth, elevatr, 
+               ggspatial, scales, patchwork)
+
 
 select <- dplyr::select
 
@@ -882,7 +881,7 @@ library(emmeans)
 library(scales)
 library(patchwork)
 
-source("scripts/04. Setup for visitation indices.R")
+source("scripts/05.Setup_for_visitation_indices.R")
 
 final.table$elevation <- as.factor(final.table$elevation)
 

@@ -1,8 +1,8 @@
 ###* This script is for setting up the data for the GLMM for analyzing 
 ###* visitation indices based on elevation
 ###* 
-###* The difference between this setup and the next is that for the setup of 
-###* analysis for visitation indices based on elevation, we need to have 
+###* The difference between this setup and the next (06.) is that for the setup 
+###* of analysis for visitation indices based on elevation, we need to have 
 ###* everything agregated at the observation level. For the analyses of 
 ###* pollination indices based on visitation indices, we need to have 
 ###* everything agregated at the elevation and species levels. Although it sounds 
@@ -11,103 +11,9 @@
 ###* 
 pacman::p_load(tidyverse)
 
-select <- dplyr::select
-
-set.seed(1234)
-
-seed.data<- read.delim("data/clean_seeds.txt", na = c("na"))
-
-seed.data$elevation<-as.factor(seed.data$elevation)
-
-seed.data <- seed.data %>%
-  mutate(elevation = recode(elevation,
-                            `2300` = 2300,
-                            `2800` = 2800,
-                            `3500` = 3400,
-                            `4000` = 3800))
-
-seed.indices <- 
-  seed.data %>% 
-  group_by(elevation,plant_number, species) %>% 
-  mutate(O.mean.plantnumber = mean(seedset[treatment == "outcrossing"], na.rm = TRUE)) %>% 
-  ungroup() %>% 
-  group_by(elevation, species) %>% 
-  mutate(O.mean.elevation = mean(seedset[treatment == "outcrossing"], na.rm = TRUE)) %>%
-  mutate(O.mean = case_when(is.nan(O.mean.plantnumber) ~ O.mean.elevation,
-                            .default = O.mean.plantnumber)) %>% 
-  mutate(index = seedset/O.mean) %>%
-  mutate(seedset = if_else(seedset != round(seedset), round(seedset), seedset))
-
-seed.indices <- seed.indices %>% 
-  filter(!(index %in% c("NA", "Inf")|is.na(seedset))) %>% 
-  mutate(index = case_when(
-    is.finite (index) ~index,
-    .default = 0
-  ))
-
-seed.indices$elevation<-as.factor(seed.indices$elevation)
-seed.indices$species<-as.factor(seed.indices$species)
-
-#Additional column "elevation.species"
-seed.indices <- seed.indices %>%
-  mutate(elevation.species = paste0(elevation, species))
-
-c.index <- seed.indices %>%
-  filter(treatment == "control") %>%
-  select(seedset, index, elevation, species, plant_number, elevation.species) %>%
-  mutate(seedset = round (seedset)) %>%
-  mutate(PL.index = replace(1 - index, 1 - index < 0, 0)) %>%
-  mutate(elevation = factor(elevation),
-         species = factor(species)) %>%
-  tibble::rowid_to_column("ID") %>%
-  mutate(plant.id = as.factor(paste0(elevation,species,plant_number))) %>%
-  #filter(species != "Hypericum r" | elevation != 3800) %>%
-  mutate(flower.id = as.factor(paste0(elevation, species, plant_number,"_", ID)))
-
-# str(c.index)
-# summary(c.index)
-# any(is.na(c.index$seedset))
-# any(is.na(c.index$elevation))
-
-ao.index <- seed.indices %>%
-  filter(treatment == "autogamy") %>%
-  select(index, elevation, species, plant_number, plant_number, elevation.species) %>%
-  mutate(elevation = factor(elevation),
-         species = factor(species)) %>%
-  mutate(index = index) %>%
-  mutate(index_trans = round(index * 100)) %>%
-  mutate(plant.number.el = as.factor(paste0(elevation,plant_number))) %>%
-  mutate(plant.id = as.factor(paste0(elevation,species,plant_number))) %>%
-  filter(species != "Hypericum r" | elevation != 3800) %>%
-  mutate(species.sp = as.factor(paste0(elevation,species)))
-
-go.index <- seed.indices %>%
-  filter(treatment == "geitonogamy") %>%
-  select(index, elevation, species, plant_number, elevation.species) %>%
-  mutate(elevation = factor(elevation),
-         species = factor(species)) %>%
-  mutate(index = index) %>%
-  mutate(index_trans = round(index * 100)) %>%
-  mutate(plant.id = as.factor(paste0(elevation,species,plant_number)))%>%
-  filter(species != "Lactuca i") %>%
-  filter(species != "Hypericum r" | elevation != 3800)
-###* 
-###* 
-###* 
-###* 
-###* 
-###* 
-###* 
-###* 
-###* 
-###* Next I would like to try two things getting info from visitation data by
-###* indivdual and then by elevation combined with species
-###*
-###* So how do we extract this info from the visitation data?
-
 ###* Loading visitor data, which has all the information of the video recordings 
 ###* and the visitors from the videos
-visitors<- read.delim("data/visitors.txt")
+visitors2<- read.delim("data/visitors.txt")
 #View(functional)
 
 ###* Loading .txt "functional", which contains the functional groups of all of 
@@ -121,27 +27,60 @@ functional_groups <- c("Hoverfly", "Bee", "Wasp", "Bird", "Beetle", "Butterfly",
 
 ###* Create column with duplicate values of "minutes" and then count minutes in 
 ###* recording and flowering minutes.
-visitors <- visitors %>% 
-  mutate(duplicate.minutes = if_else(min == lag(min), number.of.observed.flowers, NA_real_)) %>%
+###*
+###*
+###*
+###* FIXED
+View(visitors2)
+
+visitors2 <- visitors2 %>%
+  arrange(plant.code, day, hour, min) %>%        # include hour if you still have it
   group_by(plant.code) %>%
-  mutate(minutes.in.recording = n() - sum(!is.na(duplicate.minutes))) %>%
-  mutate(flowering.minutes = sum(number.of.observed.flowers, na.rm = TRUE) -
-           sum(duplicate.minutes, na.rm = TRUE)) %>%
-  mutate(insect.order = ifelse(insect.order == "Syrphidae", "Diptera", insect.order)) %>%
+  mutate(
+    duplicate.minutes = if_else(hour == lag(hour) & min == lag(min),
+                                number.of.observed.flowers, NA_real_),
+    minutes.in.recording = n() - sum(!is.na(duplicate.minutes)),
+    flowering.minutes = sum(number.of.observed.flowers, na.rm = TRUE) -
+      sum(duplicate.minutes, na.rm = TRUE)
+  ) %>%
   ungroup()
+
+sum(!is.na(visitors2$duplicate.minutes))
+sum(visitors2$duplicate.minutes, na.rm = TRUE)
 
 #View(visitors)
 
 ###* Merging the "visitors" and "functional" datasets into "visitors" based on
 ###* column "SD.s.ID" (shich stands for Sylvain Delabye's ID, who is the entomologist
 ###* in charge of identification)
-visitors <- merge(visitors, functional, by = "SD.s.ID", all.x = TRUE)
+any(duplicated(functional$SD.s.ID))   # should be FALSE
 
-#View(visitors)
+functional %>%
+  count(SD.s.ID, sort = TRUE) %>%
+  filter(n > 1)
+
+functional %>%
+  filter(SD.s.ID %in% c("Adelidaesp.01","Anthomyiasp.02","BlackandyellowEchthromorpha",
+                        "Dolichopodidaesp.01","Micromothsp.04","Tephritoideasp.3dots","leafhopper")) %>%
+  arrange(SD.s.ID)
+
+functional_unique <- functional %>% distinct(SD.s.ID, .keep_all = TRUE)
+
+visitors2 <- visitors2 %>% left_join(functional_unique, by = "SD.s.ID")
+
+View(visitors2)
+
+
+
+
+
+View(functional)
+
+#View(visitors2)
 
 ###* Counting the flowering minutes, ie the amount of flowers present for visitors
 ###* to visit in a given video
-flowering <- visitors %>%
+flowering <- visitors2 %>%
   group_by(plant.code, plant.species, elevation) %>%
   summarize(
     flowering.minutes = sum(number.of.observed.flowers, na.rm = TRUE) - sum(duplicate.minutes, na.rm = TRUE)
@@ -149,13 +88,13 @@ flowering <- visitors %>%
 
 #View(flowering)
 
-###* Created dataset "visited", in which only visitors from the functional groups
+###* Created dataset "visited", in which only visitors2 from the functional groups
 ###* which we are interested in are present
 ###* 
 ###* For each "plant.code", summarize the total number of visited flowers, the 
 ###* total visitor count and the visitor count only if we were able to identify 
 ###* the visitor into morphospecies level
-visited <- visitors %>%
+visited <- visitors2 %>%
   filter(functional.group %in% functional_groups) %>%
   group_by(plant.code) %>%
   summarize(
@@ -165,8 +104,13 @@ visited <- visitors %>%
     .groups = 'drop'
   )
 
+visited %>% summarize(min_total = min(total.visitor.count), max_total = max(total.visitor.count))
+
+functional %>% count(SD.s.ID) %>% filter(n > 1) %>% arrange(desc(n))
+
+
 # Count the total number of unique morphospecies
-total.morphospecies <- visitors %>%
+total.morphospecies <- visitors2 %>%
   filter(functional.group %in% functional_groups, morphospecies == 1) %>%
   distinct(SD.s.ID) %>%
   nrow()
@@ -239,8 +183,7 @@ mode_function <- function(x) {
 ###* "plant.code":
 ###* - "total.morpho": number of individual visitor "species" (which were 
 ###* identified into morphospecies level)
-###* - "total.func": number of functional groups (provided that they were 
-###* identified into morphospecies level)
+###* - "total.func": number of functional groups 
 ###* - "most.common.func": most common functional group
 ###* - "most.common.func.morpho": most common functional group (provided that 
 ###* they were identified into morphospecies level)

@@ -11,7 +11,7 @@
 ###* I would like to create a table in which I have information about the amounts 
 ###* of observations from distinct treatmen
 # Load packages
-pacman::p_load(tidyverse, glmmTMB, DHARMa, gt)
+pacman::p_load(tidyverse, emmeans, gt)
 
 # Ensure dplyr::select is preferred
 select <- dplyr::select

@@ -1,5 +1,4 @@
-pacman::p_load(tidyverse, glmmTMB, DHARMa, emmeans, patchwork, dplyr, ggplot2, 
-               corrplot, stringr)
+pacman::p_load(tidyverse, corrplot, scales)
 
 source("scripts/04. Setup for visitation indices.R")
 

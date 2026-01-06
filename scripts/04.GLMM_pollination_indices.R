@@ -1,93 +1,36 @@
 ###* This script contains all of the code used to generate the bayesian glmm
 ###* models for the pollination indices, aquired from the hand-pollination 
 ###* experiment
-###* 
-###* Loading the necessary packages
-pacman::p_load(tidyverse, emmeans, brms, ordbetareg, brms)
 
-select <- dplyr::select
+pacman::p_load(tidyverse, loo, ordbetareg, brms)
 
-set.seed(123)
+source("scripts/03.Setup_for_pollination_indices.R")
 
-###* 
-###* Load data----
-seed.data<- read.delim("data/clean_seeds.txt", na = c("na"))
-
-###* elevation as factor
-seed.data$elevation<-as.factor(seed.data$elevation)
-
-###* Change elevations to correct names
-seed.data <- seed.data %>%
-  mutate(elevation = recode(elevation,
-                            `2300` = 2300,
-                            `2800` = 2800,
-                            `3500` = 3400,
-                            `4000` = 3800))
-###* Check dataset
-#View(seed.data)
-
-###* Create new datset "seed.indices" with some configurations
-###* The following code creates several new columns
-seed.indices <- 
-  seed.data %>% 
-  group_by(elevation,plant_number, species) %>% 
-  #* O.mean.plantnumber will return the mean seedset from the outcrossing per
-  #* elevation, plant.number and species 
-  mutate(O.mean.plantnumber = mean(seedset[treatment == "outcrossing"], na.rm = TRUE)) %>% 
-  ungroup() %>% 
-  group_by(elevation, species) %>% 
-  #* O.mean.elevation will return the mean seedset from the outcrossing treatment
-  #* for a given elevation and species
-  mutate(O.mean.elevation = mean(seedset[treatment == "outcrossing"], na.rm = TRUE)) %>%
-  #* O.mean will combine O.mean.plantnumber and O.mean.elevation, specifically 
-  #* when it is possible to use O.mean.plantnumber, it is used, however in cases
-  #* when a given plant did not have any outcrossing results, the mean for the 
-  #* elevation will be used
-  mutate(O.mean = case_when(is.nan(O.mean.plantnumber) ~ O.mean.elevation,
-                            .default = O.mean.plantnumber)) %>% 
-  #* create a ne column named index, which calculats the index
-  mutate(index = seedset/O.mean) %>%
-  #* round the seedset, if it is not rounded for some reason
-  mutate(seedset = if_else(seedset != round(seedset), round(seedset), seedset))
-
-###* If the seedset is NA or Inf, then change to 0
-seed.indices <- seed.indices %>% 
-  filter(!(index %in% c("NA", "Inf")|is.na(seedset))) %>% 
-  mutate(index = case_when(
-    is.finite (index) ~index,
-    .default = 0
-  ))
-
-###* Elevation and species as factor
-seed.indices$elevation<-as.factor(seed.indices$elevation)
-seed.indices$species<-as.factor(seed.indices$species)
-
-###* Create a dataset specifically for the control treatment
-c.index <- seed.indices %>%
-  filter(treatment == "control") %>%
-  select(seedset, index, elevation, species, plant_number) %>%
-  mutate(seedset = round (seedset)) %>%
-  #* calculate the pollen limitation index
-  mutate(PL.index = replace(1 - index, 1 - index < 0, 0)) %>%
-  mutate(elevation = factor(elevation),
-         species = factor(species)) %>%
-  tibble::rowid_to_column("ID") %>%
-  #* create column plant.id which will be plant specific, since it will have all
-  #* elevation, species and plant.number in the name
-  mutate(plant.id = as.factor(paste0(elevation,species,plant_number))) %>%
-  #* filter out Hypericum in elevation 4000, since the plant didn't produce any
-  #* seeds in the highest elevation and this could scew the results
-  #filter(species != "Hypericum r" | elevation != 3800) %>%
-  mutate(flower.id = as.factor(paste0(elevation, species, plant_number,"_", ID)))
-
+###* For each response index, I fit a set of four candidate models that reflect
+###* the observed distribution of the response (seedset): Poisson, zero-inflated
+###* Poisson, negative binomial, and zero-inflated negative binomial.
+###*
+###* Across candidates, the model structure is identical; only these elements 
+###* vary:
+###*   (i) model name (po / zipo / nb / zinb),
+###*   (ii) whether a zero-inflation component is included,
+###*   (iii) the family (poisson / zero_inflated_poisson / negbinomial /
+###*        zero_inflated_negbinomial),
+###*   (iv) the prior on the zero-inflation intercept (for ZI families).
+###*
+###* All fitted models are saved as .rds files. The paths are kept in the script
+###* so that models can be loaded quickly without refitting. (This is helpful
+###* because model fitting and, where needed, k-fold cross-validation are 
+###* time-consuming.)
+###*
+###* Model comparison is done using LOO-CV by default. If LOO diagnostics indicate
+###* unreliable importance sampling (e.g., Pareto k > 0.7), I re-fit comparisons
+###* using k-fold CV. (Saved objects are also kept for transparency and reuse.)
+###*
 ###* MODEL FOR CONTROL SEEDSET
 ###* 
-###* I have created four models based on the distibution of my response, seedset
-###* The models are poisson, zero-inflated poisson, negative binomial and zero
-###* inflated negative binomial
-###* 
 ###* ZINB
-c_brm_model_nb_new_bbb <- brm(
+c_brm_model_nb_new <- brm(
   formula = bf(seedset ~ elevation + (1|species) + (1|plant.id)#,
                #zi ~ elevation
                ),
@@ -121,7 +64,26 @@ c_brm_model_zinb_new <- readRDS("brms_models/c_brm_model_zinb_new.rds")
 loo(c_brm_model_po_new, c_brm_model_zipo_new, c_brm_model_nb_new, c_brm_model_zinb_new)
 loo(c_brm_model_zinb_new)
 ###* zinb seems to be best, but there are pareto warings
-
+###* 
+###* For clarification, how does loo work?
+###* 
+###* For every observation, loo asks "how well can the model predict this point,
+###* if it had been left out when fitting"?
+###* 
+###* The results is expected log predictive density (elpd_loo)
+###* this is the sum of log predictive densities across all points under loo CV
+###* SE is the uncertainty for the estinate
+###* -> the higher the eldp_loo, the better predictive accuracy
+###* 
+###* p_loo / effective number of parameters (model complexity penalty)
+###* 
+###* elpd_diff, se_diff
+###* if Δelpd > ~2 × se_diff, then evidence for the better model is strong
+###* 
+###* pareto k diagnostics
+###* Each observation has a “k” diagnostic telling whether the LOO estimate is reliable
+###* k < 0.7 = good; 0.7–1 = problematic; >1 = unreliable.
+###* 
 ###* Getting rid of pareto warnings by using kfold
 ###* 
 # c_brm_model_zinb_new_k <- kfold(c_brm_model_zinb_new, K = 5, cores = 5)
@@ -213,7 +175,7 @@ pp_check(c_brm_model_zinb_new, type = "stat", stat = "sd")
 
 ###* compute residuals and check patterns unexplained by model
 resids <- residuals(c_brm_model_zinb_new, type = "pearson")
-plot(resids)      # residual distribution
+plot(resids)      
 hist(resids)
 
 bayes_R2(c_brm_model_zinb_new)
@@ -257,9 +219,11 @@ pl_ord_model_new_k <- kfold(pl_ord_model_new, K = 5, cores = 5)
 saveRDS(pl_ord_model_new_k, "brms_models/pl_ord_model_new_k.rds")
 pl_ord_model_new_k <- readRDS("brms_models/pl_ord_model_new_k.rds")
 
-###* Add "intercept = 1" to dataset, in order to be able to run null model. The
-###* ordbetarteg package does not understand replacing fixes factor with "1", 
-###* however this is a workaround, which does the same
+###* Add "intercept = 1" to dataset, in order to be able to run null model. 
+###* 
+###* ordbetareg requires an explicit predictor term; adding a constant column
+###* provides an intercept-only fixed effect while keeping the same random 
+###* effects.
 c.index$intercept_only <- 1
 
 ###* Run null model
@@ -314,27 +278,15 @@ bayes_R2(pl_ord_model_new)
 ###*
 ###*
 ###*
-###* Models for AO index
-
-###* Create dataset for autogamy index 
-ao.index <- seed.indices %>%
-  filter(treatment == "autogamy") %>%
-  select(index, elevation, species, plant_number, plant_number) %>%
-  mutate(elevation = factor(elevation),
-         species = factor(species)) %>%
-  mutate(index = round(index * 100)) %>%
-  mutate(plant.number.el = as.factor(paste0(elevation,plant_number))) %>%
-  mutate(plant.id = as.factor(paste0(elevation,species,plant_number))) %>%
-  filter(species != "Hypericum r" | elevation != 3800) %>%
-  mutate(species.sp = as.factor(paste0(elevation,species)))
-
+###* MODEL FOR AO INDEX
+###* 
 ###* Run all model variations
 ao_brm_model_zipo_new <- brm(
-  formula = bf(index ~ elevation + (1|species) + (1|plant.id),
+  formula = bf(index_trans ~ elevation + (1|species) + (1|plant.id),
                zi ~ elevation
                ),
   data = ao.index,
-  family = poisson(),
+  family = zero_inflated_poisson(),
   prior = c(
     set_prior("normal(0, 1.5)", class = "b"),
     set_prior("normal(0, 2)", class = "b", dpar = "zi"),
@@ -393,7 +345,7 @@ loo_compare(ao_brm_model_zinb_new_k, ao_brm_model_po_new_k, ao_brm_model_zipo_ne
  
 ###* Run  null model for zinb
 ao_brm_null_zinb <- brm(
-  formula = bf(index ~ 1 + (1|species) + (1|plant.id),
+  formula = bf(index_trans ~ 1 + (1|species) + (1|plant.id),
                zi ~ elevation),
   data = ao.index,
   family = zero_inflated_negbinomial(),
@@ -455,24 +407,13 @@ bayes_R2(ao_brm_model_zinb)
 ###*
 ###* MODEL FOR GEITONOGAMY
 
-###* Create dataset for geitonogamy index
-go.index <- seed.indices %>%
-  filter(treatment == "geitonogamy") %>%
-  select(index, elevation, species, plant_number) %>%
-  mutate(elevation = factor(elevation),
-         species = factor(species)) %>%
-  mutate(index100 = round(index * 100)) %>%
-  mutate(plant.id = as.factor(paste0(elevation,species,plant_number)))%>%
-  filter(species != "Lactuca i") %>%
-  filter(species != "Hypericum r" | elevation != 3800)
-
 ###* Create versions of geitonogamy model
 go_brm_model_zinb_new <- brm(
-  formula = bf(index100 ~ elevation + (1|species) + (1|plant.id),
+  formula = bf(index_trans ~ elevation + (1|species) + (1|plant.id),
                zi ~ elevation
   ),
   data = go.index,
-  family = negbinomial(),
+  family = zero_inflated_negbinomial(),
   prior = c(
     set_prior("normal(0, 1.5)", class = "b"),
     set_prior("normal(0, 2)", class = "b", dpar = "zi"),
@@ -528,7 +469,7 @@ loo_compare(go_brm_model_po_new_k, go_brm_model_zipo_new_k, go_brm_model_nb_new_
 
 ###* Running null model
 go_brm_null_zinb <- brm(
-  formula = bf(index100 ~ 1 + (1|species) + (1|plant.id),
+  formula = bf(index_trans ~ 1 + (1|species) + (1|plant.id),
                zi ~ elevation),
   data = go.index,
   family = zero_inflated_negbinomial(),

@@ -1,21 +1,21 @@
-#* This R script serves as the first part in analyzing Mt. Cameroon pollination
-#* data. Specifically, here we take the raw data from the excel 
-#* "Mt. Cameroon seed count raw.xlsx" and clean in order to make it useful
-#* for analyses
+###* This R script serves as the first part in analyzing Mt. Cameroon pollination
+###* data. Specifically, here we take the raw data from the excel 
+###* "Mt. Cameroon seed count raw.xlsx" and clean in order to make it useful
+###* for analyses
 
-### Load the necessary libraries
-pacman::p_load(here, readxl, tidyverse, stringr)
+###* Load the necessary libraries
+pacman::p_load(readxl, tidyverse)
 
-### Define the file path using here()
-file_path <- here("data", "Mt. Cameroon seed count raw.xlsx")
+###* Define the file path using here()
+file_path <- file.path("data/Mt. Cameroon seed count raw.xlsx")
 
-### Load the "All" sheet from the Excel file
+###* Load the "All" sheet from the Excel file
 data <- read_excel(file_path, sheet = "All")
 
-### View the first few rows of the data
+###* View the first few rows of the data
 head(data)
 
-### Change names of elevations to elevations a.s.l.
+###* Change names of elevations to elevations a.s.l.
 data <- data %>%
   mutate(
     Elevation = case_when(
@@ -27,7 +27,7 @@ data <- data %>%
     )
   )
 
-### Modify the "Treatment" column
+###* Modify the "Treatment" column
 data <- data %>%
   mutate(
     Treatment = case_when(
@@ -39,35 +39,35 @@ data <- data %>%
     )
   )
 
-### Create the "species" column
+###* Create the "species" column
 data <- data %>%
   mutate(
     species = paste(Genus, str_sub(Species, 1, 1))
   )
 
-### Make seedsets numeric
+###* Make seedsets numeric
 data$`Seed count` <- as.numeric(data$`Seed count`)
 data$`Hypericum seedset` <- as.numeric(data$`Hypericum seedset`)
 
-### Update Seed count by the actual seedset for Hypericum
-### Hypericum pods consist of 5 chambers, however in our experiment, at least one
-### chamber was often infected. The value in "Hypericum seed set" is the total number
-### of seeds divided by the number of uninfetced chambers - this results in the 
-### value of seeds per capsule which we use in the manuscript
+###* Update Seed count by the actual seedset for Hypericum
+###* Hypericum pods consist of 5 chambers, however in our experiment, at least 
+###* one chamber was often infected. The value in "Hypericum seed set" is the 
+###* total number of seeds divided by the number of uninfetced chambers - this 
+###* results in the value of seeds per capsule which we use in the manuscript
 data <- data %>%
   mutate(
     `Seed count` = if_else(Genus == "Hypericum" & !is.na(`Hypericum seedset`), `Hypericum seedset`, `Seed count`)
   )
 
-### Remove unwanted columns columns
+###* Remove unwanted columns columns
 data <- data %>%
   select(-Genus, -Species, -`chambers`, -`Hypericum seedset`)
 
-### Rename and reposition the column
+###* Rename and reposition the column
 data <- data %>%
   relocate(species, .after = 2) # Move "species" to the third position (after the 2nd column)
 
-### Rename columns 
+###* Rename columns 
 data <- data %>%
   rename(elevation = Elevation,
          plot = Plot,
@@ -76,15 +76,13 @@ data <- data %>%
          seedset = 'Seed count',
          comment = Comments)
 
-### Make seedsets numeric
-data$seedset <- as.numeric(data$seedset)
-
-### Keep only species which have enough data for reproduction
+###* Keep only species which have enough data for reproduction
 data <- data %>%
   filter(species %in% c("Senecio p", "Crepis h", "Clematis s", 
                         "Geranium a", "Hypericum r", "Lactuca i", "Senecio b"))
 
-### Reorganize the data the way I want them
+###* Reorganize the data, so that only species sampled in multiple elevations are
+###* used and the columns are in a certain order for better orientation
 data <- data %>%
   mutate(species = factor(species, levels = c("Senecio p", "Crepis h", "Clematis s", 
                                               "Geranium a", "Hypericum r", "Lactuca i", "Senecio b"))) %>%
@@ -92,7 +90,7 @@ data <- data %>%
 
 #View(data)
 
-### Delete any comments, which would suggest unusable data
+###* Delete any comments, which would suggest unusable data
 data <- data %>%
   filter(!str_detect(comment, regex("^absent$", ignore_case = TRUE)) | is.na(comment) | comment == "") %>%
   filter(!str_detect(comment, regex("^all chambers infected$", ignore_case = TRUE)) | is.na(comment) | comment == "") %>%
@@ -183,22 +181,20 @@ data <- data %>%
   filter(!str_detect(comment, regex("^two inflorescenses in bag$", ignore_case = TRUE)) | is.na(comment) | comment == "") %>%  
   filter(!str_detect(comment, regex("^infecte, with small grains - is it eaten seeds? - check bag$", ignore_case = TRUE)) | is.na(comment) | comment == "")
 
-data %>%
-  filter(!(`seedset` == 0))
-
+###* Delete all rows of Crepis h in elevation 4000, which have "li" 
+###* (looks infected) or "li - check bag". After these were checked, they were 
+###* labeled as unusable
 data <- data %>%
-  filter(!(species == "Crepis h" & comment == "li" & elevation == "4000")) 
-
-data <- data %>%
+  filter(!(species == "Crepis h" & comment == "li" & elevation == "4000"), 
   filter(!(species == "Crepis h" & comment == "li, check bag" & elevation == "4000"))
 
-# Round up all values in the "seedset" column
+###* Round up all values in the "seedset" column
 data <- data %>%
   mutate(seedset = ceiling(seedset))
 
 #View(data)
 
-# Save final dataset
+###* Save final dataset
 write.table(data, file = "data/clean_seeds.txt", 
             sep = "\t", 
             row.names = FALSE, 
