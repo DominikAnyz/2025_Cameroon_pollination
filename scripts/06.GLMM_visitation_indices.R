@@ -157,7 +157,7 @@ f_brm_model_nb <- brm(
   seed = 123
 )
 
-saveRDS(f_brm_model_nb, file = "brms_models/f_brm_model_nb.rds")
+#saveRDS(f_brm_model_nb, file = "brms_models/f_brm_model_nb.rds")
 
 ###* Null model to check if model explains more than random
 

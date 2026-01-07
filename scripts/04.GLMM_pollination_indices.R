@@ -132,7 +132,7 @@ loo(c_brm_null_zinb_new)
 
 ###* Fix pareto problem in null
 c_brm_null_zinb_new_k <- kfold(c_brm_null_zinb_new, K = 5, cores = 5)
-saveRDS(c_brm_null_zinb_new_k, "brms_models/c_brm_null_zinb_new_k.rds")
+#saveRDS(c_brm_null_zinb_new_k, "brms_models/c_brm_null_zinb_new_k.rds")
 
 ###* Fit kfold fixed model
 c_brm_null_zinb_new_k <- readRDS("brms_models/c_brm_null_zinb_new_k.rds")
@@ -210,13 +210,13 @@ pl_ord_model_new <- ordbetareg(
 )
 
 ###* Save model and check loo
-saveRDS(pl_ord_model_new, file = "brms_models/pl_ord_model_new.rds")
+#saveRDS(pl_ord_model_new, file = "brms_models/pl_ord_model_new.rds")
 pl_ord_model_new <- readRDS("brms_models/pl_ord_model_new.rds")
 loo(pl_ord_model_new)
 
 ###* K-fold, since pareto warnings
 pl_ord_model_new_k <- kfold(pl_ord_model_new, K = 5, cores = 5)
-saveRDS(pl_ord_model_new_k, "brms_models/pl_ord_model_new_k.rds")
+#saveRDS(pl_ord_model_new_k, "brms_models/pl_ord_model_new_k.rds")
 pl_ord_model_new_k <- readRDS("brms_models/pl_ord_model_new_k.rds")
 
 ###* Add "intercept = 1" to dataset, in order to be able to run null model. 
@@ -237,12 +237,12 @@ pl_ord_null_new <- ordbetareg(
   seed = 1234
 )
 
-saveRDS(pl_ord_null_new, file = "brms_models/pl_ord_null_new.rds")
+#saveRDS(pl_ord_null_new, file = "brms_models/pl_ord_null_new.rds")
 pl_ord_null_new <- readRDS("brms_models/pl_ord_null_new.rds")
 
 ###* K-fold null because of parteto warnings
 pl_ord_null_new_k <- kfold(pl_ord_null_new, K = 5, cores = 5)
-saveRDS(pl_ord_null_new_k, "brms_models/pl_ord_null_new_k.rds")
+#saveRDS(pl_ord_null_new_k, "brms_models/pl_ord_null_new_k.rds")
 pl_ord_null_new_k <- readRDS("brms_models/pl_ord_null_new_k.rds")
 
 ###* Compare loo§s of models
@@ -360,7 +360,7 @@ ao_brm_null_zinb <- brm(
   seed = 1234
 )
 
-saveRDS(ao_brm_null_zinb, file = "brms_models/ao_brm_null_zinb.rds")
+#saveRDS(ao_brm_null_zinb, file = "brms_models/ao_brm_null_zinb.rds")
 ao_brm_null_zinb <- readRDS("brms_models/ao_brm_null_zinb.rds")
 
 ###* Check loo
@@ -369,7 +369,7 @@ loo(ao_brm_null_zinb)
 ###* K-fold model to get rid of pareto warnings
 ao_brm_null_zinb_k <- kfold(ao_brm_null_zinb, K = 2, cores = 5)
 ao_brm_null_zinb_k
-saveRDS(ao_brm_null_zinb_k, "brms_models/ao_brm_null_zinb_k.rds")
+#saveRDS(ao_brm_null_zinb_k, "brms_models/ao_brm_null_zinb_k.rds")
 
 ###* Compare full and null model
 loo_compare(ao_brm_null_zinb_k, ao_brm_model_zinb_new_k)
@@ -468,7 +468,7 @@ go_brm_model_nb_new_k <- readRDS("brms_models/go_brm_model_nb_new_k.rds")
 loo_compare(go_brm_model_po_new_k, go_brm_model_zipo_new_k, go_brm_model_nb_new_k, go_brm_model_zinb_new_k)
 
 ###* Running null model
-go_brm_null_zinb <- brm(
+go_brm_null_zinb_new <- brm(
   formula = bf(index_trans ~ 1 + (1|species) + (1|plant.id),
                zi ~ elevation),
   data = go.index,
@@ -484,18 +484,18 @@ go_brm_null_zinb <- brm(
   seed = 1234
 )
 
-saveRDS(go_brm_null_zinb, file = "brms_models/go_brm_null_zinb.rds")
-go_brm_null_zinb <- readRDS("brms_models/go_brm_null_zinb.rds")
+saveRDS(go_brm_null_zinb_new, "brms_models/go_brm_null_zinb_new.rds")
+go_brm_null_zinb_new <- readRDS("brms_models/go_brm_null_zinb_new.rds")
 
 loo(go_brm_null_zinb)
 
 ###* K-fold model to get rid of pareto warnings
-go_brm_null_zinb_k <- kfold(go_brm_null_zinb, K = 2, cores = 5)
-go_brm_null_zinb_k
-saveRDS(go_brm_null_zinb_k, "brms_models/go_brm_null_zinb_k.rds")
+go_brm_null_zinb_new_k <- kfold(go_brm_null_zinb_new, K = 2, cores = 5)
+go_brm_null_zinb_new_k
+#saveRDS(go_brm_null_zinb_k, "brms_models/go_brm_null_zinb_k.rds")
+go_brm_null_zinb_new_k <- readRDS("brms_models/go_brm_null_zinb_new_k.rds")
 
-
-loo_compare(go_brm_null_zinb_k, go_brm_model_zinb_new_k)
+loo_compare(go_brm_null_zinb_new_k, go_brm_model_zinb_new_k)
 ###* model better than null
 ###* 
 ###* 

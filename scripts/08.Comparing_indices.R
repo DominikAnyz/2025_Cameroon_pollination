@@ -241,16 +241,6 @@ c.pl.final.table.5 <- c.pl.final.table.4 %>%
 eps <- 1e-8
 c.pl.final.table.5 <- c.pl.final.table.5 %>%
   mutate(
-    # the means you want to use as predictors
-    vpm    = mean.visited.flowers.per.minute,
-    morpho = mean.morpho,
-    func   = mean.func,
-    
-    # SEs of those means: SD / sqrt(n_reps)
-    vpm_se    = pmax(sd.visited.flowers.per.minute / sqrt(pmax(n_reps, 1L)), eps),
-    morpho_se = pmax(sd.morpho                     / sqrt(pmax(n_reps, 1L)), eps),
-    func_se   = pmax(sd.func                       / sqrt(pmax(n_reps, 1L)), eps),
-    
     # --- means on the z-scale (already computed) ---
     x = z_flow_mean,   # visited flowers per minute (scaled) -- or use z_vis_mean if that's your x
     y = z_morpho_mean,
@@ -823,7 +813,7 @@ print(kfold_bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt)
 
 
 loo_compare(kfold_bayesian_go_mean_corrected_scaled_13_2_zoib_k_opt,
-            #kfold_bayesian_go_mean_corrected_scaled_null_2_zoib_k_opt,
+            kfold_bayesian_go_mean_corrected_scaled_null_2_zoib_k_opt,
             kfold_bayesian_go_mean_corrected_scaled_15_2_zoib_k_opt,
             kfold_bayesian_go_mean_corrected_scaled_3_2_zoib_k_opt,
             kfold_bayesian_go_mean_corrected_scaled_35_2_zoib_k_opt,

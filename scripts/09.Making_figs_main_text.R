@@ -366,10 +366,6 @@ ggsave("figs/fig_C_bayes.pdf",
 
 summary(c_brm_model_zinb_new)
 
-
-library(emmeans)
-library(dplyr)
-
 # make sure intervals are included and on the response scale
 emm <- emmeans(c_brm_model_zinb_new, ~ elevation,
                type = "response", re_formula = NA)
@@ -1266,12 +1262,7 @@ ggsave("figs/fig3_final_bayes_ALL.pdf",
 ###* 
 ###* 
 ###* FIG 4A - PLOT SEEDSET ON VISITATION
-source("scripts/06. Setup for index comparison.R")
-
-library(dplyr)
-library(ggplot2)
-library(scales)
-library(patchwork)
+source("scripts/07.Setup_for_index_comparison.R")
 
 #View(flowering.visited)
 

@@ -66,6 +66,10 @@ functional %>%
 
 functional_unique <- functional %>% distinct(SD.s.ID, .keep_all = TRUE)
 
+functional_unique %>%
+  count(SD.s.ID, sort = TRUE) %>%
+  filter(n > 1)
+
 visitors2 <- visitors2 %>% left_join(functional_unique, by = "SD.s.ID")
 
 View(visitors2)
