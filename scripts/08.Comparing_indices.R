@@ -44,7 +44,7 @@ View(c.pl.final.table.4)
 form_all <- bf(
   mean_seedset_round | weights(seedset_weight_12) ~
     me(x, sx) +
-    #me(y, sy) +
+    me(y, sy) +
     #1 +
     (1|species),
   zi ~ 1
@@ -63,7 +63,7 @@ pri_all <- c(
   prior(student_t(3, 0, 2.5), class = "sd", group = "species")
 )
 
-bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt <- brm(
+bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt <- brm(
   form_all, 
   data = c.pl.final.table.4,
   family = zero_inflated_negbinomial(), 
@@ -91,7 +91,7 @@ saveRDS(kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt, "brms_mod
 kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt.rds")
 print(kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt)
 
-#running
+
 ###* Visitation + morphospecies model
 saveRDS(bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt, file = "brms_models/bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt.rds")
 bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt <- readRDS("brms_models/bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt.rds")
@@ -103,7 +103,7 @@ saveRDS(kfold_bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt, "brms_mode
 kfold_bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt.rds")
 print(kfold_bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt)
 
-#run
+
 ###* Visitation only model
 saveRDS(bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt, file = "brms_models/bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt.rds")
 bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt <- readRDS("brms_models/bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt.rds")
@@ -115,7 +115,7 @@ saveRDS(kfold_bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt, "brms_model
 kfold_bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt.rds")
 print(kfold_bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt)
 
-#run
+
 ###* Morphsopecies only model
 saveRDS(bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt, file = "brms_models/bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt.rds")
 bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt <- readRDS("brms_models/bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt.rds")
@@ -126,6 +126,7 @@ kfold_bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt <- kfold(bayesian_se
 saveRDS(kfold_bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt, "brms_models/kfold_bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt.rds")
 kfold_bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt.rds")
 print(kfold_bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt)
+
 
 ###* Loading all kfolded opbject to not have to do it individually
 kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt.rds")
@@ -297,6 +298,12 @@ loo_compare(kfold_bayesian_pl_mean_corrected_scaled_13_zoib_k_opt_2,
             kfold_bayesian_pl_mean_corrected_scaled_1_zoib_k_opt_2,
             kfold_bayesian_pl_mean_corrected_scaled_3_zoib_k_opt_2)
 
+loo_compare(kfold_bayesian_pl_mean_corrected_scaled_null_zoib_k_opt_2,
+            kfold_bayesian_pl_mean_corrected_scaled_1_zoib_k_opt_2)
+
+loo_compare(kfold_bayesian_pl_mean_corrected_scaled_null_zoib_k_opt_2,
+            kfold_bayesian_pl_mean_corrected_scaled_3_zoib_k_opt_2)
+
 kfold_bayesian_pl_mean_corrected_scaled_13_zoib_k_opt_2
 kfold_bayesian_pl_mean_corrected_scaled_null_zoib_k_opt_2
 kfold_bayesian_pl_mean_corrected_scaled_1_zoib_k_opt_2
@@ -444,6 +451,11 @@ loo_compare(kfold_bayesian_ao_mean_corrected_scaled_1_2_zib_k_opt,
             kfold_bayesian_ao_mean_corrected_scaled_13_2_zib_k_opt,
             kfold_bayesian_ao_mean_corrected_scaled_null_2_zib_k_opt)
 
+loo_compare(kfold_bayesian_ao_mean_corrected_scaled_1_2_zib_k_opt,
+            kfold_bayesian_ao_mean_corrected_scaled_null_2_zib_k_opt)
+
+loo_compare(kfold_bayesian_ao_mean_corrected_scaled_3_2_zib_k_opt,
+            kfold_bayesian_ao_mean_corrected_scaled_null_2_zib_k_opt)
 ###* 
 ###* 
 ###* 
@@ -593,8 +605,14 @@ kfold_bayesian_go_mean_corrected_scaled_3_2_zoib_k_opt <- readRDS("brms_models/k
 
 
 loo_compare(kfold_bayesian_go_mean_corrected_scaled_13_2_zoib_k_opt,
-            #kfold_bayesian_go_mean_corrected_scaled_null_2_zoib_k_opt,
+            kfold_bayesian_go_mean_corrected_scaled_null_2_zoib_k_opt,
             kfold_bayesian_go_mean_corrected_scaled_3_2_zoib_k_opt,
+            kfold_bayesian_go_mean_corrected_scaled_1_2_zoib_k_opt)
+
+loo_compare(kfold_bayesian_go_mean_corrected_scaled_null_2_zoib_k_opt,
+            kfold_bayesian_go_mean_corrected_scaled_3_2_zoib_k_opt)
+
+loo_compare(kfold_bayesian_go_mean_corrected_scaled_null_2_zoib_k_opt,
             kfold_bayesian_go_mean_corrected_scaled_1_2_zoib_k_opt)
 
 

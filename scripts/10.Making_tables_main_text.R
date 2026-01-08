@@ -209,33 +209,69 @@ loo(vis_ord_model, vis_ord_null)
 ###* 
 ###* This index had two models tied - one with visitation and morphospecies, the
 ###* other with visitation and functional-group richness
+###* Loading all kfolded opbject to not have to do it individually
 kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt.rds")
 kfold_bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt.rds")
-kfold_bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt.rds")
+kfold_bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt.rds")
+kfold_bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt.rds")
 
-loo_compare(kfold_bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt,
-            kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt)
+###* Comparing existing kfolded object to see, which model is best
+loo_compare(kfold_bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt,
+            kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt,
+            kfold_bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt,
+            kfold_bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt)
 
-loo_compare(kfold_bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt,
-            kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt)
 
 ###* Pollen limitation
-kfold_bayesian_pl_mean_corrected_scaled_3_zoib_k_opt_2 <- readRDS("brms_models/kfold_bayesian_pl_mean_corrected_scaled_3_zoib_k_opt_2.rds")
+kfold_bayesian_pl_mean_corrected_scaled_13_zoib_k_opt_2 <- readRDS("brms_models/kfold_bayesian_pl_mean_corrected_scaled_13_zoib_k_opt_2.rds")
 kfold_bayesian_pl_mean_corrected_scaled_null_zoib_k_opt_2 <- readRDS("brms_models/kfold_bayesian_pl_mean_corrected_scaled_null_zoib_k_opt_2.rds")
+kfold_bayesian_pl_mean_corrected_scaled_1_zoib_k_opt_2 <- readRDS("brms_models/kfold_bayesian_pl_mean_corrected_scaled_1_zoib_k_opt_2.rds")
+kfold_bayesian_pl_mean_corrected_scaled_3_zoib_k_opt_2 <- readRDS("brms_models/kfold_bayesian_pl_mean_corrected_scaled_3_zoib_k_opt_2.rds")
+
+###* COomparison of individual kfolded objects
+loo_compare(kfold_bayesian_pl_mean_corrected_scaled_13_zoib_k_opt_2,
+            kfold_bayesian_pl_mean_corrected_scaled_null_zoib_k_opt_2,
+            kfold_bayesian_pl_mean_corrected_scaled_1_zoib_k_opt_2,
+            kfold_bayesian_pl_mean_corrected_scaled_3_zoib_k_opt_2)
+
+loo_compare(kfold_bayesian_pl_mean_corrected_scaled_null_zoib_k_opt_2,
+            kfold_bayesian_pl_mean_corrected_scaled_1_zoib_k_opt_2)
 
 loo_compare(kfold_bayesian_pl_mean_corrected_scaled_null_zoib_k_opt_2,
             kfold_bayesian_pl_mean_corrected_scaled_3_zoib_k_opt_2)
 
+
 ###* Autogamy
+kfold_bayesian_ao_mean_corrected_scaled_13_2_zib_k_opt <- readRDS("brms_models/kfold_bayesian_ao_mean_corrected_scaled_13_2_zib_k_opt.rds")
 kfold_bayesian_ao_mean_corrected_scaled_null_2_zib_k_opt <- readRDS("brms_models/kfold_bayesian_ao_mean_corrected_scaled_null_2_zib_k_opt.rds")
 kfold_bayesian_ao_mean_corrected_scaled_1_2_zib_k_opt <- readRDS("brms_models/kfold_bayesian_ao_mean_corrected_scaled_1_2_zib_k_opt.rds")
+kfold_bayesian_ao_mean_corrected_scaled_3_2_zib_k_opt <- readRDS("brms_models/kfold_bayesian_ao_mean_corrected_scaled_3_2_zib_k_opt.rds")
+
+loo_compare(kfold_bayesian_ao_mean_corrected_scaled_1_2_zib_k_opt,
+            kfold_bayesian_ao_mean_corrected_scaled_3_2_zib_k_opt,
+            kfold_bayesian_ao_mean_corrected_scaled_13_2_zib_k_opt,
+            kfold_bayesian_ao_mean_corrected_scaled_null_2_zib_k_opt)
 
 loo_compare(kfold_bayesian_ao_mean_corrected_scaled_1_2_zib_k_opt,
             kfold_bayesian_ao_mean_corrected_scaled_null_2_zib_k_opt)
 
+loo_compare(kfold_bayesian_ao_mean_corrected_scaled_3_2_zib_k_opt,
+            kfold_bayesian_ao_mean_corrected_scaled_null_2_zib_k_opt)
+
+
 ###* Geitonogamy
-kfold_bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt <- readRDS("brms_models/kfold_bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt.rds")
+kfold_bayesian_go_mean_corrected_scaled_1_2_zoib_k_opt <- readRDS("brms_models/kfold_bayesian_go_mean_corrected_scaled_1_2_zoib_k_opt.rds")
+kfold_bayesian_go_mean_corrected_scaled_13_2_zoib_k_opt <- readRDS("brms_models/kfold_bayesian_go_mean_corrected_scaled_13_2_zoib_k_opt.rds")
 kfold_bayesian_go_mean_corrected_scaled_null_2_zoib_k_opt <- readRDS("brms_models/kfold_bayesian_go_mean_corrected_scaled_null_2_zoib_k_opt.rds")
+kfold_bayesian_go_mean_corrected_scaled_3_2_zoib_k_opt <- readRDS("brms_models/kfold_bayesian_go_mean_corrected_scaled_3_2_zoib_k_opt.rds")
+
+loo_compare(kfold_bayesian_go_mean_corrected_scaled_13_2_zoib_k_opt,
+            kfold_bayesian_go_mean_corrected_scaled_null_2_zoib_k_opt,
+            kfold_bayesian_go_mean_corrected_scaled_3_2_zoib_k_opt,
+            kfold_bayesian_go_mean_corrected_scaled_1_2_zoib_k_opt)
 
 loo_compare(kfold_bayesian_go_mean_corrected_scaled_null_2_zoib_k_opt,
-            kfold_bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt)
+            kfold_bayesian_go_mean_corrected_scaled_3_2_zoib_k_opt)
+
+loo_compare(kfold_bayesian_go_mean_corrected_scaled_null_2_zoib_k_opt,
+            kfold_bayesian_go_mean_corrected_scaled_1_2_zoib_k_opt)

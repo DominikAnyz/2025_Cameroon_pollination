@@ -757,20 +757,20 @@ emm_go_df <- emm_go_df %>%
 
 ## 5) Compact letter display for elevations -----------------------------------
 
-cld_go_manual <- tibble(
-  elevation = factor(c("2300", "2800", "3400", "3800"),
-                     levels = levels(go.index$elevation)),
-  .group    = c("a", "ab", "ab", "b")
-)
+# cld_go_manual <- tibble(
+#   elevation = factor(c("2300", "2800", "3400", "3800"),
+#                      levels = levels(go.index$elevation)),
+#   .group    = c("a", "ab", "ab", "b")
+# )
 
 y_max_go <- max(go.index$index_raw, na.rm = TRUE)
 
 ## 6) Final plot: violins + points + CLD letters + red CrI --------------------
 
 go_plot_with_letters <- go_plot_base +
-  geom_text(data = cld_go_manual,
-            aes(x = elevation, y = y_max_go + 0.3, label = .group),
-            size = 5, fontface = "bold") +
+  # geom_text(data = cld_go_manual,
+  #           aes(x = elevation, y = y_max_go + 0.3, label = .group),
+  #           size = 5, fontface = "bold") +
   geom_pointrange(
     data        = emm_go_df,
     aes(x = elevation, y = prob, ymin = LCL, ymax = UCL),
@@ -838,7 +838,7 @@ go_plot_with_letters <- go_plot_with_letters +
   labs(tag = "D)") +
   theme(plot.tag = element_text(size = 20, face = "bold"))
 
-go_plot_with_letters <- add_star_top_right(go_plot_with_letters, "*")
+#go_plot_with_letters <- add_star_top_right(go_plot_with_letters, "*")
 
 # Combine
 combined_plots_3 <- (control_combined_plot_with_letters |
@@ -1275,9 +1275,7 @@ c.pl.final.table.4 <- c.pl.final.table.4 %>%
     z_flow_mean = mean.visited.flowers.scaled,
     z_flow_sd   = sd.visited.flowers.scaled,
     z_morpho_mean = mean.morpho.scaled,
-    z_morpho_sd   = sd.morpho.scaled,
-    z_func_mean   = mean.func.scaled,
-    z_func_sd     = sd.func.scaled
+    z_morpho_sd   = sd.morpho.scaled
   )
 
 eps <- 1e-8  # tiny floor to avoid zero SDs
@@ -1287,210 +1285,10 @@ c.pl.final.table.4 <- c.pl.final.table.4 %>%
     # --- means on the z-scale (already computed) ---
     x = z_flow_mean,   # visited flowers per minute (scaled) -- or use z_vis_mean if that's your x
     y = z_morpho_mean,
-    z = z_func_mean,
     # --- SEs of the means on the same scale (SD / sqrt(n)) ---
     sx = pmax(z_flow_sd   / sqrt(pmax(n_reps,  1L)), eps),
-    sy = pmax(z_morpho_sd  / sqrt(pmax(n_reps, 1L)), eps),
-    sz = pmax(z_func_sd   / sqrt(pmax(n_reps,  1L)), eps),
-    
-    # --- quadratic terms and their delta-method SEs ---
-    x2  = x^2,  sx2 = pmax(2 * abs(x) * sx, eps),
-    y2  = y^2,  sy2 = pmax(2 * abs(y) * sy, eps),
-    z2  = z^2,  sz2 = pmax(2 * abs(z) * sz, eps)
+    sy = pmax(z_morpho_sd  / sqrt(pmax(n_reps, 1L)), eps)
   )
-
-m   <- bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt
-dat <- c.pl.final.table.4
-
-
-vis_mean <- mean(flowering.visited$visitors.per.minute, na.rm = TRUE)
-vis_sd   <- sd(flowering.visited$visitors.per.minute,   na.rm = TRUE)
-
-sx_med <- median(dat$sx, na.rm = TRUE)
-sz_med <- median(dat$sz, na.rm = TRUE)
-
-xr    <- range(dat$x, na.rm = TRUE)
-x_seq <- seq(xr[1], xr[2], length.out = 300)
-
-newdat_vis <- tibble(
-  x  = x_seq,    # z-scored visitation (predictor in model)
-  sx = sx_med,
-  z  = 0,        # functional richness at its mean (z-scale)
-  sz = sz_med,
-  species = NA
-)
-
-pred_vis <- fitted(
-  m,
-  newdata    = newdat_vis,
-  re_formula = NA,
-  summary    = TRUE
-) |> as.data.frame()
-
-plot_df_vis <- bind_cols(newdat_vis, pred_vis) %>%
-  mutate(
-    x_visitors_per_min = x * vis_sd + vis_mean   # back-transform x
-  )
-
-dat_plot_vis <- c.pl.final.table.4 %>%
-  mutate(
-    x_visitors_per_min = mean.visitors.per.minute
-  )
-
-vis_plot <- ggplot(plot_df_vis, aes(x = x_visitors_per_min, y = Estimate)) +
-  geom_ribbon(aes(ymin = Q2.5, ymax = Q97.5),
-              fill = "#d4e9ff", alpha = 0.7, colour = NA) +
-  geom_line(size = 1.1, colour = "black") +
-  geom_point(data = dat_plot_vis,
-             aes(x = x_visitors_per_min, y = mean_seedset_round),
-             inherit.aes = FALSE,
-             size = 2.2, alpha = 0.85) +
-  scale_x_continuous(
-    name   = "Visitation frequency",
-    breaks = c(0, 0.05, 0.10, 0.15, 0.20, 0.25),
-    expand = expansion(mult = c(0, 0.02))
-  ) +
-  scale_y_continuous(
-    trans  = log1p_trans(),
-    breaks = c(0, 10, 50, 250, 1000, 5000, 40000),
-    labels = label_comma(big.mark = ","),
-    name   = "Natural seed set"
-  ) +
-  theme_minimal(base_size = 14) +
-  theme(
-    panel.grid.minor   = element_blank(),
-    panel.grid.major.x = element_line(colour = "grey90"),
-    panel.grid.major.y = element_line(colour = "grey90"),
-    axis.title         = element_text(face = "bold", size = 16),
-    axis.text          = element_text(size = 13),
-    plot.tag           = element_text(size = 18, face = "bold")
-  )
-
-vis_plot
-###*
-###*
-###*
-###*
-###*
-###*
-###*
-###*
-###*
-###*
-###* FIG 4B - PLOT SEEDSET ON FUNCITONAL GROUP RICHNESS
-# from flowering.visited, before summarising to final.table
-m   <- bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt
-dat <- c.pl.final.table.4
-
-func_mean <- mean(dat$mean.func, na.rm = TRUE)
-func_sd   <- sd(dat$mean.func,   na.rm = TRUE)
-
-# use 0 as the lower bound for x, plus the observed max
-func_range <- range(c(0, dat$mean.func), na.rm = TRUE)
-func_seq   <- seq(func_range[1], func_range[2], length.out = 300)
-
-# build newdata on ORIGINAL scale, convert to z for the model
-newdat_func <- tibble(
-  x  = 0,  # visitation at mean (z-scale)
-  sx = sx_med,
-  z  = (func_seq - func_mean) / func_sd,  # z-scored functional richness
-  sz = sz_med,
-  species = NA
-)
-
-pred_func <- fitted(
-  m,
-  newdata    = newdat_func,
-  re_formula = NA,
-  summary    = TRUE
-) |> as.data.frame()
-
-plot_df_func <- bind_cols(newdat_func, pred_func) %>%
-  mutate(func_richness = func_seq)   # directly use the grid from 0 to max
-
-
-dat_plot_func <- c.pl.final.table.4 %>%
-  mutate(
-    func_richness = mean.func   # original functional richness per species×elevation
-  )
-
-func_plot <- ggplot(plot_df_func, aes(x = func_richness, y = Estimate)) +
-  geom_ribbon(aes(ymin = Q2.5, ymax = Q97.5),
-              fill = "#d4e9ff", alpha = 0.7, colour = NA) +
-  geom_line(size = 1.1, colour = "black") +
-  geom_point(data = dat_plot_func,
-             aes(x = func_richness, y = mean_seedset_round),
-             inherit.aes = FALSE,
-             size = 2.2, alpha = 0.85) +
-  scale_x_continuous(
-    name   = "Functional-group richness",
-    breaks = pretty(dat_plot_func$func_richness),
-    expand = expansion(mult = c(0, 0.02))
-  ) +
-  scale_y_continuous(
-    name   = "Natural seed set",
-    breaks = c(0, 50, 100, 150, 200, 250, 300, 350),
-    limits = c(0, NA)
-  ) +
-  theme_minimal(base_size = 14) +
-  theme(
-    panel.grid.minor   = element_blank(),
-    #panel.grid.major.x = element_blank(),
-    panel.grid.major.x = element_line(colour = "grey90"),
-    panel.grid.major.y = element_line(colour = "grey90"),
-    axis.title         = element_text(face = "bold", size = 16),
-    axis.text          = element_text(size = 13),
-    plot.tag           = element_text(size = 18, face = "bold")
-  )
-
-func_plot
-###*
-###*
-###*
-###*
-###*
-###*
-###*
-###*
-###*
-###*
-###* MERGE AND LABEL PLOTS
-# 1) Add panel tags
-vis_plot_tagged <- vis_plot +
-  labs(tag = "A)") +
-  theme(plot.tag = element_text(size = 18, face = "bold"))
-
-func_plot_tagged <- func_plot +
-  labs(tag = "B)") +
-  theme(plot.tag = element_text(size = 18, face = "bold"))
-
-# 2) Combine into one figure
-fig5_combined <- vis_plot_tagged + func_plot_tagged +
-  plot_layout(nrow = 1)
-
-# Optional: look at it in RStudio
-print(fig5_combined)
-
-# 3) Save as a single PDF
-ggsave(
-  filename = "figs/fig5_combined.pdf",
-  plot     = fig5_combined,
-  width    = 10,   # tweak as you like
-  height   = 5
-)
-
-
-
-
-
-
-
-
-
-
-
-
-###* The following is for the second part of Figure 4
 
 m   <- bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt
 dat <- c.pl.final.table.4
@@ -1587,7 +1385,7 @@ newdat_morpho <- tibble(
   x  = 0,  # visitation at mean (z-scale)
   sx = sx_med,
   y  = (morpho_seq - morpho_mean) / morpho_sd,  # z-scored morpho richness
-  sy = sz_med,
+  sy = sy_med,
   species = NA
 )
 
@@ -1657,32 +1455,21 @@ morpho_plot_tagged_13 <- morpho_plot +
   labs(tag = "B)") +
   theme(plot.tag = element_text(size = 18, face = "bold"))
 
-vis_plot_tagged_15 <- vis_plot +
-  labs(tag = "C)") +
-  theme(plot.tag = element_text(size = 18, face = "bold"))
-
-func_plot_tagged_15 <- func_plot +
-  labs(tag = "C)") +
-  theme(plot.tag = element_text(size = 18, face = "bold"))
-
-
 # 2) Combine into one figure
 fig5_combined <- 
   (vis_plot_tagged_13 + 
-   morpho_plot_tagged_13 +
-  #vis_plot_tagged_15 + 
-   func_plot_tagged_15) + 
-  plot_layout(nrow = 1)
+   morpho_plot_tagged_13) + 
+   plot_layout(nrow = 1)
 
 # Optional: look at it in RStudio
 print(fig5_combined)
 
 # 3) Save as a single PDF
 ggsave(
-  filename = "figs/fig5_combined.pdf",
+  filename = "figs/fig4_combined.pdf",
   plot     = fig5_combined,
-  width    = 12,   # tweak as you like
-  height   = 5
+  width    = 10,   # tweak as you like
+  height   = 3.5
 )
 
 
