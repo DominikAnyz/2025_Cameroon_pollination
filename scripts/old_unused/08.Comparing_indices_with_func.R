@@ -14,7 +14,9 @@ c.pl.final.table.4 <- c.pl.final.table.4 %>%
     z_flow_mean = mean.visited.flowers.scaled,
     z_flow_sd   = sd.visited.flowers.scaled,
     z_morpho_mean = mean.morpho.scaled,
-    z_morpho_sd   = sd.morpho.scaled
+    z_morpho_sd   = sd.morpho.scaled,
+    z_func_mean   = mean.func.scaled,
+    z_func_sd     = sd.func.scaled
   )
 
 
@@ -27,9 +29,11 @@ c.pl.final.table.4 <- c.pl.final.table.4 %>%
     # --- means on the z-scale (already computed) ---
     x = z_flow_mean,   # visited flowers per minute (scaled) -- or use z_vis_mean if that's your x
     y = z_morpho_mean,
+    z = z_func_mean,
     # --- SEs of the means on the same scale (SD / sqrt(n)) ---
     sx = pmax(z_flow_sd   / sqrt(pmax(n_reps,  1L)), eps),
-    sy = pmax(z_morpho_sd  / sqrt(pmax(n_reps, 1L)), eps)
+    sy = pmax(z_morpho_sd  / sqrt(pmax(n_reps, 1L)), eps),
+    sz = pmax(z_func_sd   / sqrt(pmax(n_reps,  1L)), eps)
     
   )
 
@@ -44,7 +48,8 @@ View(c.pl.final.table.4)
 form_all <- bf(
   mean_seedset_round | weights(seedset_weight_12) ~
     me(x, sx) +
-    #me(y, sy) +
+    me(y, sy) +
+    me(z, sz) +
     #1 +
     (1|species),
   zi ~ 1
@@ -63,7 +68,7 @@ pri_all <- c(
   prior(student_t(3, 0, 2.5), class = "sd", group = "species")
 )
 
-bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt <- brm(
+bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt <- brm(
   form_all, 
   data = c.pl.final.table.4,
   family = zero_inflated_negbinomial(), 
@@ -77,7 +82,8 @@ bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt <- brm(
 )
 
 ###* 
-###* 1 is visitation frequency and 3 is morphospecies richness
+###* 1 is visitation frequency, 3 is morphospecies richness and 5 is functional
+###* group richness
 ###* 
 ###* 
 ###* Null model 
@@ -91,7 +97,7 @@ saveRDS(kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt, "brms_mod
 kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt.rds")
 print(kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt)
 
-#running
+
 ###* Visitation + morphospecies model
 saveRDS(bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt, file = "brms_models/bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt.rds")
 bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt <- readRDS("brms_models/bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt.rds")
@@ -103,7 +109,7 @@ saveRDS(kfold_bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt, "brms_mode
 kfold_bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt.rds")
 print(kfold_bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt)
 
-#run
+
 ###* Visitation only model
 saveRDS(bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt, file = "brms_models/bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt.rds")
 bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt <- readRDS("brms_models/bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt.rds")
@@ -115,7 +121,7 @@ saveRDS(kfold_bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt, "brms_model
 kfold_bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt.rds")
 print(kfold_bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt)
 
-#run
+
 ###* Morphsopecies only model
 saveRDS(bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt, file = "brms_models/bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt.rds")
 bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt <- readRDS("brms_models/bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt.rds")
@@ -127,24 +133,84 @@ saveRDS(kfold_bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt, "brms_model
 kfold_bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt.rds")
 print(kfold_bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt)
 
+
+###* Functional group richness only model
+saveRDS(bayesian_seedset_mean_corrected_scaled_5_2_zinb_k_opt, file = "brms_models/bayesian_seedset_mean_corrected_scaled_5_2_zinb_k_opt.rds")
+bayesian_seedset_mean_corrected_scaled_5_2_zinb_k_opt <- readRDS("brms_models/bayesian_seedset_mean_corrected_scaled_5_2_zinb_k_opt.rds")
+summary(bayesian_seedset_mean_corrected_scaled_5_2_zinb_k_opt)
+loo(bayesian_seedset_mean_corrected_scaled_5_2_zinb_k_opt)
+# needs kfold due to pareto
+kfold_bayesian_seedset_mean_corrected_scaled_5_2_zinb_k_opt <- kfold(bayesian_seedset_mean_corrected_scaled_5_2_zinb_k_opt, K = 5, cores = 5)
+saveRDS(kfold_bayesian_seedset_mean_corrected_scaled_5_2_zinb_k_opt, "brms_models/kfold_bayesian_seedset_mean_corrected_scaled_5_2_zinb_k_opt.rds")
+kfold_bayesian_seedset_mean_corrected_scaled_5_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_5_2_zinb_k_opt.rds")
+print(kfold_bayesian_seedset_mean_corrected_scaled_5_2_zinb_k_opt)
+
+
+###* Morpshoepcies and functional group richness model
+saveRDS(bayesian_seedset_mean_corrected_scaled_35_2_zinb_k_opt, file = "brms_models/bayesian_seedset_mean_corrected_scaled_35_2_zinb_k_opt.rds")
+bayesian_seedset_mean_corrected_scaled_35_2_zinb_k_opt <- readRDS("brms_models/bayesian_seedset_mean_corrected_scaled_35_2_zinb_k_opt.rds")
+summary(bayesian_seedset_mean_corrected_scaled_35_2_zinb_k_opt)
+loo(bayesian_seedset_mean_corrected_scaled_35_2_zinb_k_opt)
+# needs kfold due to pareto
+kfold_bayesian_seedset_mean_corrected_scaled_35_2_zinb_k_opt <- kfold(bayesian_seedset_mean_corrected_scaled_35_2_zinb_k_opt, K = 5, cores = 5)
+saveRDS(kfold_bayesian_seedset_mean_corrected_scaled_35_2_zinb_k_opt, "brms_models/kfold_bayesian_seedset_mean_corrected_scaled_35_2_zinb_k_opt.rds")
+kfold_bayesian_seedset_mean_corrected_scaled_35_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_35_2_zinb_k_opt.rds")
+print(kfold_bayesian_seedset_mean_corrected_scaled_35_2_zinb_k_opt)
+
+
+###* Visitation, morphospecies and functional group richness model
+saveRDS(bayesian_seedset_mean_corrected_scaled_135_2_zinb_k_opt, file = "brms_models/bayesian_seedset_mean_corrected_scaled_135_2_zinb_k_opt.rds")
+bayesian_seedset_mean_corrected_scaled_135_2_zinb_k_opt <- readRDS("brms_models/bayesian_seedset_mean_corrected_scaled_135_2_zinb_k_opt.rds")
+summary(bayesian_seedset_mean_corrected_scaled_135_2_zinb_k_opt)
+loo(bayesian_seedset_mean_corrected_scaled_135_2_zinb_k_opt)
+# needs kfold due to pareto
+kfold_bayesian_seedset_mean_corrected_scaled_135_2_zinb_k_opt <- kfold(bayesian_seedset_mean_corrected_scaled_135_2_zinb_k_opt, K = 5, cores = 5)
+saveRDS(kfold_bayesian_seedset_mean_corrected_scaled_135_2_zinb_k_opt, "brms_models/kfold_bayesian_seedset_mean_corrected_scaled_135_2_zinb_k_opt.rds")
+kfold_bayesian_seedset_mean_corrected_scaled_135_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_135_2_zinb_k_opt.rds")
+print(kfold_bayesian_seedset_mean_corrected_scaled_135_2_zinb_k_opt)
+
+
+###* Visitation and functional group richness model
+saveRDS(bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt, file = "brms_models/bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt.rds")
+bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt <- readRDS("brms_models/bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt.rds")
+summary(bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt)
+loo(bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt)
+# needs kfold due to pareto
+kfold_bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt <- kfold(bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt, K = 5, cores = 5)
+saveRDS(kfold_bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt, "brms_models/kfold_bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt.rds")
+kfold_bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt.rds")
+print(kfold_bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt)
+
+
 ###* Loading all kfolded opbject to not have to do it individually
 kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt.rds")
 kfold_bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt.rds")
 kfold_bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt.rds")
 kfold_bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt.rds")
+kfold_bayesian_seedset_mean_corrected_scaled_5_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_5_2_zinb_k_opt.rds")
+kfold_bayesian_seedset_mean_corrected_scaled_35_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_35_2_zinb_k_opt.rds")
+kfold_bayesian_seedset_mean_corrected_scaled_135_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_135_2_zinb_k_opt.rds")
+kfold_bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt <- readRDS("brms_models/kfold_bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt.rds")
 
 ###* Comparing existing kfolded object to see, which model is best
 loo_compare(kfold_bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt,
+            kfold_bayesian_seedset_mean_corrected_scaled_5_2_zinb_k_opt,
+            kfold_bayesian_seedset_mean_corrected_scaled_35_2_zinb_k_opt,
+            kfold_bayesian_seedset_mean_corrected_scaled_135_2_zinb_k_opt,
             kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt,
             kfold_bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt,
+            kfold_bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt,
             kfold_bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt)
+###* Four models are indistinguishable. We will not use model 135 or 35, both 
+###* include both correlated richness indices
 
-kfold_bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt
-kfold_bayesian_seedset_mean_corrected_scaled_3_2_zinb_k_opt
-kfold_bayesian_seedset_mean_corrected_scaled_1_2_zinb_k_opt
-kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt
+loo_compare(kfold_bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt,
+            kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt)
+pp_check(bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt, type = "dens_overlay")
+pp_check(bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt, type = "stat", stat = "mean")
+pp_check(bayesian_seedset_mean_corrected_scaled_15_2_zinb_k_opt, type = "stat", stat = "sd")
 
-###*
+
 loo_compare(kfold_bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt,
             kfold_bayesian_seedset_mean_corrected_scaled_null2_zinb_k_opt)
 pp_check(bayesian_seedset_mean_corrected_scaled_13_2_zinb_k_opt, type = "dens_overlay")
@@ -179,10 +245,12 @@ c.pl.final.table.5 <- c.pl.final.table.5 %>%
     # --- means on the z-scale (already computed) ---
     x = z_flow_mean,   # visited flowers per minute (scaled) -- or use z_vis_mean if that's your x
     y = z_morpho_mean,
+    z = z_func_mean,
     
     # --- SEs of the means on the same scale (SD / sqrt(n)) ---
     sx = pmax(z_flow_sd   / sqrt(pmax(n_reps,  1L)), eps),
-    sy = pmax(z_morpho_sd  / sqrt(pmax(n_reps, 1L)), eps)
+    sy = pmax(z_morpho_sd  / sqrt(pmax(n_reps, 1L)), eps),
+    sz = pmax(z_func_sd   / sqrt(pmax(n_reps,  1L)), eps)
   )
 
 ###* POLLEN LIMITATION 
@@ -192,6 +260,7 @@ bf_all <- bf(
   mean_PL_index | weights(PL_index_weight_12) ~
     me(x, sx) +
     me(y, sy) +
+    me(z, sz) +
     #1 +
     (1 | species),
   phi ~ 1,
@@ -262,6 +331,18 @@ kfold_bayesian_pl_mean_corrected_scaled_null_zoib_k_opt_2 <- readRDS("brms_model
 print(kfold_bayesian_pl_mean_corrected_scaled_null_zoib_k_opt_2)
 
 
+###* Visitation, morphsopecies and functional group model
+saveRDS(bayesian_pl_mean_corrected_scaled_135_zoib_k_opt_2, file = "brms_models/bayesian_pl_mean_corrected_scaled_135_zoib_k_opt_2.rds")
+bayesian_pl_mean_corrected_scaled_135_zoib_k_opt_2 <- readRDS("brms_models/bayesian_pl_mean_corrected_scaled_135_zoib_k_opt_2.rds")
+summary(bayesian_pl_mean_corrected_scaled_135_zoib_k_opt_2)
+loo(bayesian_pl_mean_corrected_scaled_135_zoib_k_opt_2)
+# needs kfold due to pareto
+pl_k5_scaled_135_2 <- kfold(bayesian_pl_mean_corrected_scaled_135_zoib_k_opt_2, K = 5, cores = 5)
+saveRDS(pl_k5_scaled_135_2, "brms_models/kfold_bayesian_pl_mean_corrected_scaled_135_zoib_k_opt_2.rds")
+kfold_bayesian_pl_mean_corrected_scaled_135_zoib_k_opt_2 <- readRDS("brms_models/kfold_bayesian_pl_mean_corrected_scaled_135_zoib_k_opt_2.rds")
+print(kfold_bayesian_pl_mean_corrected_scaled_135_zoib_k_opt_2)
+
+
 ###* Visitation only model
 saveRDS(bayesian_pl_mean_corrected_scaled_1_zoib_k_opt_2, file = "brms_models/bayesian_pl_mean_corrected_scaled_1_zoib_k_opt_2.rds")
 bayesian_pl_mean_corrected_scaled_1_zoib_k_opt_2 <- readRDS("brms_models/bayesian_pl_mean_corrected_scaled_1_zoib_k_opt_2.rds")
@@ -286,21 +367,51 @@ kfold_bayesian_pl_mean_corrected_scaled_3_zoib_k_opt_2 <- readRDS("brms_models/k
 print(kfold_bayesian_pl_mean_corrected_scaled_3_zoib_k_opt_2)
 
 
-kfold_bayesian_pl_mean_corrected_scaled_13_zoib_k_opt_2 <- readRDS("brms_models/kfold_bayesian_pl_mean_corrected_scaled_13_zoib_k_opt_2.rds")
-kfold_bayesian_pl_mean_corrected_scaled_null_zoib_k_opt_2 <- readRDS("brms_models/kfold_bayesian_pl_mean_corrected_scaled_null_zoib_k_opt_2.rds")
-kfold_bayesian_pl_mean_corrected_scaled_1_zoib_k_opt_2 <- readRDS("brms_models/kfold_bayesian_pl_mean_corrected_scaled_1_zoib_k_opt_2.rds")
-kfold_bayesian_pl_mean_corrected_scaled_3_zoib_k_opt_2 <- readRDS("brms_models/kfold_bayesian_pl_mean_corrected_scaled_3_zoib_k_opt_2.rds")
+###* Functional group richness only model
+saveRDS(bayesian_pl_mean_corrected_scaled_5_zoib_k_opt_2, file = "brms_models/bayesian_pl_mean_corrected_scaled_5_zoib_k_opt_2.rds")
+bayesian_pl_mean_corrected_scaled_5_zoib_k_opt_2 <- readRDS("brms_models/bayesian_pl_mean_corrected_scaled_5_zoib_k_opt_2.rds")
+summary(bayesian_pl_mean_corrected_scaled_5_zoib_k_opt_2)
+loo(bayesian_pl_mean_corrected_scaled_5_zoib_k_opt_2)
+# needs kfold due to pareto
+pl_k5_scaled_5_2 <- kfold(bayesian_pl_mean_corrected_scaled_5_zoib_k_opt_2, K = 5, cores = 5)
+saveRDS(pl_k5_scaled_5_2, "brms_models/kfold_bayesian_pl_mean_corrected_scaled_5_zoib_k_opt_2.rds")
+kfold_bayesian_pl_mean_corrected_scaled_5_zoib_k_opt_2 <- readRDS("brms_models/kfold_bayesian_pl_mean_corrected_scaled_5_zoib_k_opt_2.rds")
+print(kfold_bayesian_pl_mean_corrected_scaled_5_zoib_k_opt_2)
+
+
+###* Morphospecies and functional group richness model
+saveRDS(bayesian_pl_mean_corrected_scaled_35_zoib_k_opt_2, file = "brms_models/bayesian_pl_mean_corrected_scaled_35_zoib_k_opt_2.rds")
+bayesian_pl_mean_corrected_scaled_35_zoib_k_opt_2 <- readRDS("brms_models/bayesian_pl_mean_corrected_scaled_35_zoib_k_opt_2.rds")
+summary(bayesian_pl_mean_corrected_scaled_35_zoib_k_opt_2)
+loo(bayesian_pl_mean_corrected_scaled_35_zoib_k_opt_2)
+# needs kfold due to pareto
+pl_k5_scaled_35_2 <- kfold(bayesian_pl_mean_corrected_scaled_35_zoib_k_opt_2, K = 5, cores = 5)
+saveRDS(pl_k5_scaled_35_2, "brms_models/kfold_bayesian_pl_mean_corrected_scaled_35_zoib_k_opt_2.rds")
+kfold_bayesian_pl_mean_corrected_scaled_35_zoib_k_opt_2 <- readRDS("brms_models/kfold_bayesian_pl_mean_corrected_scaled_35_zoib_k_opt_2.rds")
+print(kfold_bayesian_pl_mean_corrected_scaled_35_zoib_k_opt_2)
+
+
+###* Visitation and functional group richness model
+saveRDS(bayesian_pl_mean_corrected_scaled_15_zoib_k_opt_2, file = "brms_models/bayesian_pl_mean_corrected_scaled_15_zoib_k_opt_2.rds")
+bayesian_pl_mean_corrected_scaled_15_zoib_k_opt_2 <- readRDS("brms_models/bayesian_pl_mean_corrected_scaled_15_zoib_k_opt_2.rds")
+summary(bayesian_pl_mean_corrected_scaled_15_zoib_k_opt_2)
+loo(bayesian_pl_mean_corrected_scaled_15_zoib_k_opt_2)
+# needs kfold due to pareto
+pl_k5_scaled_15_2 <- kfold(bayesian_pl_mean_corrected_scaled_15_zoib_k_opt_2, K = 5, cores = 5)
+saveRDS(pl_k5_scaled_15_2, "brms_models/kfold_bayesian_pl_mean_corrected_scaled_15_zoib_k_opt_2.rds")
+kfold_bayesian_pl_mean_corrected_scaled_15_zoib_k_opt_2 <- readRDS("brms_models/kfold_bayesian_pl_mean_corrected_scaled_15_zoib_k_opt_2.rds")
+print(kfold_bayesian_pl_mean_corrected_scaled_15_zoib_k_opt_2)
+
 
 ###* COomparison of individual kfolded objects
 loo_compare(kfold_bayesian_pl_mean_corrected_scaled_13_zoib_k_opt_2,
+            kfold_bayesian_pl_mean_corrected_scaled_135_zoib_k_opt_2,
+            kfold_bayesian_pl_mean_corrected_scaled_15_zoib_k_opt_2,
+            kfold_bayesian_pl_mean_corrected_scaled_35_zoib_k_opt_2,
             kfold_bayesian_pl_mean_corrected_scaled_null_zoib_k_opt_2,
             kfold_bayesian_pl_mean_corrected_scaled_1_zoib_k_opt_2,
-            kfold_bayesian_pl_mean_corrected_scaled_3_zoib_k_opt_2)
-
-kfold_bayesian_pl_mean_corrected_scaled_13_zoib_k_opt_2
-kfold_bayesian_pl_mean_corrected_scaled_null_zoib_k_opt_2
-kfold_bayesian_pl_mean_corrected_scaled_1_zoib_k_opt_2
-kfold_bayesian_pl_mean_corrected_scaled_3_zoib_k_opt_2
+            kfold_bayesian_pl_mean_corrected_scaled_3_zoib_k_opt_2,
+            kfold_bayesian_pl_mean_corrected_scaled_5_zoib_k_opt_2)
 ###* 
 ###* 
 ###* 
@@ -328,7 +439,9 @@ ao.final.table <- ao.final.table %>%
     z_flow_mean = mean.visited.flowers.scaled,
     z_flow_sd   = sd.visited.flowers.scaled,
     z_morpho_mean = mean.morpho.scaled,
-    z_morpho_sd   = sd.morpho.scaled
+    z_morpho_sd   = sd.morpho.scaled,
+    z_func_mean   = mean.func.scaled,
+    z_func_sd     = sd.func.scaled
   )
 
 View(ao.final.table)
@@ -340,16 +453,19 @@ ao.final.table <- ao.final.table %>%
     # --- means on the z-scale (already computed) ---
     x = z_flow_mean,   # visited flowers per minute (scaled) -- or use z_vis_mean if that's your x
     y = z_morpho_mean,
+    z = z_func_mean,
     
     # --- SEs of the means on the same scale (SD / sqrt(n)) ---
     sx = pmax(z_flow_sd   / sqrt(pmax(n_reps,  1L)), eps),
-    sy = pmax(z_morpho_sd  / sqrt(pmax(n_reps, 1L)), eps)
+    sy = pmax(z_morpho_sd  / sqrt(pmax(n_reps, 1L)), eps),
+    sz = pmax(z_func_sd   / sqrt(pmax(n_reps,  1L)), eps)
   )
 
 form_all <- bf(
   mean_ao_index | weights(ao_index_weight_12) ~
     me(x, sx) +
     me(y, sy) +
+    me(z, sz) +
     #1 +
     (1|species)
 )
@@ -434,14 +550,72 @@ saveRDS(kfold_bayesian_ao_mean_corrected_scaled_3_2_zib_k_opt, "brms_models/kfol
 kfold_bayesian_ao_mean_corrected_scaled_3_2_zib_k_opt <- readRDS("brms_models/kfold_bayesian_ao_mean_corrected_scaled_3_2_zib_k_opt.rds")
 print(kfold_bayesian_ao_mean_corrected_scaled_3_2_zib_k_opt)
 
+
+###* Functional group only model
+saveRDS(bayesian_ao_mean_corrected_scaled_5_2_zib_k_opt, file = "brms_models/bayesian_ao_mean_corrected_scaled_5_2_zib_k_opt.rds")
+bayesian_ao_mean_corrected_scaled_5_2_zib_k_opt <- readRDS("brms_models/bayesian_ao_mean_corrected_scaled_5_2_zib_k_opt.rds")
+summary(bayesian_ao_mean_corrected_scaled_5_2_zib_k_opt)
+loo(bayesian_ao_mean_corrected_scaled_5_2_zib_k_opt)
+# needs kfold due to pareto
+kfold_bayesian_ao_mean_corrected_scaled_5_2_zib_k_opt <- kfold(bayesian_ao_mean_corrected_scaled_5_2_zib_k_opt, K = 5, cores = 5)
+saveRDS(kfold_bayesian_ao_mean_corrected_scaled_5_2_zib_k_opt, "brms_models/kfold_bayesian_ao_mean_corrected_scaled_5_2_zib_k_opt.rds")
+kfold_bayesian_ao_mean_corrected_scaled_5_2_zib_k_opt <- readRDS("brms_models/kfold_bayesian_ao_mean_corrected_scaled_5_2_zib_k_opt.rds")
+print(kfold_bayesian_ao_mean_corrected_scaled_5_2_zib_k_opt)
+
+
+###* Visitation and functional group richness model
+saveRDS(bayesian_ao_mean_corrected_scaled_15_2_zib_k_opt, file = "brms_models/bayesian_ao_mean_corrected_scaled_15_2_zib_k_opt.rds")
+bayesian_ao_mean_corrected_scaled_15_2_zib_k_opt <- readRDS("brms_models/bayesian_ao_mean_corrected_scaled_15_2_zib_k_opt.rds")
+summary(bayesian_ao_mean_corrected_scaled_15_2_zib_k_opt)
+loo(bayesian_ao_mean_corrected_scaled_15_2_zib_k_opt)
+# needs kfold due to pareto
+kfold_bayesian_ao_mean_corrected_scaled_15_2_zib_k_opt <- kfold(bayesian_ao_mean_corrected_scaled_15_2_zib_k_opt, K = 5, cores = 5)
+saveRDS(kfold_bayesian_ao_mean_corrected_scaled_15_2_zib_k_opt, "brms_models/kfold_bayesian_ao_mean_corrected_scaled_15_2_zib_k_opt.rds")
+kfold_bayesian_ao_mean_corrected_scaled_15_2_zib_k_opt <- readRDS("brms_models/kfold_bayesian_ao_mean_corrected_scaled_15_2_zib_k_opt.rds")
+print(kfold_bayesian_ao_mean_corrected_scaled_15_2_zib_k_opt)
+
+
+###* Morphospecies richness and functional group richness model
+saveRDS(bayesian_ao_mean_corrected_scaled_35_2_zib_k_opt, file = "brms_models/bayesian_ao_mean_corrected_scaled_35_2_zib_k_opt.rds")
+bayesian_ao_mean_corrected_scaled_35_2_zib_k_opt <- readRDS("brms_models/bayesian_ao_mean_corrected_scaled_35_2_zib_k_opt.rds")
+summary(bayesian_ao_mean_corrected_scaled_35_2_zib_k_opt)
+loo(bayesian_ao_mean_corrected_scaled_35_2_zib_k_opt)
+# needs kfold due to pareto
+kfold_bayesian_ao_mean_corrected_scaled_35_2_zib_k_opt <- kfold(bayesian_ao_mean_corrected_scaled_35_2_zib_k_opt, K = 5, cores = 5)
+saveRDS(kfold_bayesian_ao_mean_corrected_scaled_35_2_zib_k_opt, "brms_models/kfold_bayesian_ao_mean_corrected_scaled_35_2_zib_k_opt.rds")
+kfold_bayesian_ao_mean_corrected_scaled_35_2_zib_k_opt <- readRDS("brms_models/kfold_bayesian_ao_mean_corrected_scaled_35_2_zib_k_opt.rds")
+print(kfold_bayesian_ao_mean_corrected_scaled_35_2_zib_k_opt)
+
+
+# Visitation, morphospecies and functional group richness model
+saveRDS(bayesian_ao_mean_corrected_scaled_135_2_zib_k_opt, file = "brms_models/bayesian_ao_mean_corrected_scaled_135_2_zib_k_opt.rds")
+bayesian_ao_mean_corrected_scaled_135_2_zib_k_opt <- readRDS("brms_models/bayesian_ao_mean_corrected_scaled_135_2_zib_k_opt.rds")
+summary(bayesian_ao_mean_corrected_scaled_135_2_zib_k_opt)
+loo(bayesian_ao_mean_corrected_scaled_135_2_zib_k_opt)
+# needs kfold due to pareto
+kfold_bayesian_ao_mean_corrected_scaled_135_2_zib_k_opt <- kfold(bayesian_ao_mean_corrected_scaled_135_2_zib_k_opt, K = 5, cores = 5)
+saveRDS(kfold_bayesian_ao_mean_corrected_scaled_135_2_zib_k_opt, "brms_models/kfold_bayesian_ao_mean_corrected_scaled_135_2_zib_k_opt.rds")
+kfold_bayesian_ao_mean_corrected_scaled_135_2_zib_k_opt <- readRDS("brms_models/kfold_bayesian_ao_mean_corrected_scaled_135_2_zib_k_opt.rds")
+print(kfold_bayesian_ao_mean_corrected_scaled_135_2_zib_k_opt)
+
+
 kfold_bayesian_ao_mean_corrected_scaled_13_2_zib_k_opt <- readRDS("brms_models/kfold_bayesian_ao_mean_corrected_scaled_13_2_zib_k_opt.rds")
 kfold_bayesian_ao_mean_corrected_scaled_null_2_zib_k_opt <- readRDS("brms_models/kfold_bayesian_ao_mean_corrected_scaled_null_2_zib_k_opt.rds")
 kfold_bayesian_ao_mean_corrected_scaled_1_2_zib_k_opt <- readRDS("brms_models/kfold_bayesian_ao_mean_corrected_scaled_1_2_zib_k_opt.rds")
 kfold_bayesian_ao_mean_corrected_scaled_3_2_zib_k_opt <- readRDS("brms_models/kfold_bayesian_ao_mean_corrected_scaled_3_2_zib_k_opt.rds")
+kfold_bayesian_ao_mean_corrected_scaled_5_2_zib_k_opt <- readRDS("brms_models/kfold_bayesian_ao_mean_corrected_scaled_5_2_zib_k_opt.rds")
+kfold_bayesian_ao_mean_corrected_scaled_15_2_zib_k_opt <- readRDS("brms_models/kfold_bayesian_ao_mean_corrected_scaled_15_2_zib_k_opt.rds")
+kfold_bayesian_ao_mean_corrected_scaled_35_2_zib_k_opt <- readRDS("brms_models/kfold_bayesian_ao_mean_corrected_scaled_35_2_zib_k_opt.rds")
+kfold_bayesian_ao_mean_corrected_scaled_135_2_zib_k_opt <- readRDS("brms_models/kfold_bayesian_ao_mean_corrected_scaled_135_2_zib_k_opt.rds")
 
-loo_compare(kfold_bayesian_ao_mean_corrected_scaled_1_2_zib_k_opt,
+
+loo_compare(kfold_bayesian_ao_mean_corrected_scaled_135_2_zib_k_opt,
+            kfold_bayesian_ao_mean_corrected_scaled_1_2_zib_k_opt,
             kfold_bayesian_ao_mean_corrected_scaled_3_2_zib_k_opt,
+            kfold_bayesian_ao_mean_corrected_scaled_5_2_zib_k_opt,
             kfold_bayesian_ao_mean_corrected_scaled_13_2_zib_k_opt,
+            kfold_bayesian_ao_mean_corrected_scaled_15_2_zib_k_opt,
+            kfold_bayesian_ao_mean_corrected_scaled_35_2_zib_k_opt,
             kfold_bayesian_ao_mean_corrected_scaled_null_2_zib_k_opt)
 
 ###* 
@@ -469,7 +643,9 @@ go.final.table <- go.final.table %>%
     z_flow_mean = mean.visited.flowers.scaled,
     z_flow_sd   = sd.visited.flowers.scaled,
     z_morpho_mean = mean.morpho.scaled,
-    z_morpho_sd   = sd.morpho.scaled
+    z_morpho_sd   = sd.morpho.scaled,
+    z_func_mean   = mean.func.scaled,
+    z_func_sd     = sd.func.scaled
   )
 
 View(go.final.table)
@@ -481,10 +657,12 @@ go.final.table <- go.final.table %>%
     # --- means on the z-scale (already computed) ---
     x = z_flow_mean,   # visited flowers per minute (scaled) -- or use z_vis_mean if that's your x
     y = z_morpho_mean,
+    z = z_func_mean,
     
     # --- SEs of the means on the same scale (SD / sqrt(n)) ---
     sx = pmax(z_flow_sd   / sqrt(pmax(n_reps,  1L)), eps),
-    sy = pmax(z_morpho_sd  / sqrt(pmax(n_reps, 1L)), eps)
+    sy = pmax(z_morpho_sd  / sqrt(pmax(n_reps, 1L)), eps),
+    sz = pmax(z_func_sd   / sqrt(pmax(n_reps,  1L)), eps)
   )
 
 
@@ -502,8 +680,9 @@ logit_go_mu0
 
 form_all <- bf(
   mean_go_index | weights(go_index_weight_12) ~
-    me(x, sx) +
-    me(y, sy) +
+    #me(x, sx) +
+    #me(y, sy) +
+    me(z, sz) + 
     1 +
     (1|species),
   phi ~ 1,
@@ -574,6 +753,18 @@ kfold_bayesian_go_mean_corrected_scaled_null_2_zoib_k_opt <- readRDS("brms_model
 print(kfold_bayesian_go_mean_corrected_scaled_null_2_zoib_k_opt)
 
 
+###* Visitation and functional group richness model
+saveRDS(bayesian_go_mean_corrected_scaled_15_2_zoib_k_opt, file = "brms_models/bayesian_go_mean_corrected_scaled_15_2_zoib_k_opt.rds")
+bayesian_go_mean_corrected_scaled_15_2_zoib_k_opt <- readRDS("brms_models/bayesian_go_mean_corrected_scaled_15_2_zoib_k_opt.rds")
+summary(bayesian_go_mean_corrected_scaled_15_2_zoib_k_opt)
+loo(bayesian_go_mean_corrected_scaled_15_2_zoib_k_opt)
+
+kfold_bayesian_go_mean_corrected_scaled_15_2_zoib_k_opt <- kfold(bayesian_go_mean_corrected_scaled_15_2_zoib_k_opt, K = 5, cores = 5)
+saveRDS(kfold_bayesian_go_mean_corrected_scaled_15_2_zoib_k_opt, "brms_models/kfold_bayesian_go_mean_corrected_scaled_15_2_zoib_k_opt.rds")
+kfold_bayesian_go_mean_corrected_scaled_15_2_zoib_k_opt <- readRDS("brms_models/kfold_bayesian_go_mean_corrected_scaled_15_2_zoib_k_opt.rds")
+print(kfold_bayesian_go_mean_corrected_scaled_15_2_zoib_k_opt)
+
+
 ###* Morphospecies richness model
 saveRDS(bayesian_go_mean_corrected_scaled_3_2_zoib_k_opt, file = "brms_models/bayesian_go_mean_corrected_scaled_3_2_zoib_k_opt.rds")
 bayesian_go_mean_corrected_scaled_3_2_zoib_k_opt <- readRDS("brms_models/bayesian_go_mean_corrected_scaled_3_2_zoib_k_opt.rds")
@@ -586,15 +777,49 @@ kfold_bayesian_go_mean_corrected_scaled_3_2_zoib_k_opt <- readRDS("brms_models/k
 print(kfold_bayesian_go_mean_corrected_scaled_3_2_zoib_k_opt)
 
 
-kfold_bayesian_go_mean_corrected_scaled_1_2_zoib_k_opt <- readRDS("brms_models/kfold_bayesian_go_mean_corrected_scaled_1_2_zoib_k_opt.rds")
-kfold_bayesian_go_mean_corrected_scaled_13_2_zoib_k_opt <- readRDS("brms_models/kfold_bayesian_go_mean_corrected_scaled_13_2_zoib_k_opt.rds")
-kfold_bayesian_go_mean_corrected_scaled_null_2_zoib_k_opt <- readRDS("brms_models/kfold_bayesian_go_mean_corrected_scaled_null_2_zoib_k_opt.rds")
-kfold_bayesian_go_mean_corrected_scaled_3_2_zoib_k_opt <- readRDS("brms_models/kfold_bayesian_go_mean_corrected_scaled_3_2_zoib_k_opt.rds")
+###* Morphospecies richness and functional gropup richness model
+saveRDS(bayesian_go_mean_corrected_scaled_35_2_zoib_k_opt, file = "brms_models/bayesian_go_mean_corrected_scaled_35_2_zoib_k_opt.rds")
+bayesian_go_mean_corrected_scaled_35_2_zoib_k_opt <- readRDS("brms_models/bayesian_go_mean_corrected_scaled_35_2_zoib_k_opt.rds")
+summary(bayesian_go_mean_corrected_scaled_35_2_zoib_k_opt)
+loo(bayesian_go_mean_corrected_scaled_35_2_zoib_k_opt)
+
+kfold_bayesian_go_mean_corrected_scaled_35_2_zoib_k_opt <- kfold(bayesian_go_mean_corrected_scaled_35_2_zoib_k_opt, K = 5, cores = 5)
+saveRDS(kfold_bayesian_go_mean_corrected_scaled_35_2_zoib_k_opt, "brms_models/kfold_bayesian_go_mean_corrected_scaled_35_2_zoib_k_opt.rds")
+kfold_bayesian_go_mean_corrected_scaled_35_2_zoib_k_opt <- readRDS("brms_models/kfold_bayesian_go_mean_corrected_scaled_35_2_zoib_k_opt.rds")
+print(kfold_bayesian_go_mean_corrected_scaled_35_2_zoib_k_opt)
+
+
+###* Visitation, morphospecies and functional group richness
+saveRDS(bayesian_go_mean_corrected_scaled_135_2_zoib_k_opt, file = "brms_models/bayesian_go_mean_corrected_scaled_135_2_zoib_k_opt.rds")
+bayesian_go_mean_corrected_scaled_135_2_zoib_k_opt <- readRDS("brms_models/bayesian_go_mean_corrected_scaled_135_2_zoib_k_opt.rds")
+summary(bayesian_go_mean_corrected_scaled_135_2_zoib_k_opt)
+loo(bayesian_go_mean_corrected_scaled_135_2_zoib_k_opt)
+
+kfold_bayesian_go_mean_corrected_scaled_135_2_zoib_k_opt <- kfold(bayesian_go_mean_corrected_scaled_135_2_zoib_k_opt, K = 5, cores = 5)
+saveRDS(kfold_bayesian_go_mean_corrected_scaled_135_2_zoib_k_opt, "brms_models/kfold_bayesian_go_mean_corrected_scaled_135_2_zoib_k_opt.rds")
+kfold_bayesian_go_mean_corrected_scaled_135_2_zoib_k_opt <- readRDS("brms_models/kfold_bayesian_go_mean_corrected_scaled_135_2_zoib_k_opt.rds")
+print(kfold_bayesian_go_mean_corrected_scaled_135_2_zoib_k_opt)
+
+
+###* Visitation, morphospecies and functional group richness
+saveRDS(bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt, file = "brms_models/bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt.rds")
+bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt <- readRDS("brms_models/bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt.rds")
+summary(bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt)
+loo(bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt)
+
+kfold_bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt <- kfold(bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt, K = 5, cores = 5)
+saveRDS(kfold_bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt, "brms_models/kfold_bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt.rds")
+kfold_bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt <- readRDS("brms_models/kfold_bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt.rds")
+print(kfold_bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt)
 
 
 loo_compare(kfold_bayesian_go_mean_corrected_scaled_13_2_zoib_k_opt,
-            #kfold_bayesian_go_mean_corrected_scaled_null_2_zoib_k_opt,
+            kfold_bayesian_go_mean_corrected_scaled_null_2_zoib_k_opt,
+            kfold_bayesian_go_mean_corrected_scaled_15_2_zoib_k_opt,
             kfold_bayesian_go_mean_corrected_scaled_3_2_zoib_k_opt,
+            kfold_bayesian_go_mean_corrected_scaled_35_2_zoib_k_opt,
+            kfold_bayesian_go_mean_corrected_scaled_135_2_zoib_k_opt,
+            kfold_bayesian_go_mean_corrected_scaled_5_2_zoib_k_opt,
             kfold_bayesian_go_mean_corrected_scaled_1_2_zoib_k_opt)
-
+            
 
