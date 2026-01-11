@@ -1,22 +1,3 @@
-pacman::p_load(tidyverse, corrplot, scales)
-
-source("scripts/04. Setup for visitation indices.R")
-
-vars <- c("visited.flowers.per.minute", "total.morpho", "total.func")
-R <- cor(final.table[, vars], use = "pairwise.complete.obs", method = "pearson")
-
-corrplot::corrplot(R, method = "color", type = "upper", addCoef.col = "black")
-
-vars
-R
-
-
-
-
-
-
-
-
 ###* 
 ###* 
 ###* 
@@ -33,9 +14,7 @@ R
 ###* 
 ###* 
 ###* 
-
-
-select <- dplyr::select
+library(tidyverse)
 
 set.seed(123)
 
@@ -121,7 +100,9 @@ ao.index <- seed.indices %>%
   filter(treatment == "autogamy") %>%
   select(index, elevation, species, plant_number, plant_number) %>%
   mutate(elevation = factor(elevation),
-         species = factor(species)) %>%
+         species = factor(species),
+         index     = pmax(index, 0),                 # safety: autogamy index can't be < 0
+         index     = if_else(species == "Senecio b", 0, index)) %>%  # force S. burtonii to 0 %>%
   #mutate(index = round(index * 100)) %>%
   mutate(plant.number.el = as.factor(paste0(elevation,plant_number))) %>%
   mutate(plant.id = as.factor(paste0(elevation,species,plant_number))) %>%
@@ -182,17 +163,17 @@ fix_elev <- function(df) {
 plot_index_by_species_linear <- function(df_species, value_col, y_lab, title_stub) {
   # value_col is a string; we use aes_string for simplicity
   sp_name <- unique(df_species$species)
-  
+
   y_vals  <- df_species[[value_col]]
   y_min   <- min(y_vals, na.rm = TRUE)
   y_max   <- max(y_vals, na.rm = TRUE)
-  
+
   # Keep zero in view (useful if indices can be < 0)
   span    <- c(min(0, y_min), y_max)
   y_breaks <- pretty(span, n = 8)
   y_lower  <- min(y_breaks)
   y_upper  <- max(y_breaks)
-  
+
   ggplot(df_species, aes_string(x = "elevation", y = value_col, fill = "elevation")) +
     geom_violin(trim = TRUE, scale = "width", width = 0.7) +
     geom_jitter(width = 0.15, size = 1.5, alpha = 0.6, color = "black") +
@@ -338,3 +319,5 @@ ggsave(
   width    = 10,
   height   = 6
 )
+
+
