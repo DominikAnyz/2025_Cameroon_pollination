@@ -14,8 +14,6 @@ to run many of the bayesian models through rstan easily, however if you
 are running the code on your computer, it might not work and certain
 parameters for the individual models might have to be set differently.
 
-COME BACK TO THIS!!!!!!!!!
-
 ## 01.Setup_for_analysis
 
 The script contains all the packages, which are used throughout the

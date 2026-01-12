@@ -10,15 +10,8 @@ alt="GitHub" />
 This repository contains the R scripts and data used to carry out
 analyses for this research article:
 
-**Anýž et al., unpublished - Elevational pattern in plant mating systems
-and pollen limitation in Afrotropical montane grasslands** [Link to be
-posted]()
-
-🌱🌰 *This project is a part of the PhD thesis of [Dominik
-Anýž](http://www.insect-communities.cz/en/team/dominik-anyz/),
-supervised by [Robert
-Tropek](http://www.insect-communities.cz/en/team/robert-tropek/) at the
-Insect Community Ecology Group of Charles University.*
+**Elevational pattern in plant mating systems and pollen limitation in
+Afrotropical montane grasslands** [Link to be posted]()
 
 ## Folder Structure
 
@@ -53,7 +46,7 @@ After unzipping:
   the project, in RStudio
 
 - Open folder [📁 scripts](/scripts/) and run the scripts sequentially,
-  from 01. to 07. It will rebuild the model outputs and figures
+  from 01. to 12. It will rebuild the model outputs and figures
   presented in the main text of the article.
 
 ## Workflow

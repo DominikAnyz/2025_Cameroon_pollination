@@ -18,8 +18,6 @@ All the individual sripts have their own descriptions about what each segment of
 
 All analyses were carried out on MetaCentrum, which provides an online computation infrastructure for researchers. Because of this, I was able to run many of the bayesian models through rstan easily, however if you are running the code on your computer, it might not work and certain parameters for the individual models might have to be set differently.
 
-COME BACK TO THIS!!!!!!!!!
-
 ## 01.Setup_for_analysis
 
 The script contains all the packages, which are used throughout the scripts. This is handy to run if you will be carrying out all the analyses again, however is not necessary. If you are interested only in a certain script, it might be easier to load the packages in each script separately. If you do not have cmdstanr on your computer for running Bayesian analyses, this might take a while.
